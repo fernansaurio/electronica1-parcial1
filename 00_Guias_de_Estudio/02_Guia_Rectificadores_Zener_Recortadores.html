@@ -1,0 +1,89 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Guía 02 · Rectificadores, Zener y recortadores</title><link rel="stylesheet" href="estilo.css"></head><body>
+<h1>Guía 02 · Rectificadores, Zener y recortadores</h1>
+<p class="sub">Bloques 4, 5 y 6 del plan · Es el núcleo del parcial: 60–70 % de la nota en todos los años</p>
+
+<h2 id="s1">1. Rectificadores sin filtro</h2>
+<table>
+<tr><th>Tipo</th><th>Pico de salida V<sub>p</sub></th><th>Promedio</th><th>PIV por diodo</th></tr>
+<tr><td>Media onda</td><td>V<sub>s</sub> − V<sub>D</sub></td><td>≈ V<sub>p</sub>/π</td><td>V<sub>s</sub></td></tr>
+<tr><td>Onda completa con derivación central</td><td>V<sub>s</sub> − V<sub>D</sub> (V<sub>s</sub> de media bobina)</td><td>≈ 2V<sub>p</sub>/π</td><td>2V<sub>s</sub> − V<sub>D</sub></td></tr>
+<tr><td>Puente</td><td>V<sub>s</sub> − 2V<sub>D</sub></td><td>≈ 2V<sub>p</sub>/π</td><td>V<sub>s</sub> − V<sub>D</sub></td></tr>
+</table>
+<p>Aquí V<sub>s</sub> es el valor pico del secundario, igual a √2·V<sub>rms</sub>. El factor de forma de la onda completa es V<sub>rms</sub>/V<sub>prom</sub> = 1.11. Si la línea varía ±x %, el PIV se calcula con la línea máxima.</p>
+<p><b>Fallas en un puente, del parcial 2014:</b> si un diodo está abierto, la salida pasa a media onda. Si un diodo está en corto, la fuente queda en cortocircuito en un semiciclo y puede quemar el transformador o los otros diodos. Si un diodo está invertido, un semiciclo produce corto. Si todos están invertidos, la salida se invierte. Si R está abierta, v<sub>o</sub> = 0 con diodos ideales.</p>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/fuente_bloques.png" alt="Diagrama de bloques de un alimentador DC"><figcaption>Diagrama de bloques de un alimentador DC</figcaption></figure><figure><img src="img/clase/media_onda.png" alt="Rectificador de media onda y sus formas de onda"><figcaption>Rectificador de media onda y sus formas de onda</figcaption></figure><figure><img src="img/clase/onda_completa_tap.png" alt="Onda completa con transformador de derivación central"><figcaption>Onda completa con transformador de derivación central</figcaption></figure><figure><img src="img/clase/puente.png" alt="Rectificador tipo puente"><figcaption>Rectificador tipo puente</figcaption></figure></div>
+<h2 id="s2">2. Rectificador con filtro capacitivo (el tema más evaluado)</h2>
+<div class="box">
+<span class="eq">V<sub>r</sub> = V<sub>p</sub>/(f·R·C) en media onda&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;V<sub>r</sub> = V<sub>p</sub>/(2f·R·C) = I<sub>L</sub>/(2fC) en onda completa</span>
+<span class="eq">V<sub>dc</sub> ≈ V<sub>p</sub> − V<sub>r</sub>/2&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;I<sub>L</sub> = V<sub>dc</sub>/R</span>
+<span class="eq">ω·ΔT ≈ √(2V<sub>r</sub>/V<sub>p</sub>)&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;fracción del ciclo que conduce cada diodo = ωΔT/2π</span>
+<span class="eq">Sedra, onda completa: i<sub>D,prom</sub> = I<sub>L</sub>(1 + π√(V<sub>p</sub>/2V<sub>r</sub>))&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;i<sub>D,max</sub> = I<sub>L</sub>(1 + 2π√(V<sub>p</sub>/2V<sub>r</sub>))</span>
+<span class="eq">Sedra, media onda: i<sub>D,prom</sub> = I<sub>L</sub>(1 + π√(2V<sub>p</sub>/V<sub>r</sub>))&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;i<sub>D,max</sub> = I<sub>L</sub>(1 + 2π√(2V<sub>p</sub>/V<sub>r</sub>))</span>
+<span class="eq">Profesor, triángulo en onda completa: I<sub>pico</sub> ≈ I<sub>dc</sub>·T/ΔT, con T = 1/60 s</span>
+</div>
+<h3>Corrección por ΔT, la especialidad del profesor</h3>
+<p>Si el rizado es grande respecto de V<sub>p</sub>, la descarga no dura T/2 sino T/2 − ΔT. El procedimiento es:</p>
+<ol><li>Calcula V<sub>r</sub> y ΔT de la forma tradicional.</li>
+<li>Recalcula <span class="f">V<sub>r</sub> = (V<sub>p</sub>/RC)·(T/2 − ΔT)</span>.</li>
+<li>Recalcula ΔT con el nuevo V<sub>r</sub>, luego V<sub>dc</sub>, I<sub>dc</sub>, I<sub>pico</sub> y P.</li></ol>
+<p><b>Potencia y factor de potencia:</b> <span class="f">P ≈ V<sub>dc</sub>·I<sub>dc</sub></span> más las pérdidas en diodos, <span class="f">n·V<sub>D</sub>·I<sub>dc</sub></span>. Con pérdidas del transformador de x %, divide entre (1 − x). La corriente de entrada tiene pulsos triangulares de altura I<sub>p</sub> y ancho ΔT, así que <span class="f">I<sub>ac</sub> = I<sub>p</sub>·√(2ΔT/3T)</span>, <span class="f">S = V<sub>ac</sub>·I<sub>ac</sub></span> y <span class="f">PF = P/S</span>.</p>
+<h3>Diseño de una fuente, como en el parcial 2017 P2</h3>
+<ol><li>Fija V<sub>r</sub> como porcentaje de V<sub>o</sub>. Por ejemplo, 1 % de 12 V da 0.12 V.</li>
+<li>El pico del secundario es <span class="f">V<sub>s,pico</sub> = V<sub>o</sub> + 2V<sub>D</sub></span> en puente. El valor del transformador es V<sub>s,pico</sub>/√2.</li>
+<li>El condensador es <span class="f">C = I<sub>L</sub>/(2f·V<sub>r</sub>)</span>.</li>
+<li>El PIV es V<sub>s,pico</sub> − V<sub>D</sub>.</li>
+<li>La corriente pico repetitiva es <span class="f">≈ I<sub>L</sub>·2π√(V<sub>o</sub>/2V<sub>r</sub>)</span>. El profesor omite el "+1".</li>
+<li>La potencia del transformador es aproximadamente V<sub>s,pico</sub>·I<sub>L</sub>.</li></ol>
+<h3>Otras variantes que ya salieron</h3>
+<ul>
+<li><b>Hueco de tensión (2024 P3):</b> el condensador debe sostener la carga durante el hueco. Se usa <span class="f">C = I<sub>L</sub>·Δt<sub>hueco</sub>/V<sub>r</sub></span>. Con 100 ms, I<sub>L</sub> = 0.164 A y V<sub>r</sub> = 1.42 V resulta C ≈ 12 000 µF, y el pico repetitivo sube a unos 9.5 A.</li>
+<li><b>Primer pico al encender (2021):</b> con C descargado la corriente inicial la limita solo la resistencia del circuito. La estimación es <span class="f">I ≈ C·dv/dt = C·ω·V<sub>p</sub></span> o, si hay R serie, V<sub>p</sub>/R.</li>
+<li><b>Generador con resistencia interna (2013):</b> la resistencia de 50 Ω va en serie con la carga y reduce la corriente pico.</li>
+</ul>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/f23_p3.png" alt="Parcial 2023 P3: puente con C conectado a la red"><figcaption>Parcial 2023 P3: puente con C conectado a la red</figcaption></figure><figure><img src="img/f24_p2.png" alt="Parcial 2024 P2: fuente del laboratorio"><figcaption>Parcial 2024 P2: fuente del laboratorio</figcaption></figure><figure><img src="img/f17_p2.png" alt="Parcial 2017 P2: diseño de fuente con puente"><figcaption>Parcial 2017 P2: diseño de fuente con puente</figcaption></figure><figure><img src="img/g23_p3.png" alt="Simulación: rizado y pulsos de corriente del 2023 P3"><figcaption>Simulación: rizado y pulsos de corriente del 2023 P3</figcaption></figure></div>
+<h2 id="s3">3. Cargadores de batería (salió en 4 de los últimos 4 parciales)</h2>
+<div class="box"><b>Sin condensador (2023 P1):</b> la batería V<sub>B</sub> y R forman la carga. El diodo conduce mientras <span class="f">V<sub>s</sub>·senθ &gt; nV<sub>D</sub> + V<sub>B</sub></span>, entre θ<sub>1</sub> = arcsen((nV<sub>D</sub>+V<sub>B</sub>)/V<sub>s</sub>) y π − θ<sub>1</sub>.
+<span class="eq">I<sub>pico</sub> = (V<sub>s</sub> − nV<sub>D</sub> − V<sub>B</sub>)/R</span>
+<span class="eq">I<sub>bat,prom</sub> = (1/π)∫<sub>θ1</sub><sup>π−θ1</sup> (V<sub>s</sub>senθ − nV<sub>D</sub> − V<sub>B</sub>)/R dθ = [2V<sub>s</sub>cosθ<sub>1</sub> − (nV<sub>D</sub>+V<sub>B</sub>)(π − 2θ<sub>1</sub>)]/(πR)</span>
+<span class="eq">t<sub>carga</sub> = capacidad (A·h)/I<sub>bat,prom</sub>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;en puente, cada diodo lleva la mitad del promedio</span>
+<span class="eq">P = V<sub>B</sub>I<sub>prom</sub> + nV<sub>D</sub>I<sub>prom</sub> + R·I<sub>rms</sub>²</span></div>
+<p><b>Con condensador (2023 repetido):</b> se trata como una fuente filtrada. Primero se calcula <span class="f">I<sub>dc</sub> = (V<sub>C</sub> − V<sub>B</sub>)/R</span> con V<sub>C</sub> = V<sub>p</sub>. Luego se calcula V<sub>r</sub>, se corrige V<sub>dc</sub> = V<sub>C</sub> − V<sub>r</sub>/2 y se recalcula I<sub>dc</sub>. La eficiencia es <span class="f">η = V<sub>B</sub>·I<sub>dc</sub>/P<sub>entrada</sub></span>.</p>
+<p><b>Con fuente de corriente (2025 P1, Sedra P4.10):</b> la corriente I sale por el diodo con el cátodo más bajo. La batería recibe I cuando v<sub>i</sub> &gt; V<sub>B</sub> y recibe 0 en el resto del ciclo. El promedio es I multiplicado por la fracción del ciclo en que v<sub>i</sub> &gt; V<sub>B</sub>.</p>
+<p><b>Foco + diodo (2023):</b> <span class="f">R = V²/P</span>. Con media onda ideal el foco recibe la mitad de la potencia. Además <span class="f">I<sub>pico</sub> = V<sub>p</sub>/R</span>, <span class="f">I<sub>prom</sub> = I<sub>p</sub>/π</span> e <span class="f">I<sub>rms</sub> = I<sub>p</sub>/2</span>.</p>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/f23_p1.png" alt="Parcial 2023 P1: cargador con puente, R y batería"><figcaption>Parcial 2023 P1: cargador con puente, R y batería</figcaption></figure><figure><img src="img/f25_p1.png" alt="Parcial 2025 P1: cargador con fuente de corriente"><figcaption>Parcial 2025 P1: cargador con fuente de corriente</figcaption></figure><figure><img src="img/g25_p1.png" alt="Corriente de batería del 2025 P1"><figcaption>Corriente de batería del 2025 P1</figcaption></figure><figure><img src="img/f23_p2.png" alt="Parcial 2023 P2: foco con diodo en serie"><figcaption>Parcial 2023 P2: foco con diodo en serie</figcaption></figure></div>
+<h2 id="s4">4. Diodo Zener y regulador shunt</h2>
+<div class="box">
+<span class="eq">Modelo: V<sub>Z</sub> = V<sub>Z0</sub> + I<sub>Z</sub>·r<sub>z</sub>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;V<sub>Z0</sub> = V<sub>ZT</sub> − I<sub>ZT</sub>·r<sub>z</sub></span>
+<span class="eq">Sin carga: I<sub>Z</sub> = (V<sub>S</sub> − V<sub>Z0</sub>)/(R + r<sub>z</sub>)</span>
+<span class="eq">Regulación de línea = ΔV<sub>o</sub>/ΔV<sub>S</sub> = r<sub>z</sub>/(R + r<sub>z</sub>), en mV/V</span>
+<span class="eq">Regulación de carga = ΔV<sub>o</sub>/ΔI<sub>L</sub> = −(r<sub>z</sub> ∥ R), en mV/mA</span>
+<span class="eq">Diseño de R para el peor caso: R<sub>max</sub> = (V<sub>S,min</sub> − V<sub>Z0</sub> − r<sub>z</sub>I<sub>ZK</sub>)/(I<sub>L,max</sub> + I<sub>ZK</sub>)</span>
+<span class="eq">Potencia máxima en el Zener: sin carga y con V<sub>S,max</sub>, P<sub>Z</sub> = V<sub>Z</sub>·I<sub>Z,max</sub></span>
+</div>
+<p><b>Diodos que ya salieron:</b></p>
+<ul>
+<li><b>1N5235:</b> 6.8 V, r<sub>z</sub> = 5 Ω a 20 mA y 750 Ω a 0.25 mA, V<sub>Z0</sub> = 6.7 V.</li>
+<li><b>1N4733A:</b> 5.1 V a 49 mA, r<sub>z</sub> = 7 Ω, V<sub>Z0</sub> = 4.757 V.</li>
+<li><b>1N4742:</b> 12 V a 21 mA, r<sub>z</sub> = 9 Ω, I<sub>ZK</sub> = 0.25 mA, I<sub>ZM</sub> = 76 mA.</li>
+</ul>
+<p><b>Rizado a la salida del regulador:</b> <span class="f">V<sub>r,out</sub> ≈ V<sub>r,in</sub>·(r<sub>z</sub>∥R<sub>L</sub>)/(R + r<sub>z</sub>∥R<sub>L</sub>)</span>.</p>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/zener_iv.png" alt="Característica del Zener: V_Z0 y r_z"><figcaption>Característica del Zener: V_Z0 y r_z</figcaption></figure><figure><img src="img/clase/zener_ej38.png" alt="Ejemplo 3.8: regulador shunt con Zener de 6.8 V"><figcaption>Ejemplo 3.8: regulador shunt con Zener de 6.8 V</figcaption></figure></div>
+<h2 id="s5">5. Recortadores, característica de transferencia y sujetadores</h2>
+<div class="box"><b>Método para trazar v<sub>o</sub> contra v<sub>i</sub></b>
+<ol><li>Con todos los diodos apagados, halla la relación base. Casi siempre es v<sub>o</sub> = v<sub>i</sub> o un divisor resistivo.</li>
+<li>Para cada diodo, halla el v<sub>o</sub> en que empieza a conducir: la fuente de su rama más V<sub>D</sub>, con el signo correcto.</li>
+<li>Traduce ese umbral a v<sub>i</sub> usando la relación base.</li>
+<li>Con el diodo conduciendo, escribe la nueva recta por superposición o nodos. Si la rama tiene resistencia, la pendiente es R<sub>rama</sub>/(R + R<sub>rama</sub>). Si no la tiene, la salida queda plana.</li>
+<li>Dibuja el tramo, anota los puntos de quiebre, las pendientes y los valores en los extremos. Luego dibuja v<sub>o</sub>(t) para la onda dada, marcando los tiempos de quiebre.</li></ol></div>
+<ul>
+<li><b>Puente de diodos + Zener (2017 P3, repe P4):</b> el límite es <span class="f">±(2V<sub>D0</sub> + V<sub>Z0</sub>)</span>. Con r<sub>D</sub> y r<sub>z</sub>, la pendiente fuera del límite es (2r<sub>D</sub>+r<sub>z</sub>)/(R + 2r<sub>D</sub> + r<sub>z</sub>). Es simétrico porque el Zener siempre conduce en el mismo sentido.</li>
+<li><b>Sujetador (fijador):</b> el condensador se carga al pico por el diodo. La salida tiene la misma forma pero desplazada. Por ejemplo, con un diodo y un Zener en serie (2021 P3), la salida queda con máximo V<sub>D</sub> + V<sub>Z</sub>, y el promedio es −(V<sub>p</sub> − V<sub>D</sub> − V<sub>Z</sub>).</li>
+<li><b>Transiciones:</b> el condensador no cambia de tensión instantáneamente. Un salto en v<sub>i</sub> aparece completo en v<sub>o</sub>.</li>
+<li><b>Doblador:</b> la salida vale ≈ 2V<sub>p</sub> menos las caídas de los diodos.</li>
+</ul>
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/sujetador.png" alt="Sujetador (restaurador de DC)"><figcaption>Sujetador (restaurador de DC)</figcaption></figure><figure><img src="img/clase/sujetador_R.png" alt="Sujetador con resistencia de carga"><figcaption>Sujetador con resistencia de carga</figcaption></figure><figure><img src="img/clase/doblador.png" alt="Doblador de tensión"><figcaption>Doblador de tensión</figcaption></figure><figure><img src="img/f24_p1.png" alt="Parcial 2024 P1: recortador con dos fuentes"><figcaption>Parcial 2024 P1: recortador con dos fuentes</figcaption></figure><figure><img src="img/g24_p1.png" alt="Salida del 2024 P1"><figcaption>Salida del 2024 P1</figcaption></figure><figure><img src="img/f21_p1.png" alt="Parcial 2021 P1: ramas con resistencias"><figcaption>Parcial 2021 P1: ramas con resistencias</figcaption></figure><figure><img src="img/f17_p3.png" alt="Parcial 2017 P3: puente de diodos con Zener"><figcaption>Parcial 2017 P3: puente de diodos con Zener</figcaption></figure><figure><img src="img/f21_p3.png" alt="Parcial 2021 P3: sujetador con Zener"><figcaption>Parcial 2021 P3: sujetador con Zener</figcaption></figure></div>
+</body></html>

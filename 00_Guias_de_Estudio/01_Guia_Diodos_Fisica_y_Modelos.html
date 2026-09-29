@@ -1,0 +1,67 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Guía 01 · Diodos: física y modelos</title><link rel="stylesheet" href="estilo.css"></head><body>
+<h1>Guía 01 · Diodos: física y modelos</h1>
+<p class="sub">Bloques 1, 2 y 3 del plan · Prioridad baja-media en el parcial, pero es la base de todo lo demás</p>
+
+<h2 id="s1">1. Física del semiconductor y unión pn</h2>
+<p class="small">Material: FUNCIONAMIENTO FÍSICO DE DIODOS · Guía de la celda solar · Corto unión PN</p>
+<h3>Conceptos clave</h3>
+<ul>
+<li><b>Intrínseco:</b> <span class="f">n = p = n<sub>i</sub></span>. En el Si a 300 K, n<sub>i</sub> ≈ 1.5×10¹⁰ cm⁻³. La conductividad crece con la temperatura y es cero en T = 0 K.</li>
+<li><b>Dopado tipo n (donadores N<sub>D</sub>):</b> <span class="f">n ≈ N<sub>D</sub></span> y <span class="f">p = n<sub>i</sub>²/N<sub>D</sub></span>. El caso tipo p es el simétrico con N<sub>A</sub>.</li>
+<li><b>Desplazamiento (deriva):</b> <span class="f">J = q(nμ<sub>n</sub> + pμ<sub>p</sub>)E</span>.</li>
+<li><b>Difusión:</b> <span class="f">J<sub>n</sub> = qD<sub>n</sub>·dn/dx</span> y <span class="f">J<sub>p</sub> = −qD<sub>p</sub>·dp/dx</span>. La relación de Einstein es <span class="f">D/μ = V<sub>T</sub></span>.</li>
+<li><b>Longitud de difusión:</b> <span class="f">L = √(Dτ)</span>, de donde <span class="f">τ = L²/D</span>.</li>
+</ul>
+<h3>Unión pn en equilibrio</h3>
+<span class="eq">V<sub>0</sub> = V<sub>T</sub>·ln(N<sub>A</sub>N<sub>D</sub>/n<sub>i</sub>²)</span>
+<span class="eq">W = √[ (2ε<sub>s</sub>/q)·(1/N<sub>A</sub> + 1/N<sub>D</sub>)·(V<sub>0</sub> + V<sub>R</sub>) ]&nbsp;&nbsp;&nbsp;con ε<sub>s</sub> = 11.7·8.854×10⁻¹⁴ F/cm</span>
+<span class="eq">E<sub>max</sub> = 2(V<sub>0</sub> + V<sub>R</sub>)/W&nbsp;&nbsp;&nbsp;&nbsp;x<sub>n</sub>/x<sub>p</sub> = N<sub>A</sub>/N<sub>D</sub></span>
+<div class="box"><b>Direcciones.</b> Con p a la izquierda y n a la derecha:
+<ul><li>Los electrones difunden de n hacia p, es decir de derecha a izquierda. Los huecos difunden de izquierda a derecha.</li>
+<li>El campo apunta de n hacia p. Por eso los electrones se desplazan de izquierda a derecha y los huecos de derecha a izquierda.</li>
+<li>En polarización directa la difusión aumenta mucho, el desplazamiento se mantiene casi igual y la corriente total aumenta.</li>
+<li>En polarización inversa la difusión disminuye, el desplazamiento se mantiene y la corriente total es la pequeña corriente inversa I<sub>S</sub>.</li></ul></div>
+<p><b>Ejemplo del parcial 2017 con N<sub>A</sub> = 10¹⁷ y N<sub>D</sub> = 10¹⁶:</b> V<sub>0</sub> = 0.728 V usando V<sub>T</sub> = 25 mV, E<sub>max</sub> = 45.2 kV/cm y W = 0.32 µm. La versión 2 del mismo parcial usa 10¹⁸ y 10¹⁷ y obtiene 0.843 V, 153.9 kV/cm y 0.109 µm. El profesor usa V<sub>T</sub> = 25 mV en este problema.</p>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/union_pn.png" alt="Unión pn en circuito abierto: región de agotamiento y barrera V0 (FUNCIONAMIENTO FÍSICO)"><figcaption>Unión pn en circuito abierto: región de agotamiento y barrera V0 (FUNCIONAMIENTO FÍSICO)</figcaption></figure><figure><img src="img/clase/pn_directa.png" alt="Unión pn en polarización directa"><figcaption>Unión pn en polarización directa</figcaption></figure><figure><img src="img/clase/pn_inversa.png" alt="Unión pn en polarización inversa"><figcaption>Unión pn en polarización inversa</figcaption></figure></div>
+<h2 id="s2">2. Diodo ideal y análisis por estados</h2>
+<p class="small">Material: DIODOS IDEALES 24 JULIO · DIODOS APLICACIONES PARTE 1 · DISCUSION DE PROBLEMAS DIODO MODELO IDEAL · Problemas 4, 9 y 11–23</p>
+<ul>
+<li><b>Ideal:</b> conduce como un corto con i &gt; 0 y bloquea como un circuito abierto con v &lt; 0.</li>
+<li><b>Caída constante:</b> cuando conduce vale una fuente V<sub>D</sub>, típicamente 0.7 V. El profesor usa también 0.6, 0.65, 0.85, 1 o 1.25 V, o "lo observado en laboratorio".</li>
+<li><b>Lineal por tramos:</b> <span class="f">v = V<sub>D0</sub> + i·r<sub>D</sub></span>. En 2017 usó V<sub>D0</sub> = 0.65 V y r<sub>D</sub> = 30 Ω.</li>
+</ul>
+<div class="box"><b>Método para circuitos con varios diodos</b>
+<ol><li>Supón un estado para cada diodo. Empieza por lo intuitivo: conduce el que tiene la fuente más grande empujando corriente en su sentido.</li>
+<li>Sustituye cada diodo por su modelo: una fuente V<sub>D</sub> si conduce o un circuito abierto si no conduce.</li>
+<li>Resuelve con nodos.</li>
+<li>Verifica: cada diodo "ON" debe tener I<sub>D</sub> &gt; 0 y cada diodo "OFF" debe tener V<sub>D</sub> &lt; V<sub>D0</sub>. Si algo falla, cambia la suposición y repite.</li></ol></div>
+<p><b>Ejemplo del parcial 2017 V1:</b> la respuesta es D1 y D2 conduciendo y D3 apagado. Resulta I<sub>D1</sub> = I<sub>D2</sub> = 0.976 mA, V<sub>1</sub> = 0.467 V y V<sub>2</sub> = V<sub>3</sub> = −0.233 V. Comprueba que I<sub>R1</sub> = (20 − 0.467)/10k = 1.953 mA sea igual a I<sub>D1</sub> + I<sub>D2</sub>.</p>
+<p><b>Media onda con R:</b> <span class="f">I<sub>pico</sub> = V<sub>p</sub>/R</span> y <span class="f">PIV = V<sub>p</sub></span>. Con caída constante el diodo conduce desde <span class="f">θ = arcsen(V<sub>D</sub>/V<sub>p</sub>)</span> hasta π − θ.</p>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/diodo_ideal.png" alt="Diodo ideal: característica i-v y circuitos equivalentes (DIODOS IDEALES)"><figcaption>Diodo ideal: característica i-v y circuitos equivalentes (DIODOS IDEALES)</figcaption></figure><figure><img src="img/clase/rectificador_ideal.png" alt="Rectificador de media onda con diodo ideal"><figcaption>Rectificador de media onda con diodo ideal</figcaption></figure><figure><img src="img/clase/ej31_cargador.png" alt="Ejemplo 3.1: cargador de batería de 12 V con diodo"><figcaption>Ejemplo 3.1: cargador de batería de 12 V con diodo</figcaption></figure><figure><img src="img/f17_p1.png" alt="Parcial 2017 P1: tres diodos en DC"><figcaption>Parcial 2017 P1: tres diodos en DC</figcaption></figure></div>
+<h2 id="s3">3. Diodo real: modelo exponencial, temperatura y pequeña señal</h2>
+<p class="small">Material: DIODO DE UNIÓN 26 JULIO · Diodos Características i-v · Problemas 27, 30, 35, 48, 50</p>
+<span class="eq">i = I<sub>S</sub>(e<sup>v/nV<sub>T</sub></sup> − 1) ≈ I<sub>S</sub>·e<sup>v/nV<sub>T</sub></sup>&nbsp;&nbsp;&nbsp;&nbsp;V<sub>T</sub> ≈ 25 mV a 20 °C y 25.8 mV a 25 °C</span>
+<span class="eq">v<sub>2</sub> − v<sub>1</sub> = nV<sub>T</sub>·ln(I<sub>2</sub>/I<sub>1</sub>) = 2.3·nV<sub>T</sub>·log(I<sub>2</sub>/I<sub>1</sub>)&nbsp;&nbsp;&nbsp;→ unos 60 mV por década con n = 1</span>
+<ul>
+<li><b>Área:</b> I<sub>S</sub> es proporcional al área. Un diodo con 10 veces el área tiene V menor en V<sub>T</sub>·ln 10 ≈ 58 mV para la misma corriente.</li>
+<li><b>Temperatura:</b> a corriente constante v baja unos 2 mV/°C. I<sub>S</sub> se duplica cada 5 °C y la corriente inversa real se duplica cada 10 °C.</li>
+<li><b>Iterativo:</b> <span class="f">I = (V<sub>DD</sub> − V)/R</span>, luego <span class="f">V = V<sub>T</sub>·ln(I/I<sub>S</sub>)</span>, y se repite. En el parcial 2014, con V<sub>DD</sub> = 1.5 V, R = 500 Ω e I<sub>S</sub> = 10⁻¹⁴ A, converge a I<sub>D</sub> = 1.71 mA y V<sub>D</sub> = 0.647 V.</li>
+<li><b>Pequeña señal:</b> <span class="f">r<sub>d</sub> = nV<sub>T</sub>/I<sub>D</sub></span>. En el atenuador con capacitores, <span class="f">v<sub>o</sub>/v<sub>s</sub> = r<sub>d</sub>/(r<sub>d</sub> + R<sub>s</sub>)</span>. Para que la señal del diodo no pase del 10 % de su corriente DC, se exige <span class="f">v<sub>d</sub> ≤ V<sub>T</sub>·ln(1.1) ≈ 2.4 mV</span>.</li>
+</ul>
+<div class="box"><b>Problema típico del parcial "nota 7" (P1):</b> una fuente de 10 mA alimenta dos diodos idénticos en paralelo, uno con R en serie. Se pide R para que V = 60 mV. Como <span class="f">V<sub>D2</sub> − V<sub>D1</sub> = V</span> y <span class="f">I<sub>1</sub> = V/R</span>, <span class="f">I<sub>2</sub> = 10 mA − V/R</span>, se cumple <span class="f">e<sup>V/V<sub>T</sub></sup> = I<sub>2</sub>/I<sub>1</sub></span>. Con V<sub>T</sub> = 25 mV, R = 60 mV·(e<sup>2.4</sup> + 1)/10 mA ≈ 72 Ω.</div>
+
+<h2 id="s4">4. Formulario rápido</h2>
+<table>
+<tr><th>Concepto</th><th>Fórmula</th></tr>
+<tr><td>Minoritarios</td><td>p<sub>n</sub> = n<sub>i</sub>²/N<sub>D</sub> · n<sub>p</sub> = n<sub>i</sub>²/N<sub>A</sub></td></tr>
+<tr><td>Potencial de contacto</td><td>V<sub>0</sub> = V<sub>T</sub> ln(N<sub>A</sub>N<sub>D</sub>/n<sub>i</sub>²)</td></tr>
+<tr><td>Ancho de agotamiento</td><td>W = √[(2ε<sub>s</sub>/q)(1/N<sub>A</sub>+1/N<sub>D</sub>)(V<sub>0</sub>+V<sub>R</sub>)]</td></tr>
+<tr><td>Ecuación del diodo</td><td>i = I<sub>S</sub>(e<sup>v/nV<sub>T</sub></sup> − 1)</td></tr>
+<tr><td>Cambio de tensión con la corriente</td><td>ΔV = nV<sub>T</sub> ln(I<sub>2</sub>/I<sub>1</sub>)</td></tr>
+<tr><td>Temperatura</td><td>dV/dT ≈ −2 mV/°C · I<sub>inversa</sub> ×2 cada 10 °C</td></tr>
+<tr><td>Resistencia dinámica</td><td>r<sub>d</sub> = nV<sub>T</sub>/I<sub>D</sub></td></tr>
+<tr><td>Media onda con R</td><td>I<sub>prom</sub> = V<sub>p</sub>/(πR) · I<sub>rms</sub> = V<sub>p</sub>/(2R) · PIV = V<sub>p</sub></td></tr>
+</table>
+</body></html>

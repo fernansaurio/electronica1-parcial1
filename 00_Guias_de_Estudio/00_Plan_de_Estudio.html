@@ -1,0 +1,71 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Plan de estudio · Parcial 1 ELC-115</title><link rel="stylesheet" href="estilo.css"></head><body>
+<h1>Plan de estudio · Parcial 1 ELC-115</h1>
+<p class="sub">Electrónica 1 · Escuela de Ingeniería Eléctrica, UES · Prof. José Ramos López · Material ordenado para el ciclo II-2026</p>
+
+<div class="box"><b>Cómo usar este paquete.</b> Hay cinco documentos. Este plan te dice en qué orden leer el material de la plataforma. Las guías 01, 02 y 03 resumen la teoría y el formulario por tema. La guía 04 contiene el análisis de los parciales anteriores, las probabilidades y los problemas resueltos paso a paso. Si tienes poco tiempo, ve directo a la guía 04 y usa las demás como consulta.</div>
+
+<div class="box"><b>La carpeta está ordenada por tema.</b> Abre <code>index.html</code> en la raíz para navegar y buscar todo. Las carpetas siguen el orden de estudio: 00 guías, 01 unión pn, 02 diodo ideal, 03 diodo real, 04 Zener y rectificadores, 05 recortadores, 06 MOSFET teoría, 07 MOSFET en DC, 08 laboratorios, 09 parciales por año, 10 libro y solucionarios, 99 duplicados. Dentro de cada carpeta los archivos llevan un número de orden delante del nombre original. Para resolver problemas con ayuda de una IA, usa <code>INSTRUCTIVO_RESOLUCION_PROBLEMAS.md</code>.</div>
+<h2 id="s1">1. Qué evalúa el Parcial 1</h2>
+<p>Revisé los 12 parciales de la carpeta (2013 a 2025). El examen siempre tiene 4 o 5 problemas y cubre dos grandes bloques:</p>
+<ul>
+<li><b>Diodos (60–70 % de la nota):</b> rectificadores con condensador, cargadores de batería, Zener, recortadores y característica de transferencia.</li>
+<li><b>MOSFET en DC (25–30 % de la nota):</b> aparece en todos los parciales desde 2021. Casi siempre usa el CD4007 del laboratorio.</li>
+</ul>
+<p>La física de semiconductores (unión pn) solo salió en el parcial de 2017. Normalmente se evalúa en un corto aparte.</p>
+
+<h2 id="s2">2. Orden recomendado del material</h2>
+<p>El orden sigue la lógica del curso: primero el dispositivo, luego sus modelos y al final las aplicaciones que más se evalúan. La columna "Prioridad" indica cuánto pesa ese bloque en el parcial.</p>
+<table>
+<tr><th>#</th><th>Bloque</th><th>Archivos de la plataforma, en orden</th><th>Prioridad</th></tr>
+<tr><td>1</td><td>Física del semiconductor y unión pn</td><td>FUNCIONAMIENTO FÍSICO DE DIODOS · GUÍA DE ESTUDIO … CELDA SOLAR · parciales/Corto union PN + Solu corto union PN</td><td>Baja</td></tr>
+<tr><td>2</td><td>Diodo ideal y análisis por estados</td><td>DIODOS IDEALES LECCIÓN 24 JULIO 2023 · DIODOS APLICACIONES PARTE 1 · DISCUSION DE PROBLEMAS DIODO MODELO IDEAL · PROBLEMAS 4 y 9 · problemas 11-23</td><td>Media</td></tr>
+<tr><td>3</td><td>Diodo real: exponencial, caída constante, temperatura, pequeña señal</td><td>DIODO DE UNIÓN LECCIÓN 26 JULIO 2023 · Diodos Características i-v · PROBLEMAS 27 Y 30 · PROBLEMAS 35 Y 48 · PROBLEMAS 50 Y 59 (parte 1)</td><td>Baja-media</td></tr>
+<tr><td>4</td><td>Diodo Zener y regulador shunt</td><td>DIODO ZENER Y CIRCUTOS RECTIFICADORES (primera mitad) · PROBLEMAS 50 Y 59 (parte Zener)</td><td>Alta</td></tr>
+<tr><td>5</td><td>Rectificadores y fuentes con filtro capacitivo</td><td>DIODO ZENER Y CIRCUTOS RECTIFICADORES (segunda mitad) · PROBLEMAS 76 Y 77 i · LABORATORIO 1 ELC-115 2025</td><td><b>Muy alta</b></td></tr>
+<tr><td>6</td><td>Recortadores, sujetadores y característica de transferencia</td><td>DISCUSIÓN DE CIRCUITOS CON DIODOS Y CONDENSADORES · PROBLEMA 88 i</td><td>Alta</td></tr>
+<tr><td>7</td><td>MOSFET: estructura, ecuaciones y regiones</td><td>MOSFET´S Lecciones semana 1 2022 · MOSFET Lecciones Semana 1 con anotaciones · CORRIENTE DE DRENAJE · PROBLEMAS MOSFET PARTE II</td><td><b>Muy alta</b></td></tr>
+<tr><td>8</td><td>MOSFET: circuitos en DC</td><td>MOSFETs EJEMPLOS 12 septiembre · PROBLEMAS DE CIRCUITOS CON MOSFETS EN DC · LABORATORIO INTRODUCCIÓN A CMOS 2024 v2</td><td><b>Muy alta</b></td></tr>
+<tr><td>9</td><td>Práctica con parciales</td><td>DOCUMENTO 20 SEPTIEMBRE 2024 (parcial 2024) → examen 1 comentado (su solución) · fusil2025 (parcial 2025, primera hoja) · carpeta del zip con parciales 2013–2023</td><td><b>Muy alta</b></td></tr>
+<tr><td>—</td><td>Consulta</td><td>Sedra &amp; Smith 5ed (solucionario) · appendix_L (respuestas del libro) · TÓPICOS ESENCIALES EN LTSPICE VF</td><td>Solo consulta</td></tr>
+</table>
+
+<div class="warn"><b>Archivos duplicados.</b> Estos pares son idénticos byte por byte, así que puedes ignorar la copia "(1)": CORRIENTE DE DRENAJE, DOCUMENTO 20 SEPTIEMBRE 2024, MOSFET Lecciones Semana 1 con anotaciones, MOSFETs EJEMPLOS 12 septiembre, PROBLEMAS DE CIRCUITOS CON MOSFETS EN DC y PROBLEMAS MOSFET PARTE II.<br><br>
+<b>Cuidado con las dos guías que ya estaban en la carpeta.</b> Los archivos "guia-teorica-y-formulario" y "guia-problemas-resueltos" usan una convención distinta a la del profesor para K<sub>N</sub>. Por eso la segunda afirma que I<sub>D</sub> = 13.27 mA en el parcial 2024, cuando el valor correcto es 6.64 mA. Además dice que con V<sub>DD</sub> = 10 V el transistor está "acercándose al borde de triodo", pero en realidad ya está en triodo. Usa la convención del profesor: <span class="f">I<sub>D</sub> = ½·K<sub>N</sub>·(V<sub>GS</sub> − V<sub>t</sub>)²</span> con <span class="f">K<sub>N</sub> = k′<sub>n</sub>·W/L</span>.</div>
+
+<h2 id="s3">3. Mapa de los parciales anteriores</h2>
+<table>
+<tr><th>Parcial</th><th>Archivo</th><th>Temas</th><th>¿Trae solución?</th></tr>
+<tr><td>2025</td><td>fusil2025.jpeg / fusil20252.jpeg</td><td>Cargador con fuente de corriente · regulador shunt 1N5235 (solo tenemos la primera hoja)</td><td>No, está resuelto en la guía 04</td></tr>
+<tr><td>2024</td><td>DOCUMENTO 20 SEPTIEMBRE 2024 / examen 1 comentado</td><td>Recortador con triangular · tabla de fuente del lab · rediseño por hueco de tensión · MOSFET CD4007 con curva I<sub>D</sub>–V<sub>GS</sub></td><td>Sí, solo respuestas</td></tr>
+<tr><td>2023 repetido</td><td>EXAMEN REPETIDO 1 ELC-115 2023 COMENTADO</td><td>Cargador con C y batería · foco + diodo · puente con C y factor de potencia · CD4007 divisor y espejo PMOS</td><td>Sí, en Mathcad</td></tr>
+<tr><td>2023</td><td>EXAMEN 1 ELC-115 2023</td><td>Cargador puente · foco + diodo · puente con C y corrección por ΔT · MOSFET con curvas I<sub>D</sub>–V<sub>DS</sub></td><td>No, está resuelto en la guía 04</td></tr>
+<tr><td>2021</td><td>96e76ab7-…pdf</td><td>Transferencia · rectificador con batería · sujetador con Zener · V<sub>t</sub> y K<sub>N</sub> medidos · regiones vs V<sub>i</sub></td><td>Parcial, de un estudiante y con un error</td></tr>
+<tr><td>2017 (V1 y V2)</td><td>EXAMEN 1 ELC-115 2017 V1 / V2</td><td>3 diodos en DC · diseño de fuente · puente + Zener lineal por tramos · unión pn</td><td>Sí</td></tr>
+<tr><td>Sin fecha (≈2018–2020)</td><td>Solucion P1 ELC-115 nota7</td><td>2 diodos y área · atenuador de pequeña señal · 1N5235 · rizado 4.5 % y 1.25 %</td><td>De un estudiante (nota 7)</td></tr>
+<tr><td>Repetido sin fecha</td><td>repe.pdf</td><td>3 diodos en DC · temperatura · fuente partida con 1N4742 · puente + Zener</td><td>No</td></tr>
+<tr><td>≈2015–2016</td><td>examen1-elc115_compress</td><td>Corrientes del transformador · doblador · diferenciador con diodo</td><td>No</td></tr>
+<tr><td>2014</td><td>examen 1 elc 115 2014</td><td>Transferencia · fallas en puente · método iterativo · Zener 1N4733A · MOSFET (el mismo que en 2024)</td><td>Sí</td></tr>
+<tr><td>2013</td><td>EXAMEN 1 ELC-115 2013</td><td>Puente con generador · efecto de 50 Ω · Zener 1N4733A · recortador</td><td>Sí</td></tr>
+<tr><td>2012</td><td>examen 1 2012.doc</td><td>No se puede leer: el contenido son imágenes incrustadas</td><td>—</td></tr>
+</table>
+
+<h2 id="s4">4. Cronograma sugerido (4 días)</h2>
+<p>Ajusta los días a la fecha real de tu parcial. Si tienes menos tiempo, sigue el mismo orden y recorta los bloques de prioridad baja.</p>
+<table>
+<tr><th>Día</th><th>Estudio</th><th>Práctica obligatoria</th></tr>
+<tr><td>1</td><td>Guía 02: rectificadores con C, cargadores y Zener</td><td>Parciales 2023 P1 y P3, 2023R P1 y P3, 2024 P2 y P3, 2017 P2</td></tr>
+<tr><td>2</td><td>Guía 03 completa (MOSFET)</td><td>Parciales 2024 P4, 2014 P5, 2021 P4 y P5, 2023 P4, 2023R P4</td></tr>
+<tr><td>3</td><td>Guía 01 (modelos) y guía 02 (recortadores y transferencia)</td><td>Parciales 2024 P1, 2021 P1 y P3, 2017 P3, repe P4, 2025 P1 y P2, 2017 P1</td></tr>
+<tr><td>4</td><td>Simulacro de 2 horas sin apuntes con los problemas de la guía 04 marcados como ALTA. Después repasa el formulario.</td><td>Corrige con las soluciones y rehace lo que falló</td></tr>
+</table>
+
+<h2 id="s5">5. Reglas del profesor que debes conocer</h2>
+<ul>
+<li><b>Recicla problemas cambiando números.</b> El MOSFET de 2014 volvió idéntico en 2024. El regulador 1N5235 de un parcial antiguo volvió en 2025 con 10 V en vez de 9.5 V. Todo el parcial 2023 se repitió en el "repetido" con otros valores.</li>
+<li><b>Usa el laboratorio como contexto.</b> Aparecen el transformador del laboratorio 1, los diodos 1N914, 1N4148, 1N4001 y 1N4004, el CD4007 y LTspice. "Use su observación de laboratorio" significa usar la caída que midieron: en 2024 fue V<sub>D</sub> ≈ 0.5 V con 1N914.</li>
+<li><b>Pide corregir el rizado por ΔT.</b> Cuando el rizado es grande, se recalcula V<sub>r</sub> usando que la descarga dura T/2 − ΔT y no T/2.</li>
+<li><b>Estima la corriente pico con un triángulo:</b> <span class="f">I<sub>pico</sub> ≈ I<sub>dc</sub>·T/ΔT</span> en onda completa. En otros problemas usa la fórmula de Sedra; ambas están en la guía 02.</li>
+<li><b>Pide opiniones de ingeniería.</b> Por ejemplo "¿conviene el 1N4004? SÍ o NO y por qué", "¿cuál es el problema?" o "calcular la eficiencia". Reserva 2–3 líneas de justificación.</li>
+<li><b>Convención MOSFET:</b> <span class="f">I<sub>D</sub> = ½K<sub>N</sub>V<sub>OV</sub>²</span> con K<sub>N</sub> en mA/V². El CD4007 típico tiene K<sub>N</sub> = 1.1 mA/V², K<sub>P</sub> = 0.7 mA/V² y |V<sub>t</sub>| = 1.4 V.</li>
+</ul>
+</body></html>

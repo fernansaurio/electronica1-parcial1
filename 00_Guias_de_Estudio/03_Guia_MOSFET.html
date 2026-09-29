@@ -1,0 +1,81 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Guía 03 · MOSFET en DC</title><link rel="stylesheet" href="estilo.css"></head><body>
+<h1>Guía 03 · MOSFET en DC</h1>
+<p class="sub">Bloques 7 y 8 del plan · Aparece en todos los parciales desde 2021 y vale entre 20 y 30 %</p>
+
+<div class="warn"><b>Convención del profesor, úsala siempre:</b> <span class="f">K<sub>N</sub> = k′<sub>n</sub>(W/L) = μ<sub>n</sub>C<sub>ox</sub>(W/L)</span>, en mA/V². En saturación, <span class="f">I<sub>D</sub> = ½·K<sub>N</sub>·(V<sub>GS</sub> − V<sub>t</sub>)²</span>. El documento CORRIENTE DE DRENAJE y todas las soluciones oficiales (2014, 2021, 2023 y 2024) usan esta forma. Algunos libros definen K = ½k′(W/L) y escriben I<sub>D</sub> = K·V<sub>OV</sub>². Si mezclas las dos, tu corriente sale el doble.</div>
+
+<h2 id="s1">1. Estructura y funcionamiento</h2>
+<p class="small">Material: MOSFET´S Lecciones semana 1 · MOSFET con anotaciones · CORRIENTE DE DRENAJE</p>
+<ul>
+<li>En un NMOS de enriquecimiento, cuando v<sub>GS</sub> &gt; V<sub>t</sub> se induce un canal n bajo la compuerta. La sobretensión es <span class="f">V<sub>OV</sub> = v<sub>GS</sub> − V<sub>t</sub></span>.</li>
+<li>Con v<sub>DS</sub> pequeño el transistor es una resistencia controlada: <span class="f">r<sub>DS</sub> = 1/(K<sub>N</sub>V<sub>OV</sub>)</span>.</li>
+<li>Al crecer v<sub>DS</sub> el canal se estrecha en el drenaje. Cuando v<sub>DS</sub> = V<sub>OV</sub> el canal se estrangula y la corriente se satura.</li>
+<li>La compuerta no consume corriente: I<sub>G</sub> = 0. Por eso V<sub>G</sub> sale directo del divisor.</li>
+<li>El sustrato p se conecta a la tensión más negativa y el sustrato n a la más positiva. En el CD4007, el pin 7 es V<sub>SS</sub> y el pin 14 es V<sub>DD</sub>.</li>
+</ul>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/nmos_estructura.png" alt="Estructura física del NMOS de enriquecimiento"><figcaption>Estructura física del NMOS de enriquecimiento</figcaption></figure><figure><img src="img/clase/mos_simbolos.png" alt="Símbolos del MOSFET canal n"><figcaption>Símbolos del MOSFET canal n</figcaption></figure><figure><img src="img/clase/nmos_triodo_lineal.png" alt="iD-vDS con vDS pequeño: el canal como resistencia"><figcaption>iD-vDS con vDS pequeño: el canal como resistencia</figcaption></figure></div>
+<h2 id="s2">2. Regiones de operación (NMOS)</h2>
+<table>
+<tr><th>Región</th><th>Condición</th><th>Corriente</th></tr>
+<tr><td>Corte</td><td>V<sub>GS</sub> ≤ V<sub>t</sub></td><td>I<sub>D</sub> = 0</td></tr>
+<tr><td>Triodo</td><td>V<sub>GS</sub> &gt; V<sub>t</sub> y V<sub>DS</sub> &lt; V<sub>OV</sub>, lo que equivale a V<sub>GD</sub> &gt; V<sub>t</sub></td><td>I<sub>D</sub> = K<sub>N</sub>[V<sub>OV</sub>·V<sub>DS</sub> − ½V<sub>DS</sub>²]</td></tr>
+<tr><td>Saturación</td><td>V<sub>GS</sub> &gt; V<sub>t</sub> y V<sub>DS</sub> ≥ V<sub>OV</sub>, lo que equivale a V<sub>GD</sub> ≤ V<sub>t</sub></td><td>I<sub>D</sub> = ½K<sub>N</sub>V<sub>OV</sub>²·(1 + λV<sub>DS</sub>)</td></tr>
+</table>
+<p><b>PMOS:</b> usa V<sub>SG</sub>, V<sub>SD</sub> y |V<sub>t</sub>|. Está en saturación si V<sub>SD</sub> ≥ V<sub>SG</sub> − |V<sub>t</sub>|, con <span class="f">I<sub>D</sub> = ½K<sub>P</sub>(V<sub>SG</sub> − |V<sub>t</sub>|)²</span>. La modulación de canal da <span class="f">r<sub>o</sub> = V<sub>A</sub>/I<sub>D</sub></span> con V<sub>A</sub> = 1/λ.</p>
+<p><b>CD4007 típico (tabla del parcial 2023R):</b> K<sub>N</sub> = 1.1 mA/V², K<sub>P</sub> = 0.7 mA/V², |V<sub>t</sub>| = 1.4 V y V<sub>A</sub> = 20 V. En 2024, la curva de LTspice dio V<sub>t</sub> = 1.16 V y K<sub>N</sub> = 0.90 mA/V².</p>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/nmos_regiones.png" alt="Regiones triodo y saturación"><figcaption>Regiones triodo y saturación</figcaption></figure><figure><img src="img/clase/nmos_caracteristicas.png" alt="Características iD-vDS con kn = 1 mA/V²"><figcaption>Características iD-vDS con kn = 1 mA/V²</figcaption></figure><figure><img src="img/clase/nmos_id_vgs.png" alt="Característica iD-vGS en saturación"><figcaption>Característica iD-vGS en saturación</figcaption></figure></div>
+<h2 id="s3">3. Extraer V<sub>t</sub> y K<sub>N</sub> de mediciones (salió en 2021, 2023 y 2024)</h2>
+<div class="box">Con dos puntos en saturación, (V<sub>GS1</sub>, I<sub>1</sub>) y (V<sub>GS2</sub>, I<sub>2</sub>):
+<span class="eq">√(I<sub>1</sub>/I<sub>2</sub>) = (V<sub>GS1</sub> − V<sub>t</sub>)/(V<sub>GS2</sub> − V<sub>t</sub>)&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;V<sub>t</sub> = (r·V<sub>GS2</sub> − V<sub>GS1</sub>)/(r − 1),&nbsp;&nbsp;r = √(I<sub>1</sub>/I<sub>2</sub>)</span>
+<span class="eq">K<sub>N</sub> = 2I<sub>1</sub>/(V<sub>GS1</sub> − V<sub>t</sub>)²</span>
+Descarta la raíz con V<sub>t</sub> mayor que alguno de los V<sub>GS</sub>, porque ese punto estaría en corte.</div>
+<ul>
+<li><b>Transistor conectado como diodo</b> (G unido a D): siempre está en saturación porque V<sub>DS</sub> = V<sub>GS</sub> &gt; V<sub>OV</sub>. Se mide V<sub>1</sub> = V<sub>GS</sub>, y la corriente es I = (V<sub>DD</sub> − V<sub>1</sub>)/R<sub>D</sub>.</li>
+<li><b>Curvas i<sub>D</sub>–v<sub>DS</sub>:</b> lee I<sub>D</sub> en la zona plana, a V<sub>DS</sub> fijo, para dos V<sub>GS</sub>.</li>
+<li><b>Curva i<sub>D</sub>–v<sub>GS</sub>:</b> lee dos puntos. La curva despega en V<sub>t</sub>, lo que sirve para comprobar.</li>
+</ul>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/mos_ej4_diodo.png" alt="Ejemplo 4: transistor conectado como diodo"><figcaption>Ejemplo 4: transistor conectado como diodo</figcaption></figure><figure><img src="img/f21_p4.png" alt="Parcial 2021 P4: medición de Vt y KN"><figcaption>Parcial 2021 P4: medición de Vt y KN</figcaption></figure><figure><img src="img/f23_p4a.png" alt="Parcial 2023 P4a: curvas iD-vDS"><figcaption>Parcial 2023 P4a: curvas iD-vDS</figcaption></figure></div>
+<h2 id="s4">4. Procedimiento para cualquier circuito DC</h2>
+<ol>
+<li>Halla V<sub>G</sub>. Si hay divisor, <span class="f">V<sub>G</sub> = V<sub>DD</sub>·R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>)</span>, porque I<sub>G</sub> = 0.</li>
+<li>Supón saturación.</li>
+<li>Escribe la malla compuerta-fuente. Con R<sub>S</sub>: <span class="f">V<sub>G</sub> = V<sub>GS</sub> + I<sub>D</sub>R<sub>S</sub></span>, y con I<sub>D</sub> = ½K<sub>N</sub>(V<sub>GS</sub>−V<sub>t</sub>)² queda una cuadrática. Un atajo útil es tomar <span class="f">x = √I<sub>D</sub></span>: resulta <span class="f">R<sub>S</sub>·x² + √(2/K<sub>N</sub>)·x + (V<sub>t</sub> − V<sub>G</sub>) = 0</span>, que es exactamente como lo resuelve el profesor en Mathcad.</li>
+<li>Toma la raíz con V<sub>GS</sub> &gt; V<sub>t</sub>.</li>
+<li>Calcula V<sub>D</sub> = V<sub>DD</sub> − I<sub>D</sub>R<sub>D</sub>, V<sub>S</sub> y V<sub>DS</sub>.</li>
+<li>Verifica que V<sub>DS</sub> ≥ V<sub>OV</sub>. Si falla, resuelve en triodo con <span class="f">I<sub>D</sub> = (V<sub>DD</sub> − V<sub>DS</sub>)/R<sub>D</sub> = K<sub>N</sub>[V<sub>OV</sub>V<sub>DS</sub> − ½V<sub>DS</sub>²]</span>. Es una cuadrática en V<sub>DS</sub>; usa la raíz menor que V<sub>OV</sub>.</li>
+</ol>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/mos_ej3.png" alt="Ejemplo 3: diseño con RD y RS"><figcaption>Ejemplo 3: diseño con RD y RS</figcaption></figure><figure><img src="img/f23_p4b.png" alt="Parcial 2023 P4b: divisor con RS"><figcaption>Parcial 2023 P4b: divisor con RS</figcaption></figure><figure><img src="img/f23r_p4.png" alt="Parcial 2023R P4: divisor y espejo PMOS"><figcaption>Parcial 2023R P4: divisor y espejo PMOS</figcaption></figure></div>
+<h2 id="s5">5. Problemas de límites de región (2014, 2021 y 2024)</h2>
+<p>Circuito típico: la fuente del NMOS está conectada a una señal V<sub>IN</sub>, la compuerta a V<sub>G</sub> fijo y el drenaje a V<sub>DD</sub> por R<sub>D</sub>.</p>
+<ul>
+<li><b>Fuera de corte para todo V<sub>IN</sub>:</b> <span class="f">V<sub>G,min</sub> = V<sub>IN,max</sub> + V<sub>t</sub></span>.</li>
+<li><b>Saturación para todo V<sub>IN</sub>:</b> el peor caso es la mayor corriente, que ocurre con V<sub>IN,min</sub>. Entonces <span class="f">V<sub>DD,min</sub> = V<sub>G</sub> − V<sub>t</sub> + I<sub>D,max</sub>·R<sub>D</sub></span>, que sale de exigir V<sub>D</sub> ≥ V<sub>G</sub> − V<sub>t</sub>.</li>
+<li><b>Frontera saturación/triodo al barrer V<sub>i</sub>:</b> se cumple <span class="f">V<sub>D</sub> = V<sub>G</sub> − V<sub>t</sub></span>. De ahí salen I<sub>D</sub> = (V<sub>DD</sub> − V<sub>D</sub>)/R<sub>D</sub>, luego V<sub>GS</sub> y luego V<sub>i</sub>.</li>
+<li><b>Intuición:</b> con V<sub>i</sub> pequeño la corriente es grande, V<sub>D</sub> cae y el transistor entra en triodo. Con V<sub>i</sub> grande entra en corte. La saturación queda en medio.</li>
+</ul>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/f24_p4.png" alt="Parcial 2024 P4: señal en la fuente (CD4007)"><figcaption>Parcial 2024 P4: señal en la fuente (CD4007)</figcaption></figure><figure><img src="img/f21_p5.png" alt="Parcial 2021 P5: regiones contra Vi"><figcaption>Parcial 2021 P5: regiones contra Vi</figcaption></figure><figure><img src="img/g21_p5.png" alt="ID contra Vi del 2021 P5"><figcaption>ID contra Vi del 2021 P5</figcaption></figure></div>
+<h2 id="s6">6. Espejos y transistores conectados como diodo (2023 y 2023R)</h2>
+<ul>
+<li>Un transistor con G unido a D, o con una resistencia grande entre G y D, está en saturación.</li>
+<li><b>Espejo:</b> dos transistores iguales con el mismo V<sub>GS</sub> llevan la misma I<sub>D</sub>, siempre que el de salida esté en saturación. Verifícalo.</li>
+<li><b>Trampa del parcial 2023 P4c:</b> si el transistor de salida no tiene camino de corriente porque el de arriba está en corte, entonces I<sub>D</sub> = 0. En ese caso el transistor está en triodo con V<sub>DS</sub> = 0 y no copia la corriente.</li>
+</ul>
+
+<p class="galt">Circuitos de ejemplo</p><div class="gal"><figure><img src="img/clase/mos_ej8.png" alt="Ejemplo 8: NMOS y PMOS en serie"><figcaption>Ejemplo 8: NMOS y PMOS en serie</figcaption></figure><figure><img src="img/f23_p4c.png" alt="Parcial 2023 P4c: circuito trampa"><figcaption>Parcial 2023 P4c: circuito trampa</figcaption></figure></div>
+<h2 id="s7">7. Formulario rápido</h2>
+<table>
+<tr><th>Concepto</th><th>Fórmula</th></tr>
+<tr><td>Sobretensión</td><td>V<sub>OV</sub> = V<sub>GS</sub> − V<sub>t</sub></td></tr>
+<tr><td>Saturación</td><td>I<sub>D</sub> = ½K<sub>N</sub>V<sub>OV</sub>² · V<sub>DS</sub> ≥ V<sub>OV</sub></td></tr>
+<tr><td>Triodo</td><td>I<sub>D</sub> = K<sub>N</sub>(V<sub>OV</sub>V<sub>DS</sub> − ½V<sub>DS</sub>²)</td></tr>
+<tr><td>Resistencia del canal</td><td>r<sub>DS</sub> = 1/(K<sub>N</sub>V<sub>OV</sub>)</td></tr>
+<tr><td>Borde de saturación</td><td>V<sub>DS</sub> = V<sub>OV</sub>, es decir V<sub>D</sub> = V<sub>G</sub> − V<sub>t</sub></td></tr>
+<tr><td>V<sub>GS</sub> a partir de I<sub>D</sub></td><td>V<sub>GS</sub> = V<sub>t</sub> + √(2I<sub>D</sub>/K<sub>N</sub>)</td></tr>
+<tr><td>Resistencia de salida</td><td>r<sub>o</sub> = V<sub>A</sub>/I<sub>D</sub></td></tr>
+</table>
+</body></html>

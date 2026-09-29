@@ -1,0 +1,265 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Guía 04 · Predicción y problemas resueltos</title><link rel="stylesheet" href="estilo.css"></head><body>
+<h1>Guía 04 · Predicción del Parcial 1 y problemas resueltos</h1>
+<p class="sub">Basada en 12 parciales de ELC-115 (2013–2025) del Prof. José Ramos López. Todas las respuestas numéricas se verificaron en Python y, donde existe, contra la solución oficial.</p>
+
+<h2 id="s1">1. Cómo se asignaron las probabilidades</h2>
+<p>Cada probabilidad combina tres factores:</p>
+<ol>
+<li><b>Frecuencia:</b> en cuántos de los 11 parciales legibles aparece el tema.</li>
+<li><b>Recencia:</b> los parciales de 2021 a 2025 pesan el doble, porque reflejan el curso actual con el CD4007, LTspice y los cargadores.</li>
+<li><b>Reciclaje:</b> el profesor reutiliza sus propios problemas cambiando números. Por ejemplo, 2014 P5 volvió como 2024 P4, el 1N5235 antiguo volvió en 2025 P2 y todo 2023 se repitió en el "repetido".</li>
+</ol>
+<div class="warn">Son estimaciones heurísticas y no una garantía. Solo tenemos la primera hoja del parcial 2025, que probablemente tenía además un rectificador con C y un MOSFET. Úsalas para decidir en qué invertir más horas, no para dejar de estudiar un tema.</div>
+
+<h2 id="s2">2. Frecuencia de cada tema en los parciales</h2>
+<div style="overflow-x:auto"><table>
+<tr><th>Tema</th><th>'13</th><th>'14</th><th>~'15</th><th>nota7</th><th>repe</th><th>'17</th><th>'21</th><th>'23</th><th>'23R</th><th>'24</th><th>'25*</th><th>Total</th></tr>
+<tr><td>Rectificador con filtro C</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>?</td><td>10/10</td></tr>
+<tr><td>MOSFET en DC</td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>?</td><td>5; todos desde 2021</td></tr>
+<tr><td>Cargador de batería</td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td>✓</td><td></td><td>✓</td><td>4; los 4 más recientes con cargador</td></tr>
+<tr><td>Recortador o transferencia</td><td>✓</td><td>✓</td><td>✓</td><td></td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td>✓</td><td></td><td>7</td></tr>
+<tr><td>Zener (regulador o limitador)</td><td>✓</td><td>✓</td><td></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td>✓</td><td>7</td></tr>
+<tr><td>Foco + diodo</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td>2</td></tr>
+<tr><td>DC con varios diodos</td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td>2</td></tr>
+<tr><td>Sujetador o doblador</td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td>2</td></tr>
+<tr><td>Exponencial, temperatura o pequeña señal</td><td></td><td>✓</td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td>3, todos antiguos</td></tr>
+<tr><td>Unión pn</td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td>1</td></tr>
+</table></div>
+<p class="small">* Del parcial 2025 solo se conoce la primera hoja. "?" significa que no se sabe.</p>
+<img src="img/g_prob.png" alt="Probabilidad estimada por tema">
+
+<h2 id="s3">3. Estructura más probable del Parcial 1 de 2026</h2>
+<table>
+<tr><th>Problema</th><th>Contenido probable</th><th>Peso</th></tr>
+<tr><td>1</td><td>Circuito con diodos y forma de onda: recortador con triangular, transferencia, o cargador con fuente de corriente</td><td>20–25 %</td></tr>
+<tr><td>2</td><td>Rectificador con condensador: V<sub>r</sub> con corrección por ΔT, I<sub>pico</sub>, potencia o PF, opinión sobre el diodo; o un cargador de batería</td><td>25–30 %</td></tr>
+<tr><td>3</td><td>Zener: regulador shunt con dos diseños, o regulador a la salida de la fuente</td><td>15–20 %</td></tr>
+<tr><td>4</td><td>MOSFET CD4007: V<sub>t</sub> y K<sub>N</sub> desde curva o mediciones, luego punto Q o límites de región</td><td>25–30 %</td></tr>
+</table>
+
+<h2 id="s4">4. Problemas resueltos, en orden de probabilidad</h2>
+<p><span class="tag">ALTA</span> Estudia hasta poder hacerlo sin mirar. <span class="tag media">MEDIA</span> Resuélvelo al menos una vez. <span class="tag baja">BAJA</span> Basta con leer el método.</p>
+
+<!-- ============ 1 ============ -->
+<div id="p1" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 70 %</span>1. Puente con condensador y corrección por ΔT (2023 P3 y 2023R P3)</h3>
+<img class="fig" src="img/f23_p3.png" alt="Figura 2023 P3">
+</div>
+<p><b>Datos:</b> v<sub>s</sub> = 169.7 sen(377t), directo de la red sin transformador. C = 1000 µF, R<sub>load</sub> = 20 Ω y V<sub>D</sub> = 1 V. Se pide V<sub>r</sub>, I<sub>pico</sub> y P, luego repetir con la corrección por ΔT, y opinar sobre el 1N4004.</p>
+<p><b>Paso 1, cálculo tradicional.</b> V<sub>p</sub> = 169.7 − 2(1) = 167.7 V. Entonces V<sub>r</sub> = V<sub>p</sub>/(2fRC) = 167.7/(120·20·0.001) = <b>69.9 V</b>. El tiempo de conducción es ΔT = (1/ω)√(2V<sub>r</sub>/V<sub>p</sub>) = (1/377)·√(0.833) = <b>2.42 ms</b>. Con eso V<sub>dc</sub> = 167.7 − 34.9 = 132.8 V, I<sub>dc</sub> = 6.64 A, I<sub>pico</sub> ≈ I<sub>dc</sub>·T/ΔT = 6.64·16.67/2.42 = <b>45.7 A</b> y P ≈ 132.8·6.64 = 881 W en la carga, más 13 W en los diodos.</p>
+<p><b>Paso 2, corrección.</b> La descarga dura T/2 − ΔT = 8.33 − 2.42 = 5.91 ms. Entonces V<sub>r</sub> = (V<sub>p</sub>/RC)(T/2 − ΔT) = 8385·0.00591 = <b>49.6 V</b>. Con eso V<sub>dc</sub> = 167.7 − 24.8 = 142.9 V, I<sub>dc</sub> = 7.15 A y P ≈ <b>1021 W</b> en la carga, más 14 W en los diodos. Usando ΔT del paso 1, como hace el profesor, I<sub>pico</sub> ≈ 7.15·16.67/2.42 = <b>49 A</b>.</p>
+<img src="img/g23_p3.png" alt="Simulación del rectificador 2023 P3">
+<p class="small">Una simulación temporal da V<sub>r</sub> ≈ 44 V, V<sub>dc</sub> ≈ 146 V e I<sub>pico</sub> ≈ 46 A. La versión corregida se acerca mucho más a la realidad que la tradicional.</p>
+<p><b>Opinión sobre el 1N4004:</b> <b>NO conviene.</b> Su corriente promedio máxima es 1 A, pero cada diodo lleva I<sub>dc</sub>/2 ≈ 3.6 A. Su corriente de sobrecarga no repetitiva es 30 A, pero aquí los picos repetitivos son de 45–50 A. El PIV sí alcanza, porque 400 V es mayor que 170 V. Hace falta un puente de potencia de al menos 10–25 A.</p>
+<div class="ans"><b>Versión repetida 2023R</b>, con R = 12 Ω, sin caída en diodos y con PF. La solución oficial da V<sub>r</sub> = 117.9 V, luego ΔT = 3.13 ms y el V<sub>r</sub> corregido de 73.6 V. Resulta V<sub>dc</sub> = 132.9 V, I<sub>dc</sub> = 11.07 A, P = 1472 W e I<sub>pico</sub> = 59.0 A. La corriente de entrada es I<sub>ac</sub> = I<sub>p</sub>√(2ΔT/3T) = 20.9 A, así que S = 120·20.9 = 2505 VA y <b>PF = 0.587</b>.</div></div>
+
+<!-- ============ 2 ============ -->
+<div id="p2" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 55 %</span>2. MOSFET con la señal en la fuente: V<sub>G,min</sub>, V<sub>DD,min</sub> e I<sub>D</sub> (2024 P4 = 2014 P5)</h3>
+<img class="fig" style="max-height:105mm" src="img/f24_p4.png" alt="Figura 2024 P4">
+</div>
+<p><b>Paso 0, V<sub>t</sub> y K<sub>N</sub> de la curva.</b> Los puntos marcados son (2.5 V; 0.8 mA) y (5 V; 6.6 mA). Entonces r = √(6.6/0.8) = 2.872 y V<sub>t</sub> = (2.872·2.5 − 5)/(1.872) = <b>1.16 V</b>. Con eso K<sub>N</sub> = 2·6.6/(3.84)² = <b>0.90 mA/V²</b>.</p>
+<p><b>a) Fuera de corte</b> para −1.5 ≤ V<sub>IN</sub> ≤ 1.5 V: V<sub>G</sub> ≥ V<sub>IN,max</sub> + V<sub>t</sub> = 1.5 + 1.16 = <b>2.66 V</b>.</p>
+<p><b>b) V<sub>DD,min</sub></b> con V<sub>G</sub> = 5 V. El peor caso es V<sub>IN</sub> = −1.5 V, que da V<sub>GS</sub> = 6.5 V y I<sub>D,max</sub> = ½·0.9·(5.34)² = 12.83 mA. Entonces V<sub>DD,min</sub> = V<sub>G</sub> − V<sub>t</sub> + I<sub>D,max</sub>R<sub>D</sub> = 5 − 1.16 + 12.83·1.1 = <b>17.9 V</b>.</p>
+<p><b>c) V<sub>IN</sub> = 0 y V<sub>DD</sub> = 20 V:</b> I<sub>D</sub> = ½·0.9·(3.84)² = <b>6.64 mA</b>. La solución oficial da 6.61 mA porque redondea. Como V<sub>DS</sub> = 20 − 7.3 = 12.7 V es mayor que 3.84 V, está en saturación.</p>
+<p><b>d) V<sub>DD</sub> = 10 V:</b> suponiendo saturación saldría V<sub>DS</sub> = 10 − 7.3 = 2.7 V, que es menor que 3.84 V, así que <b>está en triodo</b>. Hay que resolver (10 − V<sub>DS</sub>)/1.1k = 0.9m·(3.84V<sub>DS</sub> − ½V<sub>DS</sub>²). Resulta V<sub>DS</sub> = 3.03 V e I<sub>D</sub> = <b>6.34 mA</b>; la solución oficial da 6.32 mA.</p>
+<div class="ans"><b>Versión 2014</b>, con K<sub>N</sub> = 1 mA/V², V<sub>t</sub> = 1 V, R<sub>L</sub> = 1 kΩ y −1 ≤ V<sub>IN</sub> ≤ 1 V. Resulta V<sub>G,min</sub> = 2 V y V<sub>DD,min</sub> = 0.5·1·(6−1)²·1 + 5 − 1 = 16.5 V. Con V<sub>DD</sub> = 20 V, I<sub>D</sub> = 8 mA. Con V<sub>DD</sub> = 4 V está en triodo: V<sub>DS</sub> = 0.877 V e I<sub>D</sub> = 3.12 mA.</div></div>
+
+<!-- ============ 3 ============ -->
+<div id="p3" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 50 %</span>3. Cargador de batería con puente, R y batería (2023 P1)</h3>
+<img class="fig" src="img/f23_p1.png" alt="Figura 2023 P1">
+</div>
+<p><b>Datos:</b> 120 Vac con relación 10:1, así que V<sub>s</sub> = 16.97 V pico. V<sub>D</sub> = 0.85 V, R = 10 Ω y la batería es de 4 celdas AAA de 1.5 V, es decir 6 V y 800 mAh.</p>
+<ol>
+<li><b>Corriente pico:</b> I<sub>p</sub> = (16.97 − 1.7 − 6)/10 = <b>0.927 A</b>.</li>
+<li><b>Ángulo de conducción:</b> θ<sub>1</sub> = arcsen(7.7/16.97) = 27.0° = 0.471 rad, así que conduce de 27° a 153° en cada semiciclo.</li>
+<li><b>Corriente promedio en la batería:</b> I<sub>bat</sub> = [2·16.97·cos 27° − 7.7·(π − 0.942)]/(10π) = <b>0.424 A</b>. Cada diodo lleva la mitad: <b>0.212 A</b>.</li>
+<li><b>Tiempo de carga:</b> 0.8 Ah / 0.424 A = <b>1.89 h</b>.</li>
+<li><b>Potencia</b> con transformador sin pérdidas: la batería recibe 6·0.424 = 2.54 W. La resistencia disipa 10·I<sub>rms</sub>² = 10·(0.558)² = 3.11 W. Los diodos disipan 1.7·0.424 = 0.72 W. En total P ≈ <b>6.38 W</b>.</li>
+</ol></div>
+
+<!-- ============ 4 ============ -->
+<div id="p4" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 45 %</span>4. Recortador con dos diodos y fuentes DC, entrada triangular (2024 P1)</h3>
+<img class="fig" src="img/f24_p1.png" alt="Figura 2024 P1">
+</div>
+<p>El 1N914 medido en el laboratorio da V<sub>D</sub> ≈ 0.5 V. Con ambos diodos apagados, R1 y RL forman un divisor: V<sub>out</sub> = V<sub>s</sub>/2.</p>
+<ul>
+<li>D1 conduce cuando V<sub>out</sub> ≥ 1.5 + 0.5 = <b>2 V</b>, es decir cuando V<sub>s</sub> ≥ 4 V. En ese caso V<sub>out</sub> = 2 V, plano.</li>
+<li>D2 conduce cuando V<sub>out</sub> ≤ −1 − 0.5 = <b>−1.5 V</b>, es decir cuando V<sub>s</sub> ≤ −3 V. En ese caso V<sub>out</sub> = −1.5 V.</li>
+</ul>
+<img src="img/g24_p1.png" alt="Forma de onda 2024 P1">
+<div class="ans">Con la triangular de 5 V pico, la salida sigue V<sub>s</sub>/2 entre −3 V y 4 V, se recorta en +2 V y en −1.5 V. Si te dan V<sub>D</sub> = 0.7 V, los niveles pasan a +2.2 V y −1.7 V.</div>
+<p><b>Variante de 2013 P5:</b> con V<sub>1</sub> = 2.75 V, V<sub>2</sub> = 2 V, R = 4.7 kΩ y V<sub>D</sub> = 0.7 V, los límites son +3.45 V y −2.7 V. Las corrientes máximas son I<sub>D1</sub> = (10 − 3.45)/4.7k − 3.45/4.7k = 0.66 mA e I<sub>D2</sub> = 0.98 mA.</p></div>
+
+<!-- ============ 5 ============ -->
+<div id="p5" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 45 %</span>5. V<sub>t</sub> y K<sub>N</sub> medidos y regiones contra V<sub>i</sub> (2021 P4 y P5)</h3>
+<img class="fig" src="img/f21_p4.png" alt="Figura 2021 P4">
+</div>
+<p><b>P4:</b> el transistor está conectado como diodo, así que siempre está en saturación y V<sub>GS</sub> = V<sub>1</sub>. Las corrientes son I<sub>1</sub> = (10 − 4.14)/1.2k = 4.883 mA e I<sub>2</sub> = (10 − 3.28)/2.7k = 2.489 mA. Entonces r = √(4.883/2.489) = 1.4007 y V<sub>t</sub> = (1.4007·3.28 − 4.14)/0.4007 = <b>1.14 V</b>. Con eso K<sub>N</sub> = 2·4.883/(3.00)² = <b>1.08 mA/V²</b>.</p>
+<img class="fig" src="img/f21_p5.png" alt="Figura 2021 P5">
+<p><b>P5:</b> V<sub>G</sub> = 5 V, la fuente está conectada a V<sub>i</sub>, R<sub>D</sub> = 2.7 kΩ y V<sub>DD</sub> = 10 V.</p>
+<ul>
+<li><b>Corte:</b> V<sub>GS</sub> = 5 − V<sub>i</sub> &lt; 1.14, es decir <b>V<sub>i</sub> &gt; 3.86 V</b>.</li>
+<li><b>Frontera:</b> V<sub>D</sub> = V<sub>G</sub> − V<sub>t</sub> = 3.86 V. Entonces I<sub>D</sub> = (10 − 3.86)/2.7k = 2.274 mA, V<sub>GS</sub> = 1.14 + √(2·2.274/1.08) = 3.19 V y <b>V<sub>i</sub> = 1.81 V</b>.</li>
+</ul>
+<img src="img/g21_p5.png" alt="Regiones 2021 P5">
+<div class="warn"><b>La tabla de respuestas del PDF de 2021 está invertida.</b> Lo correcto es: triodo para 0 &lt; V<sub>i</sub> &lt; 1.81 V, saturación para 1.81 &lt; V<sub>i</sub> &lt; 3.86 V y corte para V<sub>i</sub> &gt; 3.86 V. Prueba con V<sub>i</sub> = 0: la corriente en saturación sería 8 mA, lo que exigiría V<sub>D</sub> = −11.7 V, así que es imposible y el transistor está en triodo.</div></div>
+
+<!-- ============ 6 ============ -->
+<div id="p6" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 45 %</span>6. NMOS con divisor y R<sub>S</sub>, y lectura de curvas (2023 P4 y 2023R P4a)</h3>
+<img class="fig" src="img/f23_p4a.png" alt="Figura 2023 P4a">
+</div>
+<p><b>Curvas de 2023:</b> a V<sub>DS</sub> = 5 V se lee 12.0 mA con V<sub>GS</sub> = 5 V y unos 3.65 mA con V<sub>GS</sub> = 3 V. Entonces V<sub>t</sub> ≈ <b>0.54 V</b> y K<sub>N</sub> ≈ <b>1.21 mA/V²</b>. El resultado es sensible a la lectura: con 3.6 a 3.7 mA, V<sub>t</sub> queda entre 0.50 y 0.58 V.</p>
+<img class="fig" src="img/f23_p4b.png" alt="Figura 2023 P4b">
+<p><b>Figura P4b:</b> V<sub>G</sub> = 15·650/1500 = 6.5 V. La malla da 6.5 = V<sub>GS</sub> + 2k·½·1.21m·(V<sub>GS</sub> − 0.54)². Resulta V<sub>GS</sub> = <b>2.39 V</b>, I<sub>D</sub> = <b>2.06 mA</b> y V<sub>DS</sub> = 15 − 2.06·4.2 = <b>6.36 V</b>. Como es mayor que V<sub>OV</sub> = 1.85 V, está en saturación.</p>
+<div class="ans"><b>2023R P4a</b>, con el CD4007 típico: V<sub>DD</sub> = 15 V, 700 k/800 k, R<sub>D</sub> = R<sub>S</sub> = 3 kΩ. Se obtiene V<sub>G</sub> = 8 V. En la forma del profesor, 3x² + √(2/1.1)·x + (1.4 − 8) = 0 da x = 1.275, así que I<sub>D</sub> = <b>1.627 mA</b>, V<sub>GS</sub> = <b>3.12 V</b> y V<sub>DS</sub> = <b>5.24 V</b>.</div></div>
+
+<!-- ============ 7 ============ -->
+<div id="p7" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 40 %</span>7. Diseño de una fuente con puente (2017 P2)</h3>
+<img class="fig" src="img/f17_p2.png" alt="Figura 2017 P2">
+</div>
+<p><b>Especificación:</b> 12 V, rizado de 1 % y 2 A, con V<sub>D</sub> = 1 V.</p>
+<ul>
+<li>V<sub>r</sub> = 0.12 V y V<sub>s,pico</sub> = 12 + 2 = 14 V, así que el transformador debe dar <b>9.9 Vrms</b>.</li>
+<li>C = I/(2fV<sub>r</sub>) = 2/(120·0.12) = <b>138 889 µF</b>.</li>
+<li>PIV = 14 − 1 = <b>13 V</b>.</li>
+<li>I<sub>pico</sub> = 2·2π√(12/0.24) = <b>88.9 A</b>. La fórmula de Sedra, con el "+1", da 90.9 A.</li>
+<li>P<sub>trafo</sub> ≈ 14·2 = <b>28 W</b>.</li>
+</ul>
+<div class="ans"><b>Versión 2:</b> para 15 V y 1 A se obtiene 12 Vrms, 55 555 µF, PIV = 16 V, I<sub>pico</sub> = 44.4 A y 17 W.</div></div>
+
+<!-- ============ 8 ============ -->
+<div id="p8" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 40 %</span>8. Cargador con condensador: elegir V<sub>s</sub> y calcular la eficiencia (2023R P1)</h3>
+<p><b>Datos:</b> puente, C = 5000 µF, R = 10 Ω, batería de 12 V y 50 Ah, V<sub>D</sub> = 1.25 V. El tiempo de carga debe ser unas 24 h.</p>
+</div>
+<ul>
+<li><b>Con V<sub>s</sub> = 12 V:</b> V<sub>C</sub> = 16.97 − 2.5 = 14.47 V. Eso da I<sub>dc</sub> ≈ 0.23 A y un tiempo de 220 h, así que no sirve.</li>
+<li><b>Con V<sub>s</sub> = 24 V:</b> V<sub>C</sub> = 33.94 − 2.5 = 31.44 V. La primera estimación es I<sub>dc</sub> = (31.44 − 12)/10 = 1.944 A, con V<sub>r</sub> = 1.944/(120·0.005) = 3.24 V. Corrigiendo, V<sub>dc</sub> = 29.82 V e I<sub>dc</sub> = <b>1.78 A</b>, lo que da unas <b>28 h</b>. <b>Se elige 24 V.</b></li>
+</ul>
+<div class="ans">Cada diodo lleva <b>0.89 A</b> en promedio. ΔT = 1.11 ms, así que I<sub>pico</sub> = 1.78·16.67/1.11 = <b>26.8 A</b>. La potencia de entrada es P = 29.82·1.78 + 2·1.25·1.78 = <b>57.6 W</b>. La eficiencia es η = 12·1.78/57.6 = <b>37 %</b>.</div></div>
+
+<!-- ============ 9 ============ -->
+<div id="p9" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 35 %</span>9. Cargador con fuente de corriente (2025 P1, Sedra P4.10)</h3>
+<img class="fig" src="img/f25_p1.png" alt="Figura 2025 P1">
+</div>
+<p>La fuente I = 60 mA inyecta corriente al nodo común. Esa corriente sale por el diodo cuyo cátodo esté más bajo. Si v<sub>i</sub> &lt; 6 V, conduce D1: el nodo queda en v<sub>i</sub> + 0.7 y D2 se apaga, así que i<sub>B</sub> = 0. Si v<sub>i</sub> &gt; 6 V, D1 se apaga y conduce D2, así que i<sub>B</sub> = 60 mA. Como ambos diodos tienen 0.7 V, el umbral es exactamente v<sub>i</sub> = V<sub>B</sub> = 6 V.</p>
+<img src="img/g25_p1.png" alt="Forma de onda de iB">
+<div class="ans">Con 12 V pico, conduce de 30° a 150°, es decir 1/3 del ciclo. Entonces <b>i<sub>B,pico</sub> = 60 mA</b> e <b>i<sub>B,prom</sub> = 20 mA</b>.<br>
+Si el pico baja 10 %, a 10.8 V, conduce desde arcsen(6/10.8) = 33.7° hasta 146.3°, es decir 31.25 % del ciclo. El pico sigue en <b>60 mA</b> porque lo fija la fuente, y el promedio baja a <b>18.75 mA</b>.</div></div>
+
+<!-- ============ 10 ============ -->
+<div id="p10" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 35 %</span>10. Dos diseños de regulador shunt con el 1N5235 (2025 P2 y parcial "nota 7" P3)</h3>
+<p><b>Datos del Zener:</b> V<sub>Z</sub> = 6.8 V con r<sub>z</sub> = 5 Ω a 20 mA, y r<sub>z</sub> = 750 Ω a 0.25 mA. De ahí V<sub>Z0</sub> = 6.8 − 0.02·5 = 6.7 V. La alimentación es 10 ± 1 V, sin carga.</p>
+</div>
+<ul>
+<li><b>Diseño 1, con I<sub>Z</sub> = 20 mA:</b> R = (10 − 6.8)/20 mA = <b>160 Ω</b>. La regulación de línea es r<sub>z</sub>/(R + r<sub>z</sub>) = 5/165 = <b>30.3 mV/V</b>, así que la salida varía ±30 mV.</li>
+<li><b>Diseño 2, con I<sub>Z</sub> = 0.25 mA:</b> V<sub>Z</sub> ≈ 6.7 V, así que R = (10 − 6.7)/0.25 mA = <b>13.2 kΩ</b>. La regulación de línea es 750/(13 200 + 750) = <b>53.8 mV/V</b>, así que la salida varía ±54 mV.</li>
+</ul>
+<div class="ans">Con 9.5 V, como en el parcial antiguo: el diseño 1 da 135 Ω y 35.7 mV/V, y el diseño 2 da 11.2 kΩ y 62.8 mV/V. La conclusión es que el diseño de baja corriente ahorra energía pero regula peor.</div></div>
+
+<!-- ============ 11 ============ -->
+<div id="p11" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 35 %</span>11. Tabla de la fuente del laboratorio y rediseño por hueco de tensión (2024 P2 y P3)</h3>
+<img class="fig" src="img/f24_p2.png" alt="Figura 2024 P2">
+</div>
+<p>La tabla oficial implica un pico en el condensador de V<sub>p</sub> ≈ 17.07 V. Ese valor sale del transformador del laboratorio 1 menos dos caídas de diodo. En cada caso se usa V<sub>r</sub> = V<sub>p</sub>/(120·R·C), V<sub>dc</sub> = V<sub>p</sub> − V<sub>r</sub>/2 y P = V<sub>dc</sub>²/R.</p>
+<table><tr><th>R<sub>L</sub></th><th>C</th><th>V<sub>dc</sub></th><th>V<sub>r</sub></th><th>P</th></tr>
+<tr><td>100 Ω</td><td>470 µF</td><td>15.55 V</td><td>3.03 V</td><td>2.42 W</td></tr>
+<tr><td>100 Ω</td><td>1000 µF</td><td>16.36 V</td><td>1.42 V</td><td>2.68 W</td></tr>
+<tr><td>1000 Ω</td><td>470 µF</td><td>16.92 V</td><td>0.30 V</td><td>0.29 W</td></tr>
+<tr><td>1000 Ω</td><td>1000 µF</td><td>17.00 V</td><td>0.14 V</td><td>0.29 W</td></tr></table>
+<p><b>Hueco de 100 ms:</b> el condensador debe alimentar la carga sin recarga durante el hueco, perdiendo como máximo el mismo V<sub>r</sub> de 1.42 V. Entonces C = I<sub>L</sub>·Δt/V<sub>r</sub> = 0.164·0.1/1.42 = 0.0115 F, que se redondea a <b>12 000 µF</b>. En operación normal, V<sub>r</sub> = 17.07/(120·100·0.012) = 0.119 V y ΔT = 0.31 ms. Entonces I<sub>pico</sub> ≈ I<sub>L</sub>·T/ΔT ≈ 9.1 A; con Sedra da 9.2 A y la solución oficial da <b>9.48 A</b>. La idea importante es que más C significa ΔT más corto y un pico mucho mayor.</p></div>
+
+<!-- ============ 12 ============ -->
+<div id="p12" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>12. Transferencia de un puente de diodos con Zener, modelo lineal por tramos (2017 P3 y repe P4)</h3>
+<img class="fig" src="img/f17_p3.png" alt="Figura 2017 P3">
+</div>
+<p>Los datos son V<sub>D0</sub> = 0.65 V, r<sub>D</sub> = 30 Ω, Zener de 6.8 V a 37 mA con r<sub>z</sub> = 3.5 Ω, y R1 = 1 kΩ. Primero V<sub>Z0</sub> = 6.8 − 0.037·3.5 = 6.67 V. El quiebre ocurre en ±(2·0.65 + 6.67) = <b>±7.97 V</b>.</p>
+<ul>
+<li><b>Región I</b>, |v<sub>i</sub>| &lt; 7.97 V: v<sub>o</sub> = v<sub>i</sub>.</li>
+<li><b>Región II</b>, v<sub>i</sub> &gt; 7.97 V: conducen D1, D2 y el Zener. La pendiente es (2r<sub>D</sub> + r<sub>z</sub>)/(R1 + 2r<sub>D</sub> + r<sub>z</sub>) = 63.5/1063.5 = <b>1/16.75</b>, y v<sub>o</sub> = 7.495 + v<sub>i</sub>/16.75. En v<sub>i</sub> = 10 V, v<sub>o</sub> = 8.09 V.</li>
+<li><b>Región III:</b> es simétrica a la II. Conducen D3 y D4, y el Zener conduce en el mismo sentido.</li>
+</ul>
+<img src="img/g17_p3.png" alt="Transferencia 2017 P3">
+<div class="ans"><b>Versión 2:</b> con Zener de 5.6 V a 45 mA y r<sub>z</sub> = 5 Ω, el quiebre queda en ±6.675 V y la pendiente es 1/16.38. <b>Versión repe:</b> con V<sub>D</sub> = 0.65 V, V<sub>Z</sub> = 5.1 V y r<sub>z</sub> = 0, la salida queda plana en <b>±6.4 V</b>.</div></div>
+
+<!-- ============ 13 ============ -->
+<div id="p13" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>13. Espejo PMOS y circuito trampa (2023R P4b y 2023 P4c)</h3>
+<img class="fig" src="img/f23r_p4.png" alt="Figura 2023R P4">
+</div>
+<p><b>2023R P4b:</b> M3 es un PMOS conectado como diodo con R<sub>B</sub> = 12 kΩ. Se cumple (15 − V<sub>SG3</sub>)/12k = ½·0.7m·(V<sub>SG3</sub> − 1.4)². Resulta V<sub>SG3</sub> = 3.08 V e I<sub>D3</sub> = <b>0.993 mA</b>. M2 es igual a M3, así que I<sub>D1</sub> = I<sub>D2</sub> = 0.993 mA. M1 tiene R<sub>G</sub> entre D y G sin corriente, así que V<sub>GS</sub> = V<sub>DS</sub>. Por eso <b>V<sub>GS1</sub> = V<sub>DS1</sub> = 1.4 + √(2·0.993/1.1) = 2.74 V</b>. Verifica que M2 esté en saturación: V<sub>SD2</sub> = 12.26 V es mayor que 1.68 V.</p>
+<img class="fig" src="img/f23_p4c.png" alt="Figura 2023 P4c">
+<p><b>2023 P4c:</b> la compuerta de M3 está en −10 V, el potencial más bajo del circuito. Por eso M3 está en corte y no hay camino de corriente hacia el drenaje de M2. Aunque M2 "espeja" a M1, su corriente tiene que ser 0, así que queda en triodo con V<sub>DS</sub> = 0 y <b>V<sub>OUT</sub> = −10 V</b>. M1, por su lado, conduce 5.05 mA con V<sub>GS</sub> = 3.43 V.</p></div>
+
+<!-- ============ 14 ============ -->
+<div id="p14" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>14. Foco incandescente con diodo "ahorrador" (2023 P2 y 2023R P2)</h3>
+<img class="fig" src="img/f23_p2.png" alt="Figura 2023 P2">
+</div>
+<ul>
+<li><b>Foco de 100 W:</b> R = 120²/100 = 144 Ω. Con media onda ideal, P = <b>50 W</b>. Además I<sub>p</sub> = 1.18 A, I<sub>prom</sub> = 0.375 A e I<sub>rms</sub> = 0.589 A.</li>
+<li><b>El problema:</b> no ahorra "gratis". El foco recibe la mitad de la energía y por eso da mucha menos luz; la eficacia luminosa cae más que la potencia, porque el filamento está más frío. También parpadea a 60 Hz e inyecta componente DC en la red. Y la resistencia del filamento no es constante, así que el cálculo con R fija es solo aproximado.</li>
+<li><b>Foco de 60 W (2023R):</b> R = 240 Ω, I<sub>p</sub> = <b>0.707 A</b>, I<sub>prom</sub> = <b>0.225 A</b> e I<sub>rms</sub> = <b>0.354 A</b>.</li>
+</ul></div>
+
+<!-- ============ 15 ============ -->
+<div id="p15" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>15. Transferencia con ramas resistivas y entrada triangular (2021 P1)</h3>
+<img class="fig" src="img/f21_p1.png" alt="Figura 2021 P1">
+</div>
+<p>Los datos son V<sub>D</sub> = 0.6 V, R1 = 500 Ω, la rama de D1 con 1.5 V y R2 = 750 Ω, y la rama de D2 con R3 = 250 Ω.</p>
+<ul>
+<li><b>Entre −0.6 V y 2.1 V:</b> ambos diodos están apagados y V<sub>o</sub> = V<sub>i</sub>.</li>
+<li><b>Para V<sub>i</sub> &gt; 2.1 V:</b> conduce D1. V<sub>o</sub> = (750V<sub>i</sub> + 500·2.1)/1250 = <b>0.6V<sub>i</sub> + 0.84</b>. En 10 V da 6.84 V.</li>
+<li><b>Para V<sub>i</sub> &lt; −0.6 V:</b> conduce D2. V<sub>o</sub> = <b>V<sub>i</sub>/3 − 0.4</b>. En −10 V da −3.73 V.</li>
+</ul>
+<img src="img/g21_p1.png" alt="Transferencia 2021 P1" style="max-width:60%">
+<div class="ans"><b>Variante de 2014 P1:</b> para V<sub>i</sub> &gt; 1.7 V, V<sub>o</sub> = 1.7 + (V<sub>i</sub> − 1.7)·1.5/2.5. <b>Ojo:</b> la solución oficial escribe "+1 V" al final, pero por continuidad debe ser +1.7 V. Para V<sub>i</sub> &lt; −0.7 V, V<sub>o</sub> = −0.7 + (V<sub>i</sub> + 0.7)/3.</div></div>
+
+<!-- ============ 16 ============ -->
+<div id="p16" class="prob baja"><div class="keep"><h3><span class="tag baja">BAJA · 25 %</span>16. Rizado de 4.5 % y 1.25 % en un puente con R = 1 kΩ (parcial "nota 7" P4)</h3>
+<p>La relación 12:1 da 10 Vrms en el secundario, así que V<sub>p</sub> = 14.14 − 1.4 = 12.74 V.</p>
+</div>
+<table><tr><th></th><th>V<sub>r</sub> = 4.5 %</th><th>V<sub>r</sub> = 1.25 %</th></tr>
+<tr><td>C</td><td>185 µF</td><td>667 µF</td></tr>
+<tr><td>V<sub>o</sub> promedio</td><td>12.45 V</td><td>12.66 V</td></tr>
+<tr><td>Fracción de conducción ωΔT/2π</td><td>4.77 %</td><td>2.52 %</td></tr>
+<tr><td>i<sub>D,prom</sub></td><td>143 mA</td><td>264 mA</td></tr>
+<tr><td>i<sub>D,pico</sub></td><td>273 mA</td><td>516 mA</td></tr></table>
+<p class="small">La fracción usa ωΔT/2π por ciclo completo, como en la solución del estudiante.</p></div>
+
+<!-- ============ 17 ============ -->
+<div id="p17" class="prob baja"><div class="keep"><h3><span class="tag baja">BAJA · 20 %</span>17. Sujetador con diodo y Zener (2021 P3)</h3>
+<img class="fig" src="img/f21_p3.png" alt="Figura 2021 P3">
+</div>
+<p>La rama D1 + Zener solo conduce cuando V<sub>o</sub> &gt; 0.6 + 5.1 = 5.7 V. En el pico positivo de 14.14 V, el condensador se carga a 14.14 − 5.7 = 8.44 V. Después V<sub>o</sub> = v<sub>i</sub> − 8.44, que oscila entre +5.7 V y −22.6 V.</p>
+<div class="ans"><b>V<sub>o,promedio</sub> = −8.44 V</b></div></div>
+
+<!-- ============ 18 ============ -->
+<div id="p18" class="prob baja"><div class="keep"><h3><span class="tag baja">BAJA · 20 %</span>18. Tres diodos en DC (2017 P1)</h3>
+<img class="fig" src="img/f17_p1.png" alt="Figura 2017 P1">
+</div>
+<p><b>Versión 1:</b> D1 y D2 conducen y D3 está apagado. Resulta I<sub>D1</sub> = I<sub>D2</sub> = 0.976 mA, V<sub>1</sub> = 0.467 V y V<sub>2</sub> = V<sub>3</sub> = −0.233 V.</p>
+<p><b>Versión 2:</b> D1 y D3 conducen y D2 está apagado. Resulta I<sub>D1</sub> = 1.215 mA, I<sub>D3</sub> = 0.93 mA, V<sub>1</sub> = −2.15 V, V<sub>2</sub> = −2.85 V y V<sub>3</sub> = −0.7 V. Aplica el método de la guía 01 y verifica los signos.</p></div>
+
+<!-- ============ 19 ============ -->
+<div id="p19" class="prob baja"><div class="keep"><h3><span class="tag baja">BAJA · 15 %</span>19. Unión pn (2017 P4 y el corto)</h3>
+<p><b>2017 P4:</b> las direcciones son difusión de electrones ←, difusión de huecos →, desplazamiento de electrones → y desplazamiento de huecos ←. Con 10¹⁷/10¹⁶ resulta V<sub>0</sub> = 0.728 V, E<sub>max</sub> = 45.2 kV/cm y W = 0.32 µm. En directa la difusión aumenta, el desplazamiento se mantiene y el total aumenta. En inversa la difusión disminuye, el desplazamiento se mantiene y el total queda en −I<sub>S</sub>.</p>
+</div>
+<p><b>Corto:</b></p>
+<ul>
+<li>Minoritarios: 1.445×10⁴ cm⁻³.</li>
+<li>J<sub>dif</sub> = 750 A/cm². El campo que la compensa es de unos 248 V/cm si se usa la n promedio.</li>
+<li>τ = L²/D = 14.8 µs.</li>
+<li>Con 10¹⁶/10¹⁸: n<sub>p</sub> = 2.25×10⁴ cm⁻³, p<sub>n</sub> = 225 cm⁻³, V<sub>bi</sub> ≈ 0.81 V y W ≈ 0.33 µm.</li>
+</ul></div>
+
+<h2 id="s5">5. Lista de comprobación antes del examen</h2>
+<ul class="chk">
+<li>Sé calcular V<sub>r</sub>, ΔT, la corrección de V<sub>r</sub> por T/2 − ΔT, I<sub>pico</sub> por ambas vías, P, I<sub>ac</sub> y PF.</li>
+<li>Sé integrar la corriente de un cargador con batería: θ<sub>1</sub>, promedio, rms, tiempo de carga y eficiencia.</li>
+<li>Sé trazar una transferencia con 2 diodos y fuentes, y convertirla en v<sub>o</sub>(t) para una onda triangular o senoidal.</li>
+<li>Sé diseñar R de un regulador Zener y calcular la regulación de línea y de carga.</li>
+<li>Sé obtener V<sub>t</sub> y K<sub>N</sub> de dos puntos, de una curva o de un transistor conectado como diodo.</li>
+<li>Sé resolver un NMOS con divisor y R<sub>S</sub>, y verificar la región.</li>
+<li>Sé resolver el triodo cuando falla la hipótesis de saturación.</li>
+<li>Sé encontrar los límites de V<sub>i</sub> para corte, saturación y triodo, y V<sub>DD,min</sub>.</li>
+<li>Sé justificar con criterio de ingeniería: capacidad del diodo, eficiencia, "¿cuál es el problema?".</li>
+<li>Llevo calculadora con resolución de cuadráticas y funciones trigonométricas en radianes.</li>
+</ul>
+</body></html>
