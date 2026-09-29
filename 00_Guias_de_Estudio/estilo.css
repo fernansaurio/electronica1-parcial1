@@ -49,3 +49,20 @@ pre.ascii { font-family: "DejaVu Sans Mono", "Liberation Mono", Consolas, monosp
 .toc ol { margin: 4px 0; padding-left: 20px; } .toc a { color: #184f95; text-decoration: none; }
 .enun { background: #f6f6f4; border-radius: 6px; padding: 6px 12px; margin: 8px 0; }
 h4 { font-size: 10.5pt; color: #184f95; margin: 14px 0 4px; break-after: avoid; page-break-after: avoid; }
+/* ---- circuitos: imagen real o ASCII ---- */
+.modo-bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; background: #fff; border: 1px solid #d3e2f5; border-radius: 8px; padding: 6px 10px; margin: 8px 0 14px; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+.modo-bar span { font-weight: bold; color: #0d366b; }
+.modo-bar .modo-nota { font-weight: normal; color: #52514e; font-size: 9pt; margin-left: 4px; }
+.modo-bar button, .dual-bar button { font: inherit; font-size: 9.5pt; border: 1px solid #b7d3f6; background: #f5f9fe; color: #184f95; border-radius: 14px; padding: 3px 12px; cursor: pointer; }
+.modo-bar button[aria-pressed="true"], .dual-bar button[aria-pressed="true"] { background: #184f95; color: #fff; border-color: #184f95; }
+figure.dual { margin: 10px 0; border: 1px solid #e4e3df; border-radius: 6px; padding: 6px 8px; background: #fff; }
+.dual-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.dual-bar span { font-size: 9pt; color: #52514e; margin-right: 4px; }
+.dual-img img { max-height: 95mm; margin: 6px auto; }
+figure.dual pre.ascii { margin: 4px 0 0; }
+figure.dual[data-v="img"] pre.ascii { display: none; }
+figure.dual[data-v="ascii"] .dual-img { display: none; }
+@media print {
+  .modo-bar, .dual-bar { display: none; }
+  figure.dual .dual-img, figure.dual pre.ascii { display: block !important; }
+}

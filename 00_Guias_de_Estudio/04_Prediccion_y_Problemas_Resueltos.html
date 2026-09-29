@@ -1,5 +1,6 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><title>Guía 04 · Predicción y problemas resueltos</title><link rel="stylesheet" href="estilo.css"></head><body>
 <h1>Guía 04 · Predicción del Parcial 1 y problemas resueltos paso a paso</h1>
+<div class="modo-bar" role="group" aria-label="Cómo ver los circuitos"><span>Circuitos:</span><button type="button" data-set="img">Imagen</button><button type="button" data-set="ascii">ASCII</button><span class="modo-nota">Cada circuito también tiene su propio botón.</span></div>
 <p class="sub">Basada en 12 parciales de ELC-115 (2013–2025) del Prof. José Ramos López. Todas las respuestas numéricas se verificaron en Python y, donde existe, contra la solución oficial.</p>
 
 <div class="toc"><b>Contenido</b>
@@ -52,9 +53,9 @@
 
 <!-- ============ 1 ============ -->
 <div id="p1" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 70 %</span>1. Puente con condensador y corrección por ΔT (2023 P3 y 2023R P3)</h3>
-<img class="fig" src="img/f23_p3.png" alt="Figura 2023 P3"></div>
+</div>
 <p class="enun"><b>Datos:</b> v<sub>s</sub> = 169.7 sen(377t) V, directo de la red sin transformador. C = 1000 µF, R<sub>load</sub> = 20 Ω, V<sub>D</sub> = 1 V (1N4004). L<sub>s</sub> = L<sub>d</sub> = 1 µH y R<sub>s</sub> = R<sub>1</sub> = 0.01 Ω. Se pide V<sub>r</sub>, I<sub>pico</sub> y P, repetir con la corrección por ΔT, y opinar sobre el 1N4004.</p>
-<pre class="ascii">                     +--------------+-------------+--(Ld 1uH)--/\/\/--+--------+------o Vdc+
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f23_p3.png" alt="Circuito original"></div><pre class="ascii">                     +--------------+-------------+--(Ld 1uH)--/\/\/--+--------+------o Vdc+
                      |              |                          R1 0.01 |        |
                     ---            ---                                ---       &gt;
                  D1 / \         D3 / \                                ---  C1   &lt;  R_load
@@ -69,7 +70,7 @@
                      |             ---                                 |        |
                      |          D2 / \                                 |        |
                      |              |                                  |        |
-                     +--------------+----------------------------------+--------+------o Vdc-</pre>
+                     +--------------+----------------------------------+--------+------o Vdc-</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Simplificar los elementos parásitos</div>
 <p class="tec"><b>Técnica:</b> comparación de impedancias (X<sub>L</sub> = ωL) y aproximación de elementos despreciables.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. L<sub>s</sub>, L<sub>d</sub> → cortos; R<sub>s</sub>, R<sub>1</sub> → cortos (son mucho menores que 20 Ω).</p>
@@ -157,9 +158,9 @@
 
 <!-- ============ 2 ============ -->
 <div id="p2" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 55 %</span>2. MOSFET con la señal en la fuente: V<sub>G,min</sub>, V<sub>DD,min</sub> e I<sub>D</sub> (2024 P4 = 2014 P5)</h3>
-<img class="fig" style="max-height:105mm" src="img/f24_p4.png" alt="Figura 2024 P4"></div>
+</div>
 <p class="enun">NMOS del CD4007 con la curva I<sub>D</sub>–V<sub>GS</sub> de la figura. R<sub>D</sub> = 1.1 kΩ, −1.5 V ≤ V<sub>IN</sub> ≤ 1.5 V. a) V<sub>G</sub> mínimo para no entrar en corte; b) V<sub>DD</sub> mínimo para saturación con V<sub>G</sub> = 5 V; c) I<sub>D</sub> con V<sub>IN</sub> = 0 y V<sub>DD</sub> = 20 V; d) lo mismo con V<sub>DD</sub> = 10 V.</p>
-<pre class="ascii">                                 V_DD
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f24_p4.png" alt="Circuito original"></div><pre class="ascii">                                 V_DD
                                    |
                                    &gt;
                                    &lt;  R_D = 1.1 k
@@ -176,7 +177,7 @@
                    (  V_G  )                  ( V_IN )   -1.5 V ... +1.5 V
                       |  -                       |  -
                       |                          |
-                     GND ----------------------- GND</pre>
+                     GND ----------------------- GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 0</span>V<sub>t</sub> y K<sub>N</sub> de la curva</div>
 <p class="tec"><b>Técnica:</b> dos puntos en saturación (cociente de corrientes, guía 03 sección 3).</p>
 <p class="red"><b>¿Se redibuja?</b> No. Se leen los puntos marcados: (2.5 V; 0.8 mA) y (5 V; 6.6 mA).</p>
@@ -254,9 +255,9 @@
 
 <!-- ============ 3 ============ -->
 <div id="p3" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 50 %</span>3. Cargador de batería con puente, R y batería (2023 P1)</h3>
-<img class="fig" src="img/f23_p1.png" alt="Figura 2023 P1"></div>
+</div>
 <p class="enun"><b>Datos:</b> 120 Vac con transformador 10:1, puente de 1N4001 con V<sub>D</sub> = 0.85 V, R1 = 10 Ω, batería de 4 celdas AAA de 1.5 V (6 V, 800 mAh). Halle I<sub>pico</sub>, la corriente promedio en la batería y en cada diodo, el tiempo de carga y la potencia.</p>
-<pre class="ascii">           10:1
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f23_p1.png" alt="Circuito original"></div><pre class="ascii">           10:1
    +----+       +----+
    |    )|     |(    |
  (~ 120 )|     |(    |  secundario: 12 Vrms = 16.97 V pico, terminales A y B
@@ -282,7 +283,7 @@
                   |               |               |
                   +---------------+---------------+   riel -
 
-   Igual que en la figura: semiciclo + -&gt; conducen D1 y D2 ; semiciclo - -&gt; conducen D3 y D4.</pre>
+   Igual que en la figura: semiciclo + -&gt; conducen D1 y D2 ; semiciclo - -&gt; conducen D3 y D4.</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Pico del secundario</div>
 <p class="tec"><b>Técnica:</b> relación de transformación + conversión rms → pico.</p>
 <p class="red"><b>¿Se redibuja?</b> No.</p>
@@ -347,9 +348,9 @@
 
 <!-- ============ 4 ============ -->
 <div id="p4" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 45 %</span>4. Recortador con dos diodos y fuentes DC, entrada triangular (2024 P1)</h3>
-<img class="fig" src="img/f24_p1.png" alt="Figura 2024 P1"></div>
+</div>
 <p class="enun">V<sub>S</sub> triangular de 5 V pico, R1 = R<sub>L</sub> = 5.1 kΩ, V1 = 1.5 V, V2 = 1 V (con el − arriba), diodos 1N914 con la caída observada en el laboratorio: <b>V<sub>D</sub> ≈ 0.5 V</b>. Dibuje V<sub>out</sub>.</p>
-<pre class="ascii">           R1 = 5.1 k
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f24_p1.png" alt="Circuito original"></div><pre class="ascii">           R1 = 5.1 k
    +------/\/\/------+----------------+----------------+------o V_out
    |                 |                |                |
    |                \ /  D1          ---  D2           &gt;
@@ -360,7 +361,7 @@
                      |  -             |  +             |
    +-----------------+----------------+----------------+------ GND
 
-   D1: ánodo en V_out, cátodo en +1.5 V.     D2: cátodo en V_out, ánodo en -1 V.</pre>
+   D1: ánodo en V_out, cátodo en +1.5 V.     D2: cátodo en V_out, ánodo en -1 V.</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Relación base con los dos diodos OFF</div>
 <p class="tec"><b>Técnica:</b> modelo OFF (abierto) + divisor de tensión.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 y D2 (OFF) → abiertos: se borran sus ramas con V1 y V2.</p>
@@ -438,9 +439,9 @@
 
 <!-- ============ 5 ============ -->
 <div id="p5" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 45 %</span>5. V<sub>t</sub> y K<sub>N</sub> medidos y regiones contra V<sub>i</sub> (2021 P4 y P5)</h3>
-<img class="fig" src="img/f21_p4.png" alt="Figura 2021 P4"></div>
+</div>
 <p class="enun"><b>P4:</b> con V<sub>DD</sub> = 10 V se mide V<sub>1</sub> = 4.14 V con R<sub>D</sub> = 1.2 kΩ y V<sub>1</sub> = 3.28 V con R<sub>D</sub> = 2.7 kΩ. Halle V<sub>t</sub> y K<sub>N</sub>. <b>P5:</b> con V<sub>G</sub> = 5 V, R<sub>D</sub> = 2.7 kΩ, V<sub>DD</sub> = 10 V y la fuente en V<sub>i</sub> (0 a 5 V), halle los rangos de cada región.</p>
-<pre class="ascii">   P4:        V_DD = 10 V                     P5:           V_DD = 10 V
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f21_p4.png" alt="Circuito original"><img src="img/f21_p5.png" alt="Circuito original"></div><pre class="ascii">   P4:        V_DD = 10 V                     P5:           V_DD = 10 V
                   |                                             |
                   &gt;                                             &gt;
                   &lt;  R_D                                        &lt;  R_D = 2.7 k
@@ -454,7 +455,7 @@
                   |  S                                          |  S
                  GND                                         ( V_i )  0 ... 5 V
                                                                 |
-                                                               GND</pre>
+                                                               GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>P4: región del transistor</div>
 <p class="tec"><b>Técnica:</b> transistor conectado como diodo → V<sub>DS</sub> = V<sub>GS</sub> &gt; V<sub>OV</sub> → siempre saturación.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. MOSFET → fuente de corriente ½K<sub>N</sub>(V<sub>1</sub> − V<sub>t</sub>)², con V<sub>GS</sub> = V<sub>1</sub>.</p>
@@ -530,8 +531,8 @@
 <div class="mat"><div><span class="lb">Sustitución:</span> r = √(12.0/3.65) = 1.813 ; V<sub>t</sub> = (1.813 × 3 − 5)/(0.813) = 0.440/0.813</div>
 <div><span class="lb">Despeje:</span> V<sub>t</sub> = 0.54 V ; K<sub>N</sub> = 2(12.0)/(5 − 0.54)² = 24/19.9</div></div>
 <p class="res">Resultado: <b>V<sub>t</sub> ≈ 0.54 V</b> y <b>K<sub>N</sub> ≈ 1.21 mA/V²</b>. Es sensible a la lectura: con 3.6–3.7 mA, V<sub>t</sub> queda entre 0.50 y 0.58 V.</p></div>
-<img class="fig" src="img/f23_p4b.png" alt="Figura 2023 P4b">
-<pre class="ascii">          V_DD = 15 V
+
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f23_p4b.png" alt="Circuito original"></div><pre class="ascii">          V_DD = 15 V
             |
      +------+------+
      |             |
@@ -550,7 +551,7 @@
      &gt;             &lt;  R_S = 2 k
      |             &gt;
      |             |
-    GND           GND</pre>
+    GND           GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 3</span>Tensión de compuerta</div>
 <p class="tec"><b>Técnica:</b> divisor de tensión (I<sub>G</sub> = 0).</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. Compuerta → abierta: R1 y R2 en serie.</p>
@@ -578,14 +579,14 @@
 
 <!-- ============ 7 ============ -->
 <div id="p7" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 40 %</span>7. Diseño de una fuente con puente (2017 P2)</h3>
-<img class="fig" src="img/f17_p2.png" alt="Figura 2017 P2"></div>
+</div>
 <p class="enun"><b>Especificación:</b> V<sub>L</sub> = 12 V, rizado de 1 %, I<sub>L</sub> = 2 A, V<sub>D</sub> = 1 V, 60 Hz. Halle la tensión del transformador, C, el PIV, la corriente pico repetitiva y la potencia del transformador.</p>
-<pre class="ascii">   (~ V_linea) ==XFMR== V_s --&gt; [ puente D1..D4 ] --+----------+------o V_L = 12 V
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f17_p2.png" alt="Circuito original"></div><pre class="ascii">   (~ V_linea) ==XFMR== V_s --&gt; [ puente D1..D4 ] --+----------+------o V_L = 12 V
                                                     |          |
                                                    ---         &gt;
                                                    ---  C      &lt;  R_L   (I_L = 2 A)
                                                     |          &gt;
-                                            GND ----+----------+</pre>
+                                            GND ----+----------+</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Rizado permitido</div>
 <p class="tec"><b>Técnica:</b> especificación porcentual.</p>
 <p class="red"><b>¿Se redibuja?</b> No.</p>
@@ -654,16 +655,16 @@
 
 <!-- ============ 9 ============ -->
 <div id="p9" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 35 %</span>9. Cargador con fuente de corriente (2025 P1, Sedra P4.10)</h3>
-<img class="fig" src="img/f25_p1.png" alt="Figura 2025 P1"></div>
+</div>
 <p class="enun">I = 60 mA, v<sub>i</sub> senoidal de 12 V pico, V<sub>D</sub> = 0.7 V, batería de 6 V. Halle la forma de i<sub>B</sub>, su pico y su promedio; repita si el pico baja 10 %.</p>
-<pre class="ascii">                     (^ I = 60 mA)   empuja corriente hacia el nodo X
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f25_p1.png" alt="Circuito original"></div><pre class="ascii">                     (^ I = 60 mA)   empuja corriente hacia el nodo X
                           |
    v_i o-------|&lt;---------X---------&gt;|--------+------o v_O
                   D1                   D2      |  i_B --&gt;
              (cátodo en v_i)                  |  +
                                            ( 6 V )  batería B
                                               |  -
-                                             GND</pre>
+                                             GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Caso v<sub>i</sub> &lt; 6 V: conduce D1</div>
 <p class="tec"><b>Técnica:</b> método de estados + LCK en X (la corriente de la fuente debe salir por algún diodo).</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 (ON) → batería de 0.7 V; D2 (OFF) → abierto.</p>
@@ -755,15 +756,15 @@
 
 <!-- ============ 11 ============ -->
 <div id="p11" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 35 %</span>11. Tabla de la fuente del laboratorio y rediseño por hueco de tensión (2024 P2 y P3)</h3>
-<img class="fig" src="img/f24_p2.png" alt="Figura 2024 P2"></div>
-<pre class="ascii">   (~ vp) --R2 0.1-- L1 ==== L2/L3 ---&gt; vs1, vs2 ---&gt; [ D1..D4, 1N4001 ] --+-------+------o V_out
+</div>
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f24_p2.png" alt="Circuito original"></div><pre class="ascii">   (~ vp) --R2 0.1-- L1 ==== L2/L3 ---&gt; vs1, vs2 ---&gt; [ D1..D4, 1N4001 ] --+-------+------o V_out
                                                                            |       |
                                                                           ---      &gt;
                                                                           ---  CF  &lt;  RL
                                                                            |       &gt;
                                                                    GND ----+-------+
    Lo único que necesita el análisis es el pico que llega al condensador: V_p = 17.07 V
-   (transformador del laboratorio 1 menos dos caídas de diodo, según la tabla oficial).</pre>
+   (transformador del laboratorio 1 menos dos caídas de diodo, según la tabla oficial).</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Tabla de V<sub>dc</sub>, V<sub>r</sub> y P</div>
 <p class="tec"><b>Técnica:</b> fórmulas de rizado de onda completa aplicadas a cada combinación.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí, conceptualmente: en cada caso, diodos OFF → C descargándose en R<sub>L</sub>.</p>
@@ -795,9 +796,9 @@
 
 <!-- ============ 12 ============ -->
 <div id="p12" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>12. Transferencia de un puente de diodos con Zener, modelo lineal por tramos (2017 P3 y repe P4)</h3>
-<img class="fig" src="img/f17_p3.png" alt="Figura 2017 P3"></div>
+</div>
 <p class="enun">Diodos: V<sub>D0</sub> = 0.65 V, r<sub>D</sub> = 30 Ω. Zener D5: 6.8 V a 37 mA, r<sub>z</sub> = 3.5 Ω. R1 = 1 kΩ. Trace v<sub>o</sub> contra v<sub>i</sub> para |v<sub>i</sub>| ≤ 10 V.</p>
-<pre class="ascii">              R1 = 1 k
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f17_p3.png" alt="Circuito original"></div><pre class="ascii">              R1 = 1 k
    v_i o-----/\/\/-----+-----------o v_o
                        |
             +----------+----------+
@@ -812,7 +813,7 @@
             |                     |
             +----------+----------+
                        |
-                      GND</pre>
+                      GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Parámetros del modelo del Zener</div>
 <p class="tec"><b>Técnica:</b> modelo lineal por tramos, V<sub>Z0</sub> = V<sub>ZT</sub> − I<sub>ZT</sub>r<sub>z</sub>.</p>
 <p class="red"><b>¿Se redibuja?</b> No.</p>
@@ -864,9 +865,9 @@
 
 <!-- ============ 13 ============ -->
 <div id="p13" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>13. Espejo PMOS y circuito trampa (2023R P4b y 2023 P4c)</h3>
-<img class="fig" src="img/f23r_p4.png" alt="Figura 2023R P4"></div>
+</div>
 <p class="enun"><b>2023R P4b:</b> CD4007 (K<sub>P</sub> = 0.7 mA/V², K<sub>N</sub> = 1.1 mA/V², |V<sub>t</sub>| = 1.4 V), V<sub>DD</sub> = 15 V, R<sub>B</sub> = 12 kΩ, R<sub>G</sub> = 1000 kΩ. Halle I<sub>D1</sub> y V<sub>GS1</sub> = V<sub>DS1</sub>.</p>
-<pre class="ascii">                           V_DD = 15 V
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f23r_p4.png" alt="Circuito original"></div><pre class="ascii">                           V_DD = 15 V
           +--------------------+--------------------+
           |  S                                      |  S
       ||&lt;-+                                     ||&lt;-+
@@ -883,7 +884,7 @@
                                                     +---||        M1 (NMOS)
                                                    G1   ||-&gt;+
                                                             |  S
-                                                           GND</pre>
+                                                           GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>M3: PMOS conectado como diodo</div>
 <p class="tec"><b>Técnica:</b> transistor con G unido a D → saturación; LVK en V<sub>DD</sub> → M3 → R<sub>B</sub> → tierra.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. M3 → elemento de dos terminales con I = ½K<sub>P</sub>(V<sub>SG3</sub> − 1.4)².</p>
@@ -909,9 +910,9 @@
 <p class="red"><b>¿Se redibuja?</b> No.</p>
 <div class="mat"><div><span class="lb">Sustitución:</span> V<sub>SD2</sub> = 15 − 2.74 = 12.26 V ≥ 3.08 − 1.4 = 1.68 V ✓</div></div>
 <p class="res">Resultado: <b>el espejo funciona</b>; las respuestas coinciden con la solución oficial.</p></div>
-<img class="fig" src="img/f23_p4c.png" alt="Figura 2023 P4c">
+
 <p class="enun"><b>2023 P4c:</b> V1 = V2 = 10 V (±10 V respecto de tierra), R<sub>D1</sub> = 1.3 kΩ, transistores del problema 6 (V<sub>t</sub> = 0.54 V, K<sub>N</sub> = 1.21 mA/V²). Halle V<sub>OUT</sub>.</p>
-<pre class="ascii">                    +10 V (V1)                                GND
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f23_p4c.png" alt="Circuito original"></div><pre class="ascii">                    +10 V (V1)                                GND
                         |  D                                   |
                     ||--+                                      &gt;
    -10 V -----------||        M3                               &lt;  R_D1 = 1.3 k
@@ -925,7 +926,7 @@
               |         |  S                       |           |  S
               |       -10 V (V2)                   |         -10 V
               |                                    |
-              +------------------------------------+   (G1 = D1 = G2)</pre>
+              +------------------------------------+   (G1 = D1 = G2)</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 5</span>M3 está en corte</div>
 <p class="tec"><b>Técnica:</b> condición de corte: su compuerta está en −10 V, el potencial más bajo del circuito, así que V<sub>GS3</sub> ≤ 0 &lt; V<sub>t</sub> sea cual sea su fuente.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. M3 → <b>circuito abierto</b>: el drenaje de M2 queda sin camino de corriente.</p>
@@ -943,8 +944,8 @@
 
 <!-- ============ 14 ============ -->
 <div id="p14" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>14. Foco incandescente con diodo "ahorrador" (2023 P2 y 2023R P2)</h3>
-<img class="fig" src="img/f23_p2.png" alt="Figura 2023 P2"></div>
-<pre class="ascii">                 D1 (1N4004)
+</div>
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f23_p2.png" alt="Circuito original"></div><pre class="ascii">                 D1 (1N4004)
    +-------------&gt;|------------+
    |                           |
  (~ 120 Vac)                   &gt;
@@ -952,7 +953,7 @@
    |                           &gt;
    |                           |
    +---------------------------+
-  GND</pre>
+  GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Resistencia de la lámpara</div>
 <p class="tec"><b>Técnica:</b> potencia nominal P = V<sub>rms</sub>²/R.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. Lámpara → resistencia R fija (aproximación).</p>
@@ -973,9 +974,9 @@
 
 <!-- ============ 15 ============ -->
 <div id="p15" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>15. Transferencia con ramas resistivas y entrada triangular (2021 P1)</h3>
-<img class="fig" src="img/f21_p1.png" alt="Figura 2021 P1"></div>
+</div>
 <p class="enun">V<sub>D</sub> = 0.6 V, R1 = 500 Ω, rama de D1 con V3 = 1.5 V y R2 = 750 Ω, rama de D2 con R3 = 250 Ω. Trace V<sub>o</sub> contra V<sub>i</sub> para −10 ≤ V<sub>i</sub> ≤ 10 V.</p>
-<pre class="ascii">            R1 = 500
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f21_p1.png" alt="Circuito original"></div><pre class="ascii">            R1 = 500
    +-------/\/\/-------+-----------------+------o + V_o
    |                   |                 |
    |                  \ /  D1            ---  D2    (D2: cátodo arriba en V_o)
@@ -987,7 +988,7 @@
    |                   &lt;  R2 = 750        &lt;  R3 = 250
    |                   &gt;                  &gt;
    |                   |                  |
-   +-------------------+------------------+------o - (GND)</pre>
+   +-------------------+------------------+------o - (GND)</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Ambos diodos apagados</div>
 <p class="tec"><b>Técnica:</b> modelo OFF + Ley de Ohm (sin corriente en R1).</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 y D2 → abiertos.</p>
@@ -1059,9 +1060,9 @@
 
 <!-- ============ 17 ============ -->
 <div id="p17" class="prob baja"><div class="keep"><h3><span class="tag baja">BAJA · 20 %</span>17. Sujetador con diodo y Zener (2021 P3)</h3>
-<img class="fig" src="img/f21_p3.png" alt="Figura 2021 P3"></div>
+</div>
 <p class="enun">v<sub>i</sub> de 10 Vrms (14.14 V pico) a 60 Hz, D1 con V<sub>D</sub> = 0.6 V, Zener D2 de 5.1 V. Halle v<sub>o</sub>(t) y su promedio.</p>
-<pre class="ascii">              C1
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f21_p3.png" alt="Circuito original"></div><pre class="ascii">              C1
    +---------||---------+--------o V_o
    |      + v_C -       |
  (~ v_i)               \ /  D1   (ánodo arriba en V_o)
@@ -1070,7 +1071,7 @@
    |                   -z-  D2   (Zener: cátodo arriba, en ruptura cuando conduce hacia abajo)
    |                   / \
    |                    |
-   +--------------------+--------  GND</pre>
+   +--------------------+--------  GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>¿Cuándo conduce la rama D1 + Zener?</div>
 <p class="tec"><b>Técnica:</b> método de estados: hacia abajo, D1 en directa (0.6 V) + Zener en ruptura (5.1 V); hacia arriba, D1 bloquea.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. Rama ON → batería de 0.6 + 5.1 = 5.7 V; rama OFF → abierta.</p>
@@ -1109,9 +1110,9 @@
 
 <!-- ============ 18 ============ -->
 <div id="p18" class="prob baja"><div class="keep"><h3><span class="tag baja">BAJA · 20 %</span>18. Tres diodos en DC (2017 P1)</h3>
-<img class="fig" src="img/f17_p1.png" alt="Figura 2017 P1"></div>
+</div>
 <p class="enun">V<sub>CC</sub> = 20 V, V<sub>EE1</sub> = V<sub>EE2</sub> = 10 V (negativas respecto de tierra), R1 = R2 = R3 = 10 kΩ, 1N4148 con V<sub>D</sub> = 0.7 V. Halle las corrientes de los diodos y V<sub>1</sub>, V<sub>2</sub>, V<sub>3</sub>.</p>
-<pre class="ascii">            +20 V (VCC)
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/f17_p1.png" alt="Circuito original"></div><pre class="ascii">            +20 V (VCC)
                |
                &gt;
                &lt;  R1 = 10 k
@@ -1129,7 +1130,7 @@
                &lt;  R2 = 10 k           &lt;  R3 = 10 k    / \  D3  (ánodo en GND, cátodo en el nodo 3)
                &gt;                      &gt;                |
                |                      |               GND
-            -10 V (VEE1)           -10 V (VEE2)</pre>
+            -10 V (VEE1)           -10 V (VEE2)</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Suposición inicial: los tres conducen</div>
 <p class="tec"><b>Técnica:</b> modelo de caída constante + LCK.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D1, D2, D3 → baterías de 0.7 V.</p>
@@ -1193,4 +1194,27 @@
 <li>Sé justificar con criterio de ingeniería: capacidad del diodo, eficiencia, "¿cuál es el problema?".</li>
 <li>Llevo calculadora con resolución de cuadráticas y funciones trigonométricas en radianes.</li>
 </ul>
+<script>
+(function () {
+  var KEY = "elc115-modo-circuito";
+  function set(fig, v) {
+    fig.setAttribute("data-v", v);
+    fig.querySelectorAll(".dual-bar button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === v); });
+  }
+  function global(v) {
+    document.querySelectorAll("figure.dual").forEach(function (f) { set(f, v); });
+    document.querySelectorAll(".modo-bar button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.set === v); });
+    try { localStorage.setItem(KEY, v); } catch (e) {}
+  }
+  var inicial = "img";
+  try { inicial = localStorage.getItem(KEY) || "img"; } catch (e) {}
+  global(inicial);
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.set) global(b.dataset.set);
+    else if (b.dataset.v) set(b.closest("figure.dual"), b.dataset.v);
+  });
+})();
+</script>
 </body></html>

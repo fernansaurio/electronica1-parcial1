@@ -52,9 +52,9 @@
 
 <!-- ============ 1 ============ -->
 <div id="p1" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 70 %</span>1. Puente con condensador y corrección por ΔT (2023 P3 y 2023R P3)</h3>
-<img class="fig" src="img/f23_p3.png" alt="Figura 2023 P3"></div>
+</div>
 <p class="enun"><b>Datos:</b> v<sub>s</sub> = 169.7 sen(377t) V, directo de la red sin transformador. C = 1000 µF, R<sub>load</sub> = 20 Ω, V<sub>D</sub> = 1 V (1N4004). L<sub>s</sub> = L<sub>d</sub> = 1 µH y R<sub>s</sub> = R<sub>1</sub> = 0.01 Ω. Se pide V<sub>r</sub>, I<sub>pico</sub> y P, repetir con la corrección por ΔT, y opinar sobre el 1N4004.</p>
-<pre class="ascii">                     +--------------+-------------+--(Ld 1uH)--/\/\/--+--------+------o Vdc+
+<pre class="ascii" data-img="img/f23_p3.png">                     +--------------+-------------+--(Ld 1uH)--/\/\/--+--------+------o Vdc+
                      |              |                          R1 0.01 |        |
                     ---            ---                                ---       >
                  D1 / \         D3 / \                                ---  C1   <  R_load
@@ -141,9 +141,9 @@
 
 <!-- ============ 2 ============ -->
 <div id="p2" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 55 %</span>2. MOSFET con la señal en la fuente: V<sub>G,min</sub>, V<sub>DD,min</sub> e I<sub>D</sub> (2024 P4 = 2014 P5)</h3>
-<img class="fig" style="max-height:105mm" src="img/f24_p4.png" alt="Figura 2024 P4"></div>
+</div>
 <p class="enun">NMOS del CD4007 con la curva I<sub>D</sub>–V<sub>GS</sub> de la figura. R<sub>D</sub> = 1.1 kΩ, −1.5 V ≤ V<sub>IN</sub> ≤ 1.5 V. a) V<sub>G</sub> mínimo para no entrar en corte; b) V<sub>DD</sub> mínimo para saturación con V<sub>G</sub> = 5 V; c) I<sub>D</sub> con V<sub>IN</sub> = 0 y V<sub>DD</sub> = 20 V; d) lo mismo con V<sub>DD</sub> = 10 V.</p>
-<pre class="ascii">                                 V_DD
+<pre class="ascii" data-img="img/f24_p4.png">                                 V_DD
                                    |
                                    >
                                    <  R_D = 1.1 k
@@ -224,9 +224,9 @@
 
 <!-- ============ 3 ============ -->
 <div id="p3" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 50 %</span>3. Cargador de batería con puente, R y batería (2023 P1)</h3>
-<img class="fig" src="img/f23_p1.png" alt="Figura 2023 P1"></div>
+</div>
 <p class="enun"><b>Datos:</b> 120 Vac con transformador 10:1, puente de 1N4001 con V<sub>D</sub> = 0.85 V, R1 = 10 Ω, batería de 4 celdas AAA de 1.5 V (6 V, 800 mAh). Halle I<sub>pico</sub>, la corriente promedio en la batería y en cada diodo, el tiempo de carga y la potencia.</p>
-<pre class="ascii">           10:1
+<pre class="ascii" data-img="img/f23_p1.png">           10:1
    +----+       +----+
    |    )|     |(    |
  (~ 120 )|     |(    |  secundario: 12 Vrms = 16.97 V pico, terminales A y B
@@ -296,9 +296,9 @@
 
 <!-- ============ 4 ============ -->
 <div id="p4" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 45 %</span>4. Recortador con dos diodos y fuentes DC, entrada triangular (2024 P1)</h3>
-<img class="fig" src="img/f24_p1.png" alt="Figura 2024 P1"></div>
+</div>
 <p class="enun">V<sub>S</sub> triangular de 5 V pico, R1 = R<sub>L</sub> = 5.1 kΩ, V1 = 1.5 V, V2 = 1 V (con el − arriba), diodos 1N914 con la caída observada en el laboratorio: <b>V<sub>D</sub> ≈ 0.5 V</b>. Dibuje V<sub>out</sub>.</p>
-<pre class="ascii">           R1 = 5.1 k
+<pre class="ascii" data-img="img/f24_p1.png">           R1 = 5.1 k
    +------/\/\/------+----------------+----------------+------o V_out
    |                 |                |                |
    |                \ /  D1          ---  D2           >
@@ -356,9 +356,9 @@
 
 <!-- ============ 5 ============ -->
 <div id="p5" class="prob alta"><div class="keep"><h3><span class="tag">ALTA · 45 %</span>5. V<sub>t</sub> y K<sub>N</sub> medidos y regiones contra V<sub>i</sub> (2021 P4 y P5)</h3>
-<img class="fig" src="img/f21_p4.png" alt="Figura 2021 P4"></div>
+</div>
 <p class="enun"><b>P4:</b> con V<sub>DD</sub> = 10 V se mide V<sub>1</sub> = 4.14 V con R<sub>D</sub> = 1.2 kΩ y V<sub>1</sub> = 3.28 V con R<sub>D</sub> = 2.7 kΩ. Halle V<sub>t</sub> y K<sub>N</sub>. <b>P5:</b> con V<sub>G</sub> = 5 V, R<sub>D</sub> = 2.7 kΩ, V<sub>DD</sub> = 10 V y la fuente en V<sub>i</sub> (0 a 5 V), halle los rangos de cada región.</p>
-<pre class="ascii">   P4:        V_DD = 10 V                     P5:           V_DD = 10 V
+<pre class="ascii" data-img="img/f21_p4.png|img/f21_p5.png">   P4:        V_DD = 10 V                     P5:           V_DD = 10 V
                   |                                             |
                   >                                             >
                   <  R_D                                        <  R_D = 2.7 k
@@ -434,8 +434,8 @@
 <div class="mat"><div><span class="lb">Sustitución:</span> r = √(12.0/3.65) = 1.813 ; V<sub>t</sub> = (1.813 × 3 − 5)/(0.813) = 0.440/0.813</div>
 <div><span class="lb">Despeje:</span> V<sub>t</sub> = 0.54 V ; K<sub>N</sub> = 2(12.0)/(5 − 0.54)² = 24/19.9</div></div>
 <p class="res">Resultado: <b>V<sub>t</sub> ≈ 0.54 V</b> y <b>K<sub>N</sub> ≈ 1.21 mA/V²</b>. Es sensible a la lectura: con 3.6–3.7 mA, V<sub>t</sub> queda entre 0.50 y 0.58 V.</p></div>
-<img class="fig" src="img/f23_p4b.png" alt="Figura 2023 P4b">
-<pre class="ascii">          V_DD = 15 V
+
+<pre class="ascii" data-img="img/f23_p4b.png">          V_DD = 15 V
             |
      +------+------+
      |             |
@@ -482,9 +482,9 @@
 
 <!-- ============ 7 ============ -->
 <div id="p7" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 40 %</span>7. Diseño de una fuente con puente (2017 P2)</h3>
-<img class="fig" src="img/f17_p2.png" alt="Figura 2017 P2"></div>
+</div>
 <p class="enun"><b>Especificación:</b> V<sub>L</sub> = 12 V, rizado de 1 %, I<sub>L</sub> = 2 A, V<sub>D</sub> = 1 V, 60 Hz. Halle la tensión del transformador, C, el PIV, la corriente pico repetitiva y la potencia del transformador.</p>
-<pre class="ascii">   (~ V_linea) ==XFMR== V_s --> [ puente D1..D4 ] --+----------+------o V_L = 12 V
+<pre class="ascii" data-img="img/f17_p2.png">   (~ V_linea) ==XFMR== V_s --> [ puente D1..D4 ] --+----------+------o V_L = 12 V
                                                     |          |
                                                    ---         >
                                                    ---  C      <  R_L   (I_L = 2 A)
@@ -558,9 +558,9 @@
 
 <!-- ============ 9 ============ -->
 <div id="p9" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 35 %</span>9. Cargador con fuente de corriente (2025 P1, Sedra P4.10)</h3>
-<img class="fig" src="img/f25_p1.png" alt="Figura 2025 P1"></div>
+</div>
 <p class="enun">I = 60 mA, v<sub>i</sub> senoidal de 12 V pico, V<sub>D</sub> = 0.7 V, batería de 6 V. Halle la forma de i<sub>B</sub>, su pico y su promedio; repita si el pico baja 10 %.</p>
-<pre class="ascii">                     (^ I = 60 mA)   empuja corriente hacia el nodo X
+<pre class="ascii" data-img="img/f25_p1.png">                     (^ I = 60 mA)   empuja corriente hacia el nodo X
                           |
    v_i o-------|<---------X--------->|--------+------o v_O
                   D1                   D2      |  i_B -->
@@ -638,8 +638,8 @@
 
 <!-- ============ 11 ============ -->
 <div id="p11" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 35 %</span>11. Tabla de la fuente del laboratorio y rediseño por hueco de tensión (2024 P2 y P3)</h3>
-<img class="fig" src="img/f24_p2.png" alt="Figura 2024 P2"></div>
-<pre class="ascii">   (~ vp) --R2 0.1-- L1 ==== L2/L3 ---> vs1, vs2 ---> [ D1..D4, 1N4001 ] --+-------+------o V_out
+</div>
+<pre class="ascii" data-img="img/f24_p2.png">   (~ vp) --R2 0.1-- L1 ==== L2/L3 ---> vs1, vs2 ---> [ D1..D4, 1N4001 ] --+-------+------o V_out
                                                                            |       |
                                                                           ---      >
                                                                           ---  CF  <  RL
@@ -678,9 +678,9 @@
 
 <!-- ============ 12 ============ -->
 <div id="p12" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>12. Transferencia de un puente de diodos con Zener, modelo lineal por tramos (2017 P3 y repe P4)</h3>
-<img class="fig" src="img/f17_p3.png" alt="Figura 2017 P3"></div>
+</div>
 <p class="enun">Diodos: V<sub>D0</sub> = 0.65 V, r<sub>D</sub> = 30 Ω. Zener D5: 6.8 V a 37 mA, r<sub>z</sub> = 3.5 Ω. R1 = 1 kΩ. Trace v<sub>o</sub> contra v<sub>i</sub> para |v<sub>i</sub>| ≤ 10 V.</p>
-<pre class="ascii">              R1 = 1 k
+<pre class="ascii" data-img="img/f17_p3.png">              R1 = 1 k
    v_i o-----/\/\/-----+-----------o v_o
                        |
             +----------+----------+
@@ -732,9 +732,9 @@
 
 <!-- ============ 13 ============ -->
 <div id="p13" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>13. Espejo PMOS y circuito trampa (2023R P4b y 2023 P4c)</h3>
-<img class="fig" src="img/f23r_p4.png" alt="Figura 2023R P4"></div>
+</div>
 <p class="enun"><b>2023R P4b:</b> CD4007 (K<sub>P</sub> = 0.7 mA/V², K<sub>N</sub> = 1.1 mA/V², |V<sub>t</sub>| = 1.4 V), V<sub>DD</sub> = 15 V, R<sub>B</sub> = 12 kΩ, R<sub>G</sub> = 1000 kΩ. Halle I<sub>D1</sub> y V<sub>GS1</sub> = V<sub>DS1</sub>.</p>
-<pre class="ascii">                           V_DD = 15 V
+<pre class="ascii" data-img="img/f23r_p4.png">                           V_DD = 15 V
           +--------------------+--------------------+
           |  S                                      |  S
       ||<-+                                     ||<-+
@@ -777,9 +777,9 @@
 <p class="red"><b>¿Se redibuja?</b> No.</p>
 <div class="mat"><div><span class="lb">Sustitución:</span> V<sub>SD2</sub> = 15 − 2.74 = 12.26 V ≥ 3.08 − 1.4 = 1.68 V ✓</div></div>
 <p class="res">Resultado: <b>el espejo funciona</b>; las respuestas coinciden con la solución oficial.</p></div>
-<img class="fig" src="img/f23_p4c.png" alt="Figura 2023 P4c">
+
 <p class="enun"><b>2023 P4c:</b> V1 = V2 = 10 V (±10 V respecto de tierra), R<sub>D1</sub> = 1.3 kΩ, transistores del problema 6 (V<sub>t</sub> = 0.54 V, K<sub>N</sub> = 1.21 mA/V²). Halle V<sub>OUT</sub>.</p>
-<pre class="ascii">                    +10 V (V1)                                GND
+<pre class="ascii" data-img="img/f23_p4c.png">                    +10 V (V1)                                GND
                         |  D                                   |
                     ||--+                                      >
    -10 V -----------||        M3                               <  R_D1 = 1.3 k
@@ -811,8 +811,8 @@
 
 <!-- ============ 14 ============ -->
 <div id="p14" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>14. Foco incandescente con diodo "ahorrador" (2023 P2 y 2023R P2)</h3>
-<img class="fig" src="img/f23_p2.png" alt="Figura 2023 P2"></div>
-<pre class="ascii">                 D1 (1N4004)
+</div>
+<pre class="ascii" data-img="img/f23_p2.png">                 D1 (1N4004)
    +------------->|------------+
    |                           |
  (~ 120 Vac)                   >
@@ -841,9 +841,9 @@
 
 <!-- ============ 15 ============ -->
 <div id="p15" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>15. Transferencia con ramas resistivas y entrada triangular (2021 P1)</h3>
-<img class="fig" src="img/f21_p1.png" alt="Figura 2021 P1"></div>
+</div>
 <p class="enun">V<sub>D</sub> = 0.6 V, R1 = 500 Ω, rama de D1 con V3 = 1.5 V y R2 = 750 Ω, rama de D2 con R3 = 250 Ω. Trace V<sub>o</sub> contra V<sub>i</sub> para −10 ≤ V<sub>i</sub> ≤ 10 V.</p>
-<pre class="ascii">            R1 = 500
+<pre class="ascii" data-img="img/f21_p1.png">            R1 = 500
    +-------/\/\/-------+-----------------+------o + V_o
    |                   |                 |
    |                  \ /  D1            ---  D2    (D2: cátodo arriba en V_o)
@@ -912,9 +912,9 @@
 
 <!-- ============ 17 ============ -->
 <div id="p17" class="prob baja"><div class="keep"><h3><span class="tag baja">BAJA · 20 %</span>17. Sujetador con diodo y Zener (2021 P3)</h3>
-<img class="fig" src="img/f21_p3.png" alt="Figura 2021 P3"></div>
+</div>
 <p class="enun">v<sub>i</sub> de 10 Vrms (14.14 V pico) a 60 Hz, D1 con V<sub>D</sub> = 0.6 V, Zener D2 de 5.1 V. Halle v<sub>o</sub>(t) y su promedio.</p>
-<pre class="ascii">              C1
+<pre class="ascii" data-img="img/f21_p3.png">              C1
    +---------||---------+--------o V_o
    |      + v_C -       |
  (~ v_i)               \ /  D1   (ánodo arriba en V_o)
@@ -945,9 +945,9 @@
 
 <!-- ============ 18 ============ -->
 <div id="p18" class="prob baja"><div class="keep"><h3><span class="tag baja">BAJA · 20 %</span>18. Tres diodos en DC (2017 P1)</h3>
-<img class="fig" src="img/f17_p1.png" alt="Figura 2017 P1"></div>
+</div>
 <p class="enun">V<sub>CC</sub> = 20 V, V<sub>EE1</sub> = V<sub>EE2</sub> = 10 V (negativas respecto de tierra), R1 = R2 = R3 = 10 kΩ, 1N4148 con V<sub>D</sub> = 0.7 V. Halle las corrientes de los diodos y V<sub>1</sub>, V<sub>2</sub>, V<sub>3</sub>.</p>
-<pre class="ascii">            +20 V (VCC)
+<pre class="ascii" data-img="img/f17_p1.png">            +20 V (VCC)
                |
                >
                <  R1 = 10 k

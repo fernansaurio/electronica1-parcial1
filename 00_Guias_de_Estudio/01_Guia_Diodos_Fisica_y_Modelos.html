@@ -1,5 +1,6 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><title>Guía 01 · Diodos: física y modelos</title><link rel="stylesheet" href="estilo.css"></head><body>
 <h1>Guía 01 · Diodos: física y modelos</h1>
+<div class="modo-bar" role="group" aria-label="Cómo ver los circuitos"><span>Circuitos:</span><button type="button" data-set="img">Imagen</button><button type="button" data-set="ascii">ASCII</button><span class="modo-nota">Cada circuito también tiene su propio botón.</span></div>
 <p class="sub">Guía completa, explicada desde cero · Bloques 1, 2 y 3 del plan · Es la base de todas las demás guías</p>
 
 <div class="toc"><b>Contenido</b>
@@ -336,13 +337,13 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 
 <h4>Ejemplo 2.2 · Ejemplo 3.1 de clase: cargador de batería con un diodo</h4>
 <p class="enun">v<sub>S</sub> = 24 sen(ωt) V, R = 100 Ω, batería de 12 V, diodo ideal. Encuentre la fracción del ciclo en que conduce el diodo, la corriente pico y la tensión inversa máxima.</p>
-<pre class="ascii">              R = 100 ohm          D
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/ej31_cargador.png" alt="Circuito original"></div><pre class="ascii">              R = 100 ohm          D
      +---------/\/\/-------------&gt;|---------+
      |                i_D --&gt;               | +
    (~ vs)   vs = 24 sen(wt) V             ( 12 V )   batería
      |                                      | -
      +--------------------------------------+
-                        GND</pre>
+                        GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>¿Cuándo conduce el diodo?</div>
 <p class="tec"><b>Técnica:</b> método de estados + LVK. El diodo ideal conduce si su tensión ánodo-cátodo con el diodo abierto sería positiva.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí, para ver la tensión del diodo supuesto OFF: D → abierto. Sin corriente, R no cae tensión.</p>
@@ -682,4 +683,27 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <li><b>Usar V<sub>T</sub> distinto al del profesor.</b> Usa 25 mV salvo que te den la temperatura.</li>
 <li><b>En pequeña señal, dejar las fuentes DC en el circuito AC.</b> Las fuentes de tensión DC se vuelven cortos y las de corriente DC, abiertos.</li>
 </ul></div>
+<script>
+(function () {
+  var KEY = "elc115-modo-circuito";
+  function set(fig, v) {
+    fig.setAttribute("data-v", v);
+    fig.querySelectorAll(".dual-bar button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === v); });
+  }
+  function global(v) {
+    document.querySelectorAll("figure.dual").forEach(function (f) { set(f, v); });
+    document.querySelectorAll(".modo-bar button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.set === v); });
+    try { localStorage.setItem(KEY, v); } catch (e) {}
+  }
+  var inicial = "img";
+  try { inicial = localStorage.getItem(KEY) || "img"; } catch (e) {}
+  global(inicial);
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.set) global(b.dataset.set);
+    else if (b.dataset.v) set(b.closest("figure.dual"), b.dataset.v);
+  });
+})();
+</script>
 </body></html>

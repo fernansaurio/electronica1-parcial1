@@ -64,7 +64,7 @@
 <!-- ==================================================================== -->
 <h2 id="s2">2. Rectificadores</h2>
 <h3>2.1 Rectificador de media onda</h3>
-<pre class="ascii">                     D
+<pre class="ascii" data-img="img/clase/media_onda.png">                     D
    +---------------->|--------+----------o  + v_o
    |                          |
  (~ vs)   vs = V_s sen(wt)    >
@@ -96,7 +96,7 @@
 
 <h3>2.2 Onda completa con transformador de derivación central</h3>
 <p>El secundario tiene una toma en el centro (CT) que se usa como tierra. Cada mitad entrega V<sub>s</sub> pico, en contrafase: cuando A es +v<sub>s</sub>, B es −v<sub>s</sub>.</p>
-<pre class="ascii">                           D1
+<pre class="ascii" data-img="img/clase/onda_completa_tap.png">                           D1
         +------A------------>|-----------+
         |                                |
       (~ vs)   mitad superior            |
@@ -126,7 +126,7 @@
 
 <h3>2.3 Rectificador en puente</h3>
 <p>Usa un secundario simple y cuatro diodos. En cada semiciclo conducen <b>dos</b> diodos en serie con la carga y los otros dos quedan en inversa. <b>Nunca conducen los cuatro a la vez.</b></p>
-<pre class="ascii">                  +---------------+---------------+-------o  + v_o
+<pre class="ascii" data-img="img/clase/puente.png">                  +---------------+---------------+-------o  + v_o
                   |               |               |
                  ---             ---              >
               D1 / \          D3 / \              <  R_L
@@ -415,7 +415,7 @@
 
 <h4>Ejemplo 4.1 · Ejemplo 3.8 de clase: Zener de 6.8 V</h4>
 <p class="enun">V<sup>+</sup> = 10 ± 1 V, R = 0.5 kΩ. Zener: V<sub>Z</sub> = 6.8 V a I<sub>ZT</sub> = 5 mA, r<sub>z</sub> = 20 Ω, I<sub>ZK</sub> = 0.2 mA. Halle V<sub>O</sub> sin carga, la regulación de línea, el cambio con I<sub>L</sub> = 1 mA, V<sub>O</sub> con R<sub>L</sub> = 2 kΩ y con 0.5 kΩ, y la R<sub>L</sub> mínima.</p>
-<pre class="ascii">              R = 0.5 k
+<pre class="ascii" data-img="img/clase/zener_ej38.png">              R = 0.5 k
    V+ o-----/\/\/-----+-----------+------o  + V_O
    10 +/- 1 V         |           |
                      -z-          >
@@ -565,7 +565,7 @@
 
 <h3>5.2 Sujetador (restaurador de DC)</h3>
 <p>Un sujetador <b>desplaza</b> la señal sin cambiar su forma: el condensador se carga una vez al pico y después actúa como una batería en serie.</p>
-<pre class="ascii">           C
+<pre class="ascii" data-img="img/clase/sujetador.png">           C
    +------||------+---------o  v_o
    |   + v_C -    |
  (~ vi)          ---
@@ -602,7 +602,7 @@
 </ul>
 
 <h3>5.3 Doblador de tensión</h3>
-<pre class="ascii">           C1              D2
+<pre class="ascii" data-img="img/clase/doblador.png">           C1              D2
    +------||------+------->|------+---------o  v_o ~ 2 V_p
    |              |               |
  (~ vi)          ---             ---

@@ -1,5 +1,6 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><title>Guía 02 · Rectificadores, Zener y recortadores</title><link rel="stylesheet" href="estilo.css"></head><body>
 <h1>Guía 02 · Rectificadores, Zener y recortadores</h1>
+<div class="modo-bar" role="group" aria-label="Cómo ver los circuitos"><span>Circuitos:</span><button type="button" data-set="img">Imagen</button><button type="button" data-set="ascii">ASCII</button><span class="modo-nota">Cada circuito también tiene su propio botón.</span></div>
 <p class="sub">Guía completa, explicada paso a paso · Bloques 4, 5 y 6 del plan · Es el núcleo del parcial: 60–70 % de la nota en todos los años</p>
 
 <div class="toc"><b>Contenido</b>
@@ -64,14 +65,14 @@
 <!-- ==================================================================== -->
 <h2 id="s2">2. Rectificadores</h2>
 <h3>2.1 Rectificador de media onda</h3>
-<pre class="ascii">                     D
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/media_onda.png" alt="Circuito original"></div><pre class="ascii">                     D
    +----------------&gt;|--------+----------o  + v_o
    |                          |
  (~ vs)   vs = V_s sen(wt)    &gt;
    |                          &lt;  R_L
    |                          &gt;
    |                          |
-   +--------------------------+----------o  - v_o   (GND)</pre>
+   +--------------------------+----------o  - v_o   (GND)</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Semiciclo positivo (vs &gt; V<sub>D</sub>)</div>
 <p class="tec"><b>Técnica:</b> modelo de caída constante + LVK.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D (ON) → batería V<sub>D</sub> con + en el ánodo.</p>
@@ -112,7 +113,7 @@
 
 <h3>2.2 Onda completa con transformador de derivación central</h3>
 <p>El secundario tiene una toma en el centro (CT) que se usa como tierra. Cada mitad entrega V<sub>s</sub> pico, en contrafase: cuando A es +v<sub>s</sub>, B es −v<sub>s</sub>.</p>
-<pre class="ascii">                           D1
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/onda_completa_tap.png" alt="Circuito original"></div><pre class="ascii">                           D1
         +------A------------&gt;|-----------+
         |                                |
       (~ vs)   mitad superior            |
@@ -123,7 +124,7 @@
         |    inferior |                  |        &gt;
         +------B------)------------&gt;|----+        |
                       |             D2            |
-                      +---------------------------+--------o  - v_o  (GND = CT)</pre>
+                      +---------------------------+--------o  - v_o  (GND = CT)</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Semiciclo positivo: D1 ON, D2 OFF</div>
 <p class="tec"><b>Técnica:</b> método de estados + LVK en la malla superior.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 (ON) → batería V<sub>D</sub>. D2 (OFF, su ánodo B está en −v<sub>s</sub>) → abierto.</p>
@@ -142,7 +143,7 @@
 
 <h3>2.3 Rectificador en puente</h3>
 <p>Usa un secundario simple y cuatro diodos. En cada semiciclo conducen <b>dos</b> diodos en serie con la carga y los otros dos quedan en inversa. <b>Nunca conducen los cuatro a la vez.</b></p>
-<pre class="ascii">                  +---------------+---------------+-------o  + v_o
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/puente.png" alt="Circuito original"></div><pre class="ascii">                  +---------------+---------------+-------o  + v_o
                   |               |               |
                  ---             ---              &gt;
               D1 / \          D3 / \              &lt;  R_L
@@ -160,7 +161,7 @@
                   +---------------+---------------+-------o  - v_o  (GND)
 
    Los cuatro diodos "apuntan hacia arriba": ánodo abajo, cátodo arriba.
-   D1: A -&gt; riel +      D3: B -&gt; riel +      D4: riel - -&gt; A      D2: riel - -&gt; B</pre>
+   D1: A -&gt; riel +      D3: B -&gt; riel +      D4: riel - -&gt; A      D2: riel - -&gt; B</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Semiciclo positivo (A más positivo que B): D1 y D2 ON, D3 y D4 OFF</div>
 <p class="tec"><b>Técnica:</b> método de estados + LVK en la malla A → D1 → R<sub>L</sub> → D2 → B.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 y D2 (ON) → baterías V<sub>D</sub>. D3 y D4 (OFF) → circuito abierto (se borran sus ramas).</p>
@@ -507,14 +508,14 @@ i_D +     ###            ###           ####           ####           ####
 
 <h4>Ejemplo 4.1 · Ejemplo 3.8 de clase: Zener de 6.8 V</h4>
 <p class="enun">V<sup>+</sup> = 10 ± 1 V, R = 0.5 kΩ. Zener: V<sub>Z</sub> = 6.8 V a I<sub>ZT</sub> = 5 mA, r<sub>z</sub> = 20 Ω, I<sub>ZK</sub> = 0.2 mA. Halle V<sub>O</sub> sin carga, la regulación de línea, el cambio con I<sub>L</sub> = 1 mA, V<sub>O</sub> con R<sub>L</sub> = 2 kΩ y con 0.5 kΩ, y la R<sub>L</sub> mínima.</p>
-<pre class="ascii">              R = 0.5 k
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/zener_ej38.png" alt="Circuito original"></div><pre class="ascii">              R = 0.5 k
    V+ o-----/\/\/-----+-----------+------o  + V_O
    10 +/- 1 V         |           |
                      -z-          &gt;
               6.8 V  / \          &lt;  R_L
                       |           &gt;
                       |           |
-   GND o--------------+-----------+------o  -</pre>
+   GND o--------------+-----------+------o  -</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Parámetro V<sub>Z0</sub> del modelo</div>
 <p class="tec"><b>Técnica:</b> modelo lineal por tramos del Zener.</p>
 <p class="red"><b>¿Se redibuja?</b> No todavía.</p>
@@ -687,13 +688,13 @@ i_D +     ###            ###           ####           ####           ####
 
 <h3>5.2 Sujetador (restaurador de DC)</h3>
 <p>Un sujetador <b>desplaza</b> la señal sin cambiar su forma: el condensador se carga una vez al pico y después actúa como una batería en serie.</p>
-<pre class="ascii">           C
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/sujetador.png" alt="Circuito original"></div><pre class="ascii">           C
    +------||------+---------o  v_o
    |   + v_C -    |
  (~ vi)          ---
    |          D  / \      (ánodo abajo en GND, cátodo arriba en v_o:
    |              |        conduce cuando v_o intenta bajar de 0)
-   +--------------+---------o  GND</pre>
+   +--------------+---------o  GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Primer semiciclo negativo: el condensador se carga</div>
 <p class="tec"><b>Técnica:</b> método de estados; con D ON (ideal) el nodo de salida queda en 0 V; LVK en la malla.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D (ON) → corto a tierra.</p>
@@ -742,7 +743,7 @@ i_D +     ###            ###           ####           ####           ####
 </ul>
 
 <h3>5.3 Doblador de tensión</h3>
-<pre class="ascii">           C1              D2
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/doblador.png" alt="Circuito original"></div><pre class="ascii">           C1              D2
    +------||------+-------&gt;|------+---------o  v_o ~ 2 V_p
    |              |               |
  (~ vi)          ---             ---
@@ -751,7 +752,7 @@ i_D +     ###            ###           ####           ####           ####
    +--------------+---------------+---------o  GND
 
    Etapa 1 (C1 + D1) = sujetador: el nodo X oscila entre 0 y 2 V_p
-   Etapa 2 (D2 + C2) = detector de pico: C2 se carga al máximo de X = 2 V_p</pre>
+   Etapa 2 (D2 + C2) = detector de pico: C2 se carga al máximo de X = 2 V_p</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Semiciclo negativo: D1 ON, D2 OFF</div>
 <p class="tec"><b>Técnica:</b> método de estados + LVK.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 (ON) → corto (o 0.7 V); D2 (OFF) → abierto.</p>
@@ -791,4 +792,27 @@ i_D +     ###            ###           ####           ####           ####
 <li>En el Zener, usar V<sub>ZT</sub> como batería del modelo en vez de V<sub>Z0</sub>, o no verificar que I<sub>Z</sub> &gt; I<sub>ZK</sub>.</li>
 <li>En recortadores, poner el umbral en v<sub>o</sub> y olvidar pasarlo a v<sub>i</sub> cuando la relación base es un divisor.</li>
 </ul></div>
+<script>
+(function () {
+  var KEY = "elc115-modo-circuito";
+  function set(fig, v) {
+    fig.setAttribute("data-v", v);
+    fig.querySelectorAll(".dual-bar button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === v); });
+  }
+  function global(v) {
+    document.querySelectorAll("figure.dual").forEach(function (f) { set(f, v); });
+    document.querySelectorAll(".modo-bar button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.set === v); });
+    try { localStorage.setItem(KEY, v); } catch (e) {}
+  }
+  var inicial = "img";
+  try { inicial = localStorage.getItem(KEY) || "img"; } catch (e) {}
+  global(inicial);
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.set) global(b.dataset.set);
+    else if (b.dataset.v) set(b.closest("figure.dual"), b.dataset.v);
+  });
+})();
+</script>
 </body></html>

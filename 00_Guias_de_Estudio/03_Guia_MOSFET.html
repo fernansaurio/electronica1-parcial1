@@ -1,5 +1,6 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><title>Guía 03 · MOSFET en DC</title><link rel="stylesheet" href="estilo.css"></head><body>
 <h1>Guía 03 · MOSFET en DC</h1>
+<div class="modo-bar" role="group" aria-label="Cómo ver los circuitos"><span>Circuitos:</span><button type="button" data-set="img">Imagen</button><button type="button" data-set="ascii">ASCII</button><span class="modo-nota">Cada circuito también tiene su propio botón.</span></div>
 <p class="sub">Guía completa, explicada paso a paso · Bloques 7 y 8 del plan · Aparece en todos los parciales desde 2021 y vale entre 20 y 30 %</p>
 
 <div class="warn"><b>Convención del profesor, úsala siempre:</b> <span class="f">K<sub>N</sub> = k′<sub>n</sub>(W/L) = μ<sub>n</sub>C<sub>ox</sub>(W/L)</span>, en mA/V². En saturación, <span class="f">I<sub>D</sub> = ½·K<sub>N</sub>·(V<sub>GS</sub> − V<sub>t</sub>)²</span>. El documento CORRIENTE DE DRENAJE y todas las soluciones oficiales (2014, 2021, 2023 y 2024) usan esta forma. Algunos libros definen K = ½k′(W/L) y escriben I<sub>D</sub> = K·V<sub>OV</sub>². Si mezclas las dos, tu corriente sale el doble.</div>
@@ -170,7 +171,7 @@
 
 <h4>Ejemplo 4.1 · Ejemplo 3 de clase (diseño): I<sub>D</sub> = 0.4 mA y V<sub>D</sub> = +0.5 V</h4>
 <p class="enun">V<sub>DD</sub> = +2.5 V, V<sub>SS</sub> = −2.5 V, compuerta a tierra. V<sub>t</sub> = 0.7 V, k′<sub>n</sub> = 100 µA/V², W/L = 32 µm/1 µm, λ = 0. Halle R<sub>D</sub> y R<sub>S</sub>.</p>
-<pre class="ascii">               +2.5 V  (V_DD)
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/mos_ej3.png" alt="Circuito original"></div><pre class="ascii">               +2.5 V  (V_DD)
                   |
                   &gt;
                   &lt;  R_D      I_D = 0.4 mA
@@ -188,7 +189,7 @@
                   &lt;  R_S
                   &gt;
                   |
-               -2.5 V  (V_SS)</pre>
+               -2.5 V  (V_SS)</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Parámetro K<sub>N</sub></div>
 <p class="tec"><b>Técnica:</b> definición de la convención del profesor, K<sub>N</sub> = k′<sub>n</sub>(W/L).</p>
 <p class="red"><b>¿Se redibuja?</b> No.</p>
@@ -311,7 +312,7 @@
 
 <h4>Ejemplo 4.4 · Ejemplo 8 de clase: inversor NMOS + PMOS con carga de 10 kΩ</h4>
 <p class="enun">K<sub>N</sub> = K<sub>P</sub> = 1 mA/V², V<sub>tn</sub> = −V<sub>tp</sub> = 1 V, λ = 0. Halle i<sub>DN</sub>, i<sub>DP</sub> y v<sub>O</sub> para v<sub>I</sub> = 0, +2.5 V y −2.5 V.</p>
-<pre class="ascii">                     +2.5 V
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/mos_ej8.png" alt="Circuito original"></div><pre class="ascii">                     +2.5 V
                        |    S
                    ||&lt;-+
           +--------||        Q_P
@@ -323,7 +324,7 @@
           +--------||        Q_N   &lt;  10 k
                    ||-&gt;+           &gt;
                        |    S      |
-                     -2.5 V       GND</pre>
+                     -2.5 V       GND</pre></figure>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>v<sub>I</sub> = 0: los dos transistores conducen igual</div>
 <p class="tec"><b>Técnica:</b> simetría del circuito + suposición de saturación + LCK en v<sub>O</sub>.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. Q<sub>P</sub> y Q<sub>N</sub> → fuentes de corriente iguales (misma |V<sub>GS</sub>| = 2.5 V).</p>
@@ -399,7 +400,7 @@
 <!-- ==================================================================== -->
 <h2 id="s6">6. Transistor conectado como diodo, espejos y circuitos con varios MOSFET</h2>
 <h3>6.1 Transistor conectado como diodo (Ejemplo 4 de clase)</h3>
-<pre class="ascii">              o  +          v = v_GS = v_DS
+<figure class="dual" data-v="img"><div class="dual-bar"><span>Circuito</span><button type="button" data-v="img" aria-pressed="true">Imagen</button><button type="button" data-v="ascii" aria-pressed="false">ASCII</button></div><div class="dual-img"><img src="img/clase/mos_ej4_diodo.png" alt="Circuito original"></div><pre class="ascii">              o  +          v = v_GS = v_DS
               |  | i
               |  v
        +------+  D
@@ -408,7 +409,7 @@
        +--||              SIEMPRE está en saturación (si conduce):
           ||-&gt;+
               |  S               i = (1/2) K_N (v - V_t)^2
-              o  -</pre>
+              o  -</pre></figure>
 <p>Es un "diodo" de dos terminales cuya curva es una parábola que arranca en V<sub>t</sub>. Una resistencia grande entre G y D (sin corriente de compuerta) produce el mismo efecto: V<sub>G</sub> = V<sub>D</sub>.</p>
 <h3>6.2 Espejo de corriente</h3>
 <pre class="ascii">          V_DD                                V_DD
@@ -460,4 +461,27 @@
 <li>Suponer que un espejo copia la corriente sin comprobar que el transistor de salida esté en saturación y tenga camino de corriente.</li>
 <li>Olvidar que I<sub>G</sub> = 0: el divisor de compuerta se calcula sin cargarlo.</li>
 </ul></div>
+<script>
+(function () {
+  var KEY = "elc115-modo-circuito";
+  function set(fig, v) {
+    fig.setAttribute("data-v", v);
+    fig.querySelectorAll(".dual-bar button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === v); });
+  }
+  function global(v) {
+    document.querySelectorAll("figure.dual").forEach(function (f) { set(f, v); });
+    document.querySelectorAll(".modo-bar button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.set === v); });
+    try { localStorage.setItem(KEY, v); } catch (e) {}
+  }
+  var inicial = "img";
+  try { inicial = localStorage.getItem(KEY) || "img"; } catch (e) {}
+  global(inicial);
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.set) global(b.dataset.set);
+    else if (b.dataset.v) set(b.closest("figure.dual"), b.dataset.v);
+  });
+})();
+</script>
 </body></html>
