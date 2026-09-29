@@ -3,7 +3,7 @@
 **Curso:** Electrónica 1 (ELC-115), Escuela de Ingeniería Eléctrica, Universidad de El Salvador
 **Profesor:** José Ramos López
 **Alcance:** diodos (física, modelos, rectificadores, cargadores, Zener, recortadores) y MOSFET en DC
-**Última verificación de resultados:** 2026-09-29
+**Última verificación de resultados:** 2026-09-29 · **Guías ampliadas a versión completa paso a paso:** 2026-09-29
 
 Este documento sirve para dos lectores:
 
@@ -305,18 +305,30 @@ El curso sigue la 5.ª edición en español. Los números de problema de las tar
 
 ---
 
-## 7. Plantilla para explicar una solución
+## 7. Estructura obligatoria de resolución
 
-Toda explicación, tuya o de una IA, debe seguir este orden:
+Actúa como profesor experto en análisis de circuitos (ELC-115). Toda solución, tuya o de una IA, se divide en **pasos**, y **cada paso** sigue estos cinco puntos, en este orden. Las guías 01 a 04 están escritas exactamente así.
 
-1. **Qué pide el problema**, en una o dos frases.
-2. **Datos y suposiciones**, con el modelo de diodo o la convención del MOSFET declarados.
-3. **Circuito equivalente** de cada región o estado, descrito en palabras o dibujado.
-4. **Planteamiento**: las ecuaciones de nodos, mallas o dispositivo, antes de sustituir números.
-5. **Cálculo** paso a paso, con unidades en cada resultado intermedio.
-6. **Verificación** de estados o región, y comparación con el banco de la sección 5 si aplica.
-7. **Respuesta final** por literal, con unidad.
-8. **Interpretación** física en una frase: qué significa el resultado y qué pasaría si cambia un dato.
+1. **Nombre del paso e identificación de la técnica.** Un título descriptivo y la ley o método usado: *LVK*, *LCK*, *Ley de Ohm*, *divisor de tensión*, *Thévenin*, *superposición*, *transformación de fuentes*, *método de estados supuestos*, *modelo ideal*, *modelo de caída constante*, *modelo lineal por tramos*, *análisis de pequeña señal*, *ecuación de saturación o de triodo*, *espejo de corriente*, etc.
+2. **¿Se redibuja el circuito?** Decir explícitamente **Sí** o **No**. Si es sí, enumerar cada reemplazo:
+   - Diodo en conducción (ON) → batería V_D (más r_D si el modelo la tiene); con modelo ideal, corto.
+   - Diodo en corte (OFF) → **circuito abierto**: se borra la rama.
+   - Zener en ruptura → batería V_Z0 en serie con r_z. Zener sin llegar a ruptura → abierto.
+   - MOSFET en saturación → fuente de corriente ½·K_N·V_OV² entre D y S. En triodo → elemento I_D = K_N[V_OV·V_DS − ½V_DS²]. En corte → abierto. La compuerta siempre es un abierto (I_G = 0).
+   - Condensador en DC → abierto. Condensador grande en pequeña señal → corto. Condensador sin camino de descarga → batería con la tensión a la que se cargó.
+   - Pequeña señal: fuente DC de tensión → corto a tierra; fuente DC de corriente → abierto; diodo → r_d = nV_T/I_D.
+   - Thévenin o simplificaciones: indicar los nodos de corte y los elementos que se desprecian (y por qué).
+3. **Ilustración en arte ASCII.** Si el paso redibuja, mostrar el circuito equivalente en ASCII. Si se analiza una señal, dibujar la forma de onda, la característica de transferencia o la recta de carga (punto Q) en ASCII. Símbolos: `--/\/\/--` resistencia, `-->|--` diodo (ánodo → cátodo), `-->|Z-` Zener, `--||--` condensador, `(+ V -)` fuente DC, `(~ vs)` fuente senoidal, `(^ I)` fuente de corriente, `o   o` rama abierta, `-)-` cruce sin conexión, `GND` tierra. Verticales: `\ /` sobre `---` es un diodo que conduce hacia abajo; `---` sobre `/ \` conduce hacia arriba.
+4. **Planteamiento matemático.** Primero la ecuación simbólica o general; después la sustitución numérica **con unidades** (V, A, Ω, F, Hz, s); después el despeje paso a paso, sin saltar operaciones intermedias.
+5. **Resultado del paso**, destacado en negrita, con unidad y 3 cifras significativas.
+
+### 7.1 Reglas de conducta y estilo
+
+- **Cero ambigüedad en diodos.** Nunca afirmar que los 4 diodos de un puente conducen a la vez. Decir qué par conduce (ON) y qué par está abierto (OFF) en cada semiciclo. Con la numeración de las guías: semiciclo positivo → D1 y D2 ON, D3 y D4 OFF; semiciclo negativo → D3 y D4 ON, D1 y D2 OFF. Si la figura numera distinto, seguir la figura y decirlo.
+- **Verificar cada suposición.** Diodo ON con I_D > 0; diodo OFF con V_A − V_K < V_D; MOSFET con la condición de su región. Si falla, se cambia la suposición y se redibuja; nunca se "corrige" un signo.
+- **Simbolismo claro.** Variables con subíndices explícitos: V_s,pico, I_pico, R_L, V_Z0, V_OV. En texto plano usar guion bajo; en documentos, subíndices.
+- **Explicar los errores comunes.** Si la pregunta es sobre un procedimiento ("¿por qué no reemplacé X?"), explicar primero la razón teórica y después corregir el circuito.
+- **Cerrar con la respuesta por literal** y una frase de interpretación física (qué significa y qué cambiaría si cambia un dato).
 
 ---
 
@@ -333,6 +345,8 @@ Toda explicación, tuya o de una IA, debe seguir este orden:
 - [ ] ¿Cada respuesta tiene unidad y está en el literal correcto?
 - [ ] ¿El orden de magnitud coincide con una variante del banco?
 - [ ] ¿Respondí las preguntas de opinión con SÍ/NO y una razón numérica?
+- [ ] ¿Cada paso dice la técnica, si se redibuja, y tiene su dibujo ASCII cuando cambia el circuito?
+- [ ] ¿En el puente dije qué par de diodos conduce en cada semiciclo?
 
 ---
 
@@ -352,7 +366,11 @@ En particular:
 - Si el problema es una variante de la sección 5, compara tu resultado con el banco
   y explica cualquier diferencia.
 - Si no puedes leer un dato de la figura, dilo; no lo inventes.
-Explica con la plantilla de la sección 7 y termina con la lista de la sección 8.
+Resuelve con la ESTRUCTURA OBLIGATORIA de la sección 7: en cada paso da
+(1) nombre y técnica, (2) ¿se redibuja? con cada reemplazo, (3) dibujo ASCII del
+equivalente o de la forma de onda, (4) ecuación simbólica -> sustitución con unidades
+-> despeje, (5) resultado en negrita. En puentes, di qué par de diodos conduce.
+Termina con la lista de la sección 8.
 Problema:
 <pega aquí el enunciado y describe o adjunta la figura>
 ```

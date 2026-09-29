@@ -23,26 +23,26 @@
 <pre class="ascii">SÍMBOLOS USADOS EN LOS DIBUJOS ASCII
 
   --/\/\/--   resistencia (horizontal)          --||--    condensador (horizontal)
-  --&gt;|--      diodo: ánodo -&gt; cátodo             --|&lt;--    diodo apuntando a la izquierda
-  --&gt;|Z-      diodo Zener                       (~ vs)    fuente senoidal
+  -->|--      diodo: ánodo -> cátodo             --|<--    diodo apuntando a la izquierda
+  -->|Z-      diodo Zener                       (~ vs)    fuente senoidal
   (+ 5V -)    fuente DC o batería               (^ I)     fuente de corriente (la flecha da el sentido)
   ---+---     nodo: unión de cables             GND       tierra = 0 V
   o     o     circuito ABIERTO (rama borrada)   [corto]   cable sin caída de tensión
 
   Verticales:
       |            |           |           |            | +
-     \ /          ---          &gt;          ---         ( V )   fuente DC
-     ---          / \          &lt;  R       ---  C        | -
-      |            |           &gt;           |
+     \ /          ---          >          ---         ( V )   fuente DC
+     ---          / \          <  R       ---  C        | -
+      |            |           >           |
    diodo con     diodo con     resistencia  condensador
    ánodo arriba  ánodo abajo
    (conduce      (conduce
    hacia abajo)  hacia arriba)
 
   Regla de reemplazo de diodos (la usarás en toda la materia):
-    Diodo ON  (conduce)  -&gt; batería V_D (modelo de caída constante) o corto (ideal)
-    Diodo OFF (en corte) -&gt; circuito abierto: se borra la rama
-    Zener en ruptura     -&gt; batería V_Z0 en serie con r_z</pre>
+    Diodo ON  (conduce)  -> batería V_D (modelo de caída constante) o corto (ideal)
+    Diodo OFF (en corte) -> circuito abierto: se borra la rama
+    Zener en ruptura     -> batería V_Z0 en serie con r_z</pre>
 
 <!-- ==================================================================== -->
 <h2 id="s1">1. Física del semiconductor y unión pn</h2>
@@ -60,10 +60,10 @@
       o = o = o = o            o = o = o = o
       |   |   |   |            |   |   |   |
       o = o = o = o    calor   o = o   o = o     el enlace roto deja:
-      |   |   |   |    -----&gt;  |   | + |   |       (+) hueco en su lugar
+      |   |   |   |    ----->  |   | + |   |       (+) hueco en su lugar
       o = o = o = o            o = o = o = o       (e) electrón libre que se va
-                                         e --&gt;
-   T = 0 K: aislante           T &gt; 0: aparecen pares electrón-hueco</pre>
+                                         e -->
+   T = 0 K: aislante           T > 0: aparecen pares electrón-hueco</pre>
 <p>En un semiconductor <b>intrínseco</b> (puro) cada electrón libre deja un hueco, así que:</p>
 <span class="eq">n = p = n<sub>i</sub>&nbsp;&nbsp;&nbsp;&nbsp;con n<sub>i</sub>² = B·T³·e<sup>−E<sub>g</sub>/kT</sup></span>
 <p>Para el Si a 300 K, <b>n<sub>i</sub> ≈ 1.5×10¹⁰ cm⁻³</b>. El cristal tiene unos 5×10²² átomos/cm³, así que solo 1 de cada 3×10¹² átomos aporta un electrón libre: el silicio puro conduce muy mal. La conductividad sube rápido con T porque n<sub>i</sub> crece exponencialmente.</p>
@@ -107,10 +107,10 @@
 
    p(x) ^
         |*****
-        |     ***                 huecos difunden  ------&gt;
-        |        ***              J_p = -q D_p dp/dx  (&gt; 0 porque dp/dx &lt; 0)
+        |     ***                 huecos difunden  ------>
+        |        ***              J_p = -q D_p dp/dx  (> 0 porque dp/dx < 0)
         |           *****
-        +------------------&gt; x
+        +------------------> x
 
   El signo de J_n es + porque el electrón tiene carga negativa: si los electrones
   difunden hacia -x, la corriente convencional va hacia +x.</pre>
@@ -130,17 +130,17 @@
      o   o   o   o   o   o   | - - | + + + + + + + |   e   e   e   e   e
      o   o   o   o   o   o   | - - | + + + + + + + |   e   e   e   e   e
      o   o   o   o   o   o   | - - | + + + + + + + |   e   e   e   e   e
-                             |&lt;x_p&gt;|&lt;---- x_n ----&gt;|
-                             |&lt;-------- W --------&gt;|
-                                  E  &lt;=========        (el campo va de n hacia p)
+                             |<x_p>|<---- x_n ---->|
+                             |<-------- W -------->|
+                                  E  <=========        (el campo va de n hacia p)
 
    o = hueco libre   e = electrón libre   - = ion aceptor fijo   + = ion donador fijo
-   Aquí N_A &gt; N_D, por eso la zona se mete más en el lado n:  x_n / x_p = N_A / N_D
+   Aquí N_A > N_D, por eso la zona se mete más en el lado n:  x_n / x_p = N_A / N_D
 
    Potencial:        V ^                     ________________  V_0
                        |                   /
                        |__________________/
-                       +-----------------------------------------&gt; x</pre>
+                       +-----------------------------------------> x</pre>
 <div class="box"><b>Direcciones que pregunta el profesor</b> (p a la izquierda, n a la derecha):
 <table>
 <tr><th>Corriente de partículas</th><th>Sentido</th><th>Por qué</th></tr>
@@ -180,7 +180,7 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
   E_max+         /  \
        |        /    \
        |       /      \
-       +------+--------+-----&gt; x
+       +------+--------+-----> x
             -x_p   0   x_n</pre>
 <div class="mat"><div><span class="lb">General:</span> E<sub>max</sub> = 2V<sub>0</sub>/W</div>
 <div><span class="lb">Sustitución:</span> E<sub>max</sub> = 2(0.728 V)/(3.22×10⁻⁵ cm)</div></div>
@@ -198,7 +198,7 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
    +---(+  V_F  -)---+                       +---(-  V_R  +)---+
    |                 |                       |                 |
    +----[ p | n ]----+                       +----[ p | n ]----+
-          --&gt;  I grande                             &lt;--  I = I_S (muy pequeña)
+          -->  I grande                             <--  I = I_S (muy pequeña)
 
    barrera: V_0 - V_F  (más baja)            barrera: V_0 + V_R (más alta)
    W se angosta                              W se ensancha</pre>
@@ -217,7 +217,7 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 
 <h3>2.1 El diodo ideal</h3>
 <p>El diodo ideal es un "interruptor automático" que solo deja pasar corriente del <b>ánodo (A)</b> al <b>cátodo (K)</b>:</p>
-<pre class="ascii">   Símbolo:      A o----&gt;|----o K        corriente permitida: de A hacia K
+<pre class="ascii">   Símbolo:      A o---->|----o K        corriente permitida: de A hacia K
                   +   v_D    -
 
    Característica i-v del diodo ideal:
@@ -225,15 +225,15 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
             i ^
               |
               |   rama vertical: CONDUCE (ON)
-              |   se comporta como CORTO: v = 0, i &gt; 0
+              |   se comporta como CORTO: v = 0, i > 0
               |
-   -----------+--------------&gt; v
+   -----------+--------------> v
     rama horizontal: CORTE (OFF)
-    se comporta como ABIERTO: i = 0, v &lt; 0
+    se comporta como ABIERTO: i = 0, v < 0
 
    Equivalentes:
-     ON  (i &gt; 0):   A o--------------o K        (corto, v_D = 0)
-     OFF (v &lt; 0):   A o-----o    o---o K        (abierto, i = 0)</pre>
+     ON  (i > 0):   A o--------------o K        (corto, v_D = 0)
+     OFF (v < 0):   A o-----o    o---o K        (abierto, i = 0)</pre>
 <div class="why"><b>¿Por qué sirve un modelo tan simple?</b> Porque en muchos circuitos las tensiones son de decenas de voltios y la caída real del diodo (≈0.7 V) es despreciable. Cuando no lo es, se pasa al modelo de caída constante (sección 3.4), que se analiza exactamente igual pero con una batería en lugar del corto.</div>
 
 <h3>2.2 Método de los estados supuestos</h3>
@@ -250,9 +250,9 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <p class="enun">Encuentre la corriente I en D1 y la tensión V<sub>B</sub>. Diodos ideales. R<sub>A</sub> = 10 kΩ, R<sub>B</sub> = 5 kΩ.</p>
 <pre class="ascii">                 +10 V
                    |
-                   &gt;
-                   &lt;  R_A = 10 k
-                   &gt;
+                   >
+                   <  R_A = 10 k
+                   >
                    |
                    A
                    |
@@ -261,9 +261,9 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
                    |
       +------------B------------+
       |                         |
-     \ /  D1                    &gt;
-     ---                        &lt;  R_B = 5 k
-      |   I (hacia tierra)      &gt;
+     \ /  D1                    >
+     ---                        <  R_B = 5 k
+      |   I (hacia tierra)      >
       |                         |
      GND                      -10 V</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Primera suposición: D1 y D2 conducen</div>
@@ -271,18 +271,18 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 (ON) → cortocircuito entre B y tierra. D2 (ON) → cortocircuito entre A y B.</p>
 <pre class="ascii">                 +10 V
                    |
-                   &gt;
-                   &lt;  R_A = 10 k       I_D2 = corriente por R_A
-                   &gt;
+                   >
+                   <  R_A = 10 k       I_D2 = corriente por R_A
+                   >
                    |
                    A
-                   |   D2 -&gt; [corto]
+                   |   D2 -> [corto]
                    |
       +------------B------------+
       |                         |
-      |  D1 -&gt; [corto]          &gt;
-      |                         &lt;  R_B = 5 k      I_RB
-      |  I_D1                   &gt;
+      |  D1 -> [corto]          >
+      |                         <  R_B = 5 k      I_RB
+      |  I_D1                   >
       |                         |
      GND                      -10 V
 
@@ -296,18 +296,18 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 (OFF) → <b>circuito abierto</b>: se borra su rama. D2 (ON) → corto.</p>
 <pre class="ascii">                 +10 V
                    |
-                   &gt;
-                   &lt;  R_A = 10 k
-                   &gt;
+                   >
+                   <  R_A = 10 k
+                   >
                    |      |  I
                    A      v
-                   |   D2 -&gt; [corto]
+                   |   D2 -> [corto]
                    |
       o            B------------+
                                 |
-      D1 -&gt; ABIERTO             &gt;
-                                &lt;  R_B = 5 k
-      o                         &gt;
+      D1 -> ABIERTO             >
+                                <  R_B = 5 k
+      o                         >
       |                         |
      GND                      -10 V
 
@@ -328,7 +328,7 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <p class="red"><b>¿Se redibuja?</b> Sí. D2 (ON) → batería de 0.7 V con + en A y − en B. D1 sigue abierto.</p>
 <pre class="ascii">   +10 V --/\/\/--A--(+ 0.7 V -)--B--/\/\/-- -10 V
            R_A 10k       D2           R_B 5k
-                I --&gt;                  D1 abierto (rama borrada)</pre>
+                I -->                  D1 abierto (rama borrada)</pre>
 <div class="mat"><div><span class="lb">General:</span> I = (10 − V<sub>D</sub> − (−10))/(R<sub>A</sub> + R<sub>B</sub>) ; V<sub>B</sub> = −10 + I·R<sub>B</sub></div>
 <div><span class="lb">Sustitución:</span> I = (10 − 0.7 + 10) V / 15 kΩ = 19.3/15 mA</div>
 <div><span class="lb">Despeje:</span> I = 1.287 mA ; V<sub>B</sub> = −10 + (1.287)(5) = −3.57 V ; D1: −3.57 V &lt; 0.7 V ✓ OFF</div></div>
@@ -337,8 +337,8 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <h4>Ejemplo 2.2 · Ejemplo 3.1 de clase: cargador de batería con un diodo</h4>
 <p class="enun">v<sub>S</sub> = 24 sen(ωt) V, R = 100 Ω, batería de 12 V, diodo ideal. Encuentre la fracción del ciclo en que conduce el diodo, la corriente pico y la tensión inversa máxima.</p>
 <pre class="ascii">              R = 100 ohm          D
-     +---------/\/\/-------------&gt;|---------+
-     |                i_D --&gt;               | +
+     +---------/\/\/------------->|---------+
+     |                i_D -->               | +
    (~ vs)   vs = 24 sen(wt) V             ( 12 V )   batería
      |                                      | -
      +--------------------------------------+
@@ -357,40 +357,14 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <div class="mat"><div><span class="lb">General:</span> conduce si v<sub>D</sub> = v<sub>S</sub> − V<sub>B</sub> &gt; 0 → V<sub>p</sub>·sen θ &gt; V<sub>B</sub></div>
 <div><span class="lb">Sustitución:</span> 24·sen θ &gt; 12 → sen θ &gt; 0.5</div>
 <div><span class="lb">Despeje:</span> θ<sub>1</sub> = arcsen(0.5) = 30° ; θ<sub>2</sub> = 180° − 30° = 150° ; ángulo de conducción = 150° − 30° = 120°</div></div>
-<pre class="ascii">       ^  vs (V)
-       |   :          :                    :          :
-    24 +   :  *****   :                    :  ******  :
-       |   :**     ** :                    : *      * :
-       |   *         *:                    :*        *:
-    12 +- *:- - - - - * - - - - - - - - - -*- - - - - * - - - - - - - - -   V_B = 12 V
-       |  *:          :*                  *:          :*
-       | * :          :*                 * :          : *
-     0 +*--:----------:-*---------------*--:----------:--*---------------*
-       |   :          :  *              *  :          :  *              *
-       |   :          :   *            *   :          :   *            *
-   -12 +   :          :    *          *    :          :    *          *
-       |   :          :     *        *     :          :     *         *
-       |   :          :      *      *      :          :      **     **
-   -24 +   :          :       ******       :          :        *****
-       |   :          :                    :          :
-          30°       150°              360°          510°               720°   wt
-
-       ^  i_D
-120 mA +   :    #     :                    :    ##    :
-       |   :  ## ##   :                    :   #  ##  :
-       |   : #     #  :                    :  #     # :
-       |   :#       # :                    : #       #:
-       |   #         #:                    :#        #:
-     0 +####----------######################----------####################
-          30°       150°                 390°       510°   wt
-   El diodo solo conduce mientras vs &gt; 12 V (entre las líneas punteadas).</pre>
+<pre class="ascii" data-plot="ej31_vs"></pre>
 <p class="res">Resultado: conduce de 30° a 150°, es decir <b>120°/360° = 1/3 del ciclo</b>.</p></div>
 <div class="paso"><div class="ph"><span class="pn">Paso 2</span>Corriente pico</div>
 <p class="tec"><b>Técnica:</b> modelo ideal (ON = corto) + LVK en el instante del pico (θ = 90°).</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D (ON) → corto.</p>
 <pre class="ascii">              R = 100 ohm
      +---------/\/\/---------[corto]--------+
-     |          i_D --&gt;                     | +
+     |          i_D -->                     | +
    (~ vs)                                 ( 12 V )
      |                                      | -
      +--------------------------------------+</pre>
@@ -417,25 +391,7 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <p class="small">Material: DIODO DE UNIÓN 26 JULIO · Diodos Características i-v · Problemas 27, 30, 35, 48, 50</p>
 
 <h3>3.1 La curva real tiene tres regiones</h3>
-<pre class="ascii">  ^  i
-  |            :
-  |            :
-  |            :                                               *
-  |            :                                              *
-  |            :                                              *
-  |            :                                             *
-  |            :                                            **
-0 +------------*********************************************-------
-  |           *:
-  |           *:
-  |          * :
-  |         *  :
-  |         *  :
-  |        *   :
-  |*********   :
-             -V_ZK                                        0.7 V   v
-   ruptura (izquierda)  |  inversa: i = -I_S, casi cero  |  directa: exponencial
-   (dibujo estilizado: la escala de tensión no es la real en cada región)</pre>
+<pre class="ascii" data-plot="diodo_iv"></pre>
 <ul>
 <li><b>Directa</b> (v &gt; 0): la corriente es despreciable hasta unos 0.5 V ("tensión de corte") y después sube muy rápido. Con corrientes de mA la tensión queda entre 0.6 y 0.8 V.</li>
 <li><b>Inversa</b> (−V<sub>ZK</sub> &lt; v &lt; 0): i ≈ −I<sub>S</sub>, prácticamente cero.</li>
@@ -483,7 +439,7 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
    1. Exponencial            i = I_S e^(v/nV_T)  (no es lineal)            Cálculos finos, iterativo,
                                                                            área y temperatura
 
-   2. Ideal                  A o--------------o K   (corto)                Tensiones de fuente &gt;&gt; 0.7 V
+   2. Ideal                  A o--------------o K   (corto)                Tensiones de fuente >> 0.7 V
 
    3. Caída constante        A o---(+ V_D -)---o K                         El más usado en el parcial:
                                     0.7 V                                  "V_D = 0.7 V", "V_D = 1 V"
@@ -493,58 +449,28 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
                              v = V_D0 + i * r_D
 
    En TODOS los modelos, si el diodo NO conduce:   A o-----o     o-----o K   (abierto)</pre>
-<pre class="ascii">      ^  i
-      |                                         :
-10 mA +                                         :  o
-      |                                         : o*
-      |                                         : o*
-      |                                         :o*
-      |                                         :o*
- 5 mA +                                         o *
-      |                                         o *
-      |                                        o:*
-      |                                       o :*
-      |                                       o**
-    0 +ooooooooooooooooooooooooooooooooooooooo*-:------------------
-       0                                       0.7              1.0 V   v
-   *  exponencial real (I_S = 1e-15 A)      o  lineal por tramos (V_D0 = 0.65 V, r_D = 10 ohm)
-   :  caída constante: vertical en 0.7 V    el eje vertical (v = 0) es el diodo ideal</pre>
+<pre class="ascii" data-plot="modelos_iv"></pre>
 <div class="warn"><b>Usa el V<sub>D</sub> que dice el enunciado.</b> El profesor ha usado 0.5 V (1N914 "según su observación de laboratorio"), 0.6, 0.65, 0.7, 0.85, 1 y 1.25 V. Si dice "observación de laboratorio", escribe el valor que asumes.</div>
 
 <h3>3.5 Análisis gráfico: la recta de carga</h3>
 <p>En el circuito más simple (fuente V<sub>DD</sub>, resistencia R y diodo en serie) hay dos ecuaciones que deben cumplirse a la vez:</p>
 <pre class="ascii">        R
    +---/\/\/---+          Ecuación del diodo:   i_D = I_S e^(v_D / nV_T)
-   |    i_D --&gt;|
+   |    i_D -->|
  (+ V_DD -)   \ /  D      LVK (recta de carga):  i_D = (V_DD - v_D) / R
    |          ---
    |           |
    +-----------+
         GND</pre>
 <p>La solución (el <b>punto de operación Q</b>) es el cruce entre la curva del diodo y la recta. La recta corta el eje de corriente en V<sub>DD</sub>/R (diodo en corto) y el de tensión en V<sub>DD</sub> (diodo abierto).</p>
-<pre class="ascii">     ^  i_D
-     |                         :
-3 mA +ooo                      :*
-     |   ooooo                 :*
-     |        oooooo           :*
-     |              ooooo      :*
-     |                   ooooo *
-1.71 +- - - - - - - - - - - - o*oooo- - - - - - - - - - - - - - - - -   I_D = 1.71 mA
-     |                         *    ooooo
-     |                         *         oooooo
-     |                         *               ooooo
-     |                        *:                    ooooo
-     |                       **:                         oooooo
-   0 +***********************--:-------------------------------ooo----
-                            0.647 V                          V_DD=1.5   v_D
-   o  recta de carga i = (1.5 - v)/500      *  curva del diodo      Q = cruce (0.647 V ; 1.71 mA)</pre>
+<pre class="ascii" data-plot="recta_carga"></pre>
 
 <h3>3.6 Método iterativo (cuando dan I<sub>S</sub>)</h3>
 <p>Las dos ecuaciones anteriores no se pueden despejar a mano. Se itera: supón V<sub>D</sub>, calcula I con la recta, recalcula V<sub>D</sub> con el logaritmo, y repite hasta que no cambie.</p>
 <h4>Ejemplo 3.2 · Parcial 2014 P3: V<sub>DD</sub> = 1.5 V, R = 500 Ω, I<sub>S</sub> = 10⁻¹⁴ A, V<sub>T</sub> = 25 mV</h4>
 <pre class="ascii">        R = 500 ohm
    +------/\/\/------+
-   |      I_D --&gt;    |
+   |      I_D -->    |
  (+ 1.5 V -)        \ /  D   (I_S = 1e-14 A)
    |                ---
    +-----------------+</pre>
@@ -553,7 +479,7 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <p class="red"><b>¿Se redibuja?</b> Sí. D → batería de 0.7 V solo para la primera estimación.</p>
 <pre class="ascii">   +------/\/\/------+
    |   500 ohm       |
- (+ 1.5 V -)      (+ 0.7 V -)  &lt;- valor supuesto
+ (+ 1.5 V -)      (+ 0.7 V -)  <- valor supuesto
    |                 |
    +-----------------+</pre>
 <div class="mat"><div><span class="lb">General:</span> I = (V<sub>DD</sub> − V<sub>D</sub>)/R</div>
@@ -619,9 +545,9 @@ Ojo: la <b>corriente convencional</b> de difusión (de huecos y de electrones) v
 <pre class="ascii">      R_s = 10 k
   +----/\/\/-------+-------o  v_o
   |                |
-(~ vs)             &gt;
-  |                &lt;  r_d
-  |                &gt;
+(~ vs)             >
+  |                <  r_d
+  |                >
   +----------------+-------  GND</pre>
 <div class="mat"><div><span class="lb">General:</span> v<sub>o</sub>/v<sub>s</sub> = r<sub>d</sub>/(r<sub>d</sub> + R<sub>s</sub>)</div>
 <div><span class="lb">Sustitución:</span> 25/(25 + 10 000) = 2.49×10⁻³ ; 250/(250 + 10 000) = 2.44×10⁻²</div></div>

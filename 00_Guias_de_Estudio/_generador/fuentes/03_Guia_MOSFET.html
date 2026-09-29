@@ -20,10 +20,10 @@
         NMOS                        PMOS                     Resistencias, fuentes y tierra
                                                              como en las guías 01 y 02:
           D                           S
-          |                           |                        &gt;
-      ||--+                       ||&lt;-+   flecha ENTRA        &lt;  R      (+ V -)    GND
- G ---||                     G ---||       por S = PMOS        &gt;
-      ||-&gt;+  flecha SALE          ||--+
+          |                           |                        >
+      ||--+                       ||<-+   flecha ENTRA        <  R      (+ V -)    GND
+ G ---||                     G ---||       por S = PMOS        >
+      ||->+  flecha SALE          ||--+
           |  por S = NMOS             |
           S                           D
 
@@ -40,7 +40,7 @@
           ~~~~~~[ n+ ]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[ n+ ]~~~~~~
                 [    ]  - - - - - - - - - - - - - - - - - [    ]
                 [    ]   canal n inducido (electrones)     [    ]
-                      |&lt;------------- L -------------&gt;|
+                      |<------------- L ------------->|
                                 sustrato tipo p
                                       |
                                       B (cuerpo): al punto MÁS NEGATIVO del circuito
@@ -54,15 +54,15 @@
 </ol>
 <h3>1.2 Qué pasa al aumentar v<sub>DS</sub></h3>
 <pre class="ascii">   v_DS pequeño:  canal uniforme          v_DS mayor: canal más delgado         v_DS = V_OV: estrangulamiento
-                  -&gt; resistencia            en el drenaje (triodo)               (pinch-off) -&gt; saturación
+                  -> resistencia            en el drenaje (triodo)               (pinch-off) -> saturación
 
    S [n+]=========================[n+] D   S [n+]=============-------[n+] D     S [n+]==========------    [n+] D
          canal de espesor constante              se adelgaza hacia D                 el canal ya no llega a D:
                                                                                      la corriente deja de crecer
 
    v_GD = v_GS - v_DS  es la "fuerza" de la compuerta en el extremo del drenaje:
-   el canal existe en el drenaje mientras  v_GD &gt; V_t   (triodo)
-   se estrangula cuando                    v_GD = V_t   &lt;=&gt;   v_DS = V_OV</pre>
+   el canal existe en el drenaje mientras  v_GD > V_t   (triodo)
+   se estrangula cuando                    v_GD = V_t   <=>   v_DS = V_OV</pre>
 <ul>
 <li>Con v<sub>DS</sub> muy pequeño el transistor es una <b>resistencia controlada por tensión</b>: <span class="f">r<sub>DS</sub> = 1/(K<sub>N</sub>V<sub>OV</sub>)</span>.</li>
 <li>Al crecer v<sub>DS</sub>, el canal cerca del drenaje se adelgaza y la curva i<sub>D</sub>–v<sub>DS</sub> se dobla (región de <b>triodo</b>).</li>
@@ -83,37 +83,8 @@
 <tr><td><b>Triodo</b></td><td>V<sub>GS</sub> &gt; V<sub>t</sub> y V<sub>DS</sub> &lt; V<sub>OV</sub> (⇔ V<sub>GD</sub> &gt; V<sub>t</sub>)</td><td>I<sub>D</sub> = K<sub>N</sub>[V<sub>OV</sub>V<sub>DS</sub> − ½V<sub>DS</sub>²]</td><td>Resistencia (≈ 1/(K<sub>N</sub>V<sub>OV</sub>) si V<sub>DS</sub> es pequeño)</td></tr>
 <tr><td><b>Saturación</b></td><td>V<sub>GS</sub> &gt; V<sub>t</sub> y V<sub>DS</sub> ≥ V<sub>OV</sub> (⇔ V<sub>GD</sub> ≤ V<sub>t</sub>)</td><td>I<sub>D</sub> = ½K<sub>N</sub>V<sub>OV</sub>²·(1 + λV<sub>DS</sub>)</td><td>Fuente de corriente controlada por V<sub>GS</sub></td></tr>
 </table>
-<pre class="ascii">         ^  i_D (mA)
-         |
-     4.5 +- - - - - - - - - - - - - -***********************************  V_GS = 4 V -&gt; 4.5 mA
-         |                     ******  ..
-         |                  ***       .
-         |               ***        ..
-         |             **          .
-         |           **          ..
-         |         **          ..
-       2 +- - - -** - -*************************************************  V_GS = 3 V -&gt; 2 mA
-         |     **  ****    ..
-         |    * ***      ..
-         |   ***     ....
-     0.5 +-*************************************************************  V_GS = 2 V -&gt; 0.5 mA
-       0 +***....-------------------------------------------------------
-                    1         2         3                             6 V   v_DS
-   K_N = 1 mA/V^2, V_t = 1 V.   ....  frontera triodo/saturación: i_D = (1/2) K_N v_DS^2  (v_DS = V_OV)
-   Izquierda de la frontera: TRIODO (curvas que suben).  Derecha: SATURACIÓN (curvas planas).</pre>
-<pre class="ascii">                     ^  i_D (mA), saturación
-                 4.5 +                                               *
-                     |                                             **
-                     |                                           **
-                     |                                        ***
-                     |                                     ***
-                   2 +                                  ***
-                     |                               ***
-                     |                           ****
-                 0.5 +                     ******
-                   0 +*********************---------------------------
-                                V_t=1         2          3          4 V   v_GS
-   Parábola que despega en V_t: i_D = (1/2) K_N (v_GS - V_t)^2.  En corte (v_GS &lt; V_t) i_D = 0.</pre>
+<pre class="ascii" data-plot="mos_familia"></pre>
+<pre class="ascii" data-plot="mos_idvgs"></pre>
 <div class="idea"><b>Regla rápida para decidir la región sin calcular V<sub>OV</sub>:</b> compara la compuerta con el drenaje. Si <b>V<sub>D</sub> ≥ V<sub>G</sub> − V<sub>t</sub></b>, está en saturación; si V<sub>D</sub> &lt; V<sub>G</sub> − V<sub>t</sub>, está en triodo. Es la misma condición V<sub>GD</sub> ≤ V<sub>t</sub>, pero escrita con tensiones de nodo.</div>
 <h3>2.1 El PMOS</h3>
 <p>Funciona igual con todas las polaridades invertidas. Para no confundirse, se usan tensiones "positivas al revés":</p>
@@ -172,21 +143,21 @@
 <p class="enun">V<sub>DD</sub> = +2.5 V, V<sub>SS</sub> = −2.5 V, compuerta a tierra. V<sub>t</sub> = 0.7 V, k′<sub>n</sub> = 100 µA/V², W/L = 32 µm/1 µm, λ = 0. Halle R<sub>D</sub> y R<sub>S</sub>.</p>
 <pre class="ascii">               +2.5 V  (V_DD)
                   |
-                  &gt;
-                  &lt;  R_D      I_D = 0.4 mA
-                  &gt;
+                  >
+                  <  R_D      I_D = 0.4 mA
+                  >
                   |
                   +--------o  V_D = +0.5 V
                   |
               ||--+
    GND -------||           V_G = 0 V
-              ||-&gt;+
+              ||->+
                   |
                   +--------o  V_S
                   |
-                  &gt;
-                  &lt;  R_S
-                  &gt;
+                  >
+                  <  R_S
+                  >
                   |
                -2.5 V  (V_SS)</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Parámetro K<sub>N</sub></div>
@@ -224,20 +195,20 @@
             |
      +------+------+
      |             |
-     &gt;             &gt;
-     &lt;  R_1 2M     &lt;  R_D 3k
-     &gt;             &gt;
+     >             >
+     <  R_1 2M     <  R_D 3k
+     >             >
      |             |
      |             +------o  V_D
      |             |
      |         ||--+
      +---------||
-     |   V_G   ||-&gt;+
+     |   V_G   ||->+
      |             |
-     &gt;             +------o  V_S
-     &lt;  R_2 1M     &gt;
-     &gt;             &lt;  R_S 1k
-     |             &gt;
+     >             +------o  V_S
+     <  R_2 1M     >
+     >             <  R_S 1k
+     |             >
      |             |
     GND           GND</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Tensión de compuerta</div>
@@ -258,9 +229,9 @@
             |
             +---- S
             |
-            &gt;
-            &lt;  R_S = 1 k    &lt;- por aquí pasa I_D
-            &gt;
+            >
+            <  R_S = 1 k    <- por aquí pasa I_D
+            >
             |
            GND</pre>
 <div class="mat"><div><span class="lb">General:</span> V<sub>G</sub> = V<sub>GS</sub> + ½K<sub>N</sub>(V<sub>GS</sub> − V<sub>t</sub>)²R<sub>S</sub></div>
@@ -284,15 +255,15 @@
 <p class="enun">Fuente a tierra, V<sub>GS</sub> = 3 V fijo, R<sub>D</sub> = 5 kΩ, V<sub>DD</sub> = 10 V, K<sub>N</sub> = 2 mA/V², V<sub>t</sub> = 1 V.</p>
 <pre class="ascii">            V_DD = 10 V
                |
-               &gt;
-               &lt;  R_D = 5 k
-               &gt;
+               >
+               <  R_D = 5 k
+               >
                |
                +-----o V_D
                |
            ||--+
    3 V ----||
-           ||-&gt;+
+           ||->+
                |
               GND</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Suponer saturación</div>
@@ -313,15 +284,15 @@
 <p class="enun">K<sub>N</sub> = K<sub>P</sub> = 1 mA/V², V<sub>tn</sub> = −V<sub>tp</sub> = 1 V, λ = 0. Halle i<sub>DN</sub>, i<sub>DP</sub> y v<sub>O</sub> para v<sub>I</sub> = 0, +2.5 V y −2.5 V.</p>
 <pre class="ascii">                     +2.5 V
                        |    S
-                   ||&lt;-+
+                   ||<-+
           +--------||        Q_P
           |        ||--+
           |            |    D        i_DP
   v_I o---+            +-----------+--------o  v_O
           |            |    D      |
-          |        ||--+           &gt;
-          +--------||        Q_N   &lt;  10 k
-                   ||-&gt;+           &gt;
+          |        ||--+           >
+          +--------||        Q_N   <  10 k
+                   ||->+           >
                        |    S      |
                      -2.5 V       GND</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>v<sub>I</sub> = 0: los dos transistores conducen igual</div>
@@ -333,7 +304,7 @@
             |
             +------+------o v_O = 0      LCK: i_DP = i_DN + v_O/10k
             |      |
-          (v i_DN) &gt;  10 k               con i_DP = i_DN  -&gt;  v_O = 0
+          (v i_DN) >  10 k               con i_DP = i_DN  ->  v_O = 0
             |      |
           -2.5 V  GND</pre>
 <div class="mat"><div><span class="lb">General:</span> i<sub>DN</sub> = ½K<sub>N</sub>(V<sub>GSN</sub> − V<sub>t</sub>)², V<sub>GSN</sub> = 0 − (−2.5) = 2.5 V ; i<sub>DP</sub> = ½K<sub>P</sub>(V<sub>SGP</sub> − |V<sub>t</sub>|)², V<sub>SGP</sub> = 2.5 − 0 = 2.5 V</div>
@@ -348,7 +319,7 @@
             o
             +------+------o v_O              i_DN = (0 - v_O)/10k  (sube desde GND por R)
             |      |
-          [Q_N     &gt;  10 k                   triodo: i_DN = K_N [ 4 V_DS - (1/2) V_DS^2 ]
+          [Q_N     >  10 k                   triodo: i_DN = K_N [ 4 V_DS - (1/2) V_DS^2 ]
           triodo]  |                         V_DS = v_O + 2.5
             |      |
           -2.5 V  GND</pre>
@@ -366,15 +337,15 @@
 <p>Circuito típico: la <b>fuente</b> del NMOS va a una señal V<sub>IN</sub>, la compuerta a V<sub>G</sub> fijo y el drenaje a V<sub>DD</sub> por R<sub>D</sub>. Como V<sub>GS</sub> = V<sub>G</sub> − V<sub>IN</sub>, al subir V<sub>IN</sub> baja la corriente.</p>
 <pre class="ascii">                V_DD
                   |
-                  &gt;
-                  &lt;  R_D
-                  &gt;
+                  >
+                  <  R_D
+                  >
                   |
                   +-----o  V_D (= V_out)
                   |
               ||--+
    V_G -------||
-              ||-&gt;+
+              ||->+
                   |
                   +-----o  S = V_IN
                   |
@@ -382,7 +353,7 @@
                   |
                  GND
 
-   V_IN:  pequeño ---------------------------------------------------&gt; grande
+   V_IN:  pequeño ---------------------------------------------------> grande
           |    TRIODO    |       SATURACIÓN        |       CORTE        |
           I_D grande,    V_D = V_G - V_t en la     V_GS = V_t en la
           V_D muy bajo   frontera triodo/sat       frontera sat/corte</pre>
@@ -404,31 +375,31 @@
               |  v
        +------+  D
        |      |
-       |  ||--+           Como v_DS = v_GS  &gt;  v_GS - V_t = V_OV,
+       |  ||--+           Como v_DS = v_GS  >  v_GS - V_t = V_OV,
        +--||              SIEMPRE está en saturación (si conduce):
-          ||-&gt;+
+          ||->+
               |  S               i = (1/2) K_N (v - V_t)^2
               o  -</pre>
 <p>Es un "diodo" de dos terminales cuya curva es una parábola que arranca en V<sub>t</sub>. Una resistencia grande entre G y D (sin corriente de compuerta) produce el mismo efecto: V<sub>G</sub> = V<sub>D</sub>.</p>
 <h3>6.2 Espejo de corriente</h3>
 <pre class="ascii">          V_DD                                V_DD
             |                                   |
-            &gt;                                   &gt;
-            &lt;  R  (fija I_REF)                  &lt;  R_D  (carga)
-            &gt;                                   &gt;
+            >                                   >
+            <  R  (fija I_REF)                  <  R_D  (carga)
+            >                                   >
             |  I_REF                            |  I_O
             +--------+                          +------o  V_O
             |        |                          |
         ||--+        |                      ||--+
    +----||           |                 +----||       Q2
-   |    ||-&gt;+        |  Q1 (diodo)     |    ||-&gt;+
+   |    ||->+        |  Q1 (diodo)     |    ||->+
    |        |        |                 |        |
    +--------)--------+-----------------+        |
             |    (compuertas unidas, mismo V_GS)|
            GND                                 GND
 
    Q1 está conectado como diodo: V_GS1 queda fijado por I_REF.
-   Q2 tiene el MISMO V_GS  -&gt;  si Q2 está en saturación,  I_O = I_REF  (transistores iguales).</pre>
+   Q2 tiene el MISMO V_GS  ->  si Q2 está en saturación,  I_O = I_REF  (transistores iguales).</pre>
 <ul>
 <li>Dos transistores iguales con el mismo V<sub>GS</sub> llevan la misma I<sub>D</sub> <b>solo si el de salida está en saturación</b>. Verifícalo siempre: V<sub>DS2</sub> ≥ V<sub>OV</sub>.</li>
 <li>Si los W/L son distintos, I<sub>O</sub> = I<sub>REF</sub>·(W/L)<sub>2</sub>/(W/L)<sub>1</sub>.</li>

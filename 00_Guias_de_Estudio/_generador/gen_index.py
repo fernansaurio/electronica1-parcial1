@@ -191,10 +191,10 @@ REF_HTML = "\n".join(f'<li class="item" data-k="consulta referencia solucionario
 REF_HTML = f'<li class="item" data-k="instructivo ia resolver problemas convenciones errores"><a href="{urllib.parse.quote(G + "INSTRUCTIVO_RESOLUCION_PROBLEMAS.md")}"><span class="ft">MD</span>Instructivo para resolver problemas (para ti y para una IA)</a><span class="fn">00_Guias_de_Estudio/INSTRUCTIVO_RESOLUCION_PROBLEMAS.md</span></li>\n' + REF_HTML
 
 GUIDES = [(0, "Plan de estudio", "Orden del material, mapa de parciales y cronograma de 4 días"),
-          (1, "Guía 01 · Diodos: física y modelos", "Unión pn, diodo ideal, análisis por estados, modelo exponencial"),
-          (2, "Guía 02 · Rectificadores, Zener y recortadores", "El núcleo del parcial, con circuitos de ejemplo"),
-          (3, "Guía 03 · MOSFET en DC", "Regiones, extracción de Vt y KN, polarización y espejos"),
-          (4, "Guía 04 · Predicción y problemas resueltos", "Probabilidades por tema y 19 problemas resueltos paso a paso")]
+          (1, "Guía 01 · Diodos: física y modelos", "Guía completa: unión pn, diodo ideal, análisis por estados, modelos, pequeña señal; circuitos en ASCII"),
+          (2, "Guía 02 · Rectificadores, Zener y recortadores", "Guía completa del núcleo del parcial: cada semiciclo y cada circuito redibujado paso a paso"),
+          (3, "Guía 03 · MOSFET en DC", "Guía completa: física, regiones, Vt y KN, polarización, triodo, espejos, con ejemplos paso a paso"),
+          (4, "Guía 04 · Predicción y problemas resueltos", "Probabilidades por tema y 19 problemas: técnica, ¿se redibuja?, ASCII, ecuaciones y resultado en cada paso")]
 names = {0: "00_Plan_de_Estudio", 1: "01_Guia_Diodos_Fisica_y_Modelos", 2: "02_Guia_Rectificadores_Zener_Recortadores", 3: "03_Guia_MOSFET", 4: "04_Prediccion_y_Problemas_Resueltos"}
 GUIDE_HTML = "\n".join(f'<div class="gcard item" data-k="guia {esc(d)}"><a class="gt" href="{guide(n)}">{esc(t)}</a><p>{esc(d)}</p><div class="gl"><a href="{guide(n)}">Abrir HTML</a><a href="{L(G+names[n]+".pdf")}">Abrir PDF</a></div></div>' for n, t, d in GUIDES)
 

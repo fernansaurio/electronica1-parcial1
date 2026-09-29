@@ -56,9 +56,9 @@
 <p class="enun"><b>Datos:</b> v<sub>s</sub> = 169.7 sen(377t) V, directo de la red sin transformador. C = 1000 µF, R<sub>load</sub> = 20 Ω, V<sub>D</sub> = 1 V (1N4004). L<sub>s</sub> = L<sub>d</sub> = 1 µH y R<sub>s</sub> = R<sub>1</sub> = 0.01 Ω. Se pide V<sub>r</sub>, I<sub>pico</sub> y P, repetir con la corrección por ΔT, y opinar sobre el 1N4004.</p>
 <pre class="ascii">                     +--------------+-------------+--(Ld 1uH)--/\/\/--+--------+------o Vdc+
                      |              |                          R1 0.01 |        |
-                    ---            ---                                ---       &gt;
-                 D1 / \         D3 / \                                ---  C1   &lt;  R_load
-                     |              |                                  | 1000uF &gt;  20 ohm
+                    ---            ---                                ---       >
+                 D1 / \         D3 / \                                ---  C1   <  R_load
+                     |              |                                  | 1000uF >  20 ohm
     +--(Ls)--/\/\/---+ A            |                                  |        |
     |   1uH   Rs     |              |                                  |        |
   (~ Vs)  0.01      ---             |                                  |        |
@@ -81,9 +81,9 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. D1, D2 (ON) → baterías de 1 V. D3, D4 (OFF) → abiertos.</p>
 <pre class="ascii">   A --(+ 1 V -)--+-------+-------+--(+ 1 V -)-- B
           D1      |       |       |      D2
-                 ---      &gt;       |
-              C  ---      &lt; 20    |      (D3 y D4 abiertos, no se dibujan)
-                  |       &gt;       |
+                 ---      >       |
+              C  ---      < 20    |      (D3 y D4 abiertos, no se dibujan)
+                  |       >       |
                   +-------+-------+</pre>
 <div class="mat"><div><span class="lb">General:</span> V<sub>p</sub> = V<sub>s</sub> − 2V<sub>D</sub></div>
 <div><span class="lb">Sustitución:</span> V<sub>p</sub> = 169.7 V − 2(1 V)</div></div>
@@ -93,9 +93,9 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. Los cuatro diodos (OFF) → abiertos: C se descarga sola en R<sub>load</sub>.</p>
 <pre class="ascii">        +-------+-------+
         |       |       |       v_o(t) ~ V_p - (V_p / RC) t
-       ---      &gt;       |
-    C  ---      &lt; 20    |  i_L
-        |       &gt;       |
+       ---      >       |
+    C  ---      < 20    |  i_L
+        |       >       |
         +-------+-------+</pre>
 <div class="mat"><div><span class="lb">General:</span> V<sub>r</sub> = V<sub>p</sub>/(2fRC)</div>
 <div><span class="lb">Sustitución:</span> V<sub>r</sub> = 167.7 V / (2 · 60 Hz · 20 Ω · 0.001 F) = 167.7/2.4</div></div>
@@ -120,23 +120,7 @@
 <div><span class="lb">Sustitución:</span> V<sub>p</sub>/RC = 167.7/(20 × 0.001) = 8385 V/s ; T/2 − ΔT = 8.333 − 2.421 = 5.912 ms</div>
 <div><span class="lb">Despeje:</span> V<sub>r</sub> = 8385 × 0.005912 = 49.6 V ; V<sub>dc</sub> = 167.7 − 24.8 = 142.9 V ; I<sub>dc</sub> = 142.9/20 = 7.15 A</div>
 <div><span class="lb">P e I<sub>pico</sub>:</span> P = 142.9 × 7.15 = 1021 W (+14.3 W en diodos) ; I<sub>pico</sub> = 7.15 × 16.67/2.42 = 49.2 A (con el ΔT del paso 4, como la solución oficial)</div></div>
-<pre class="ascii">        ^  v_o (V)
-        |
-  167.7 +- - - ******- - - - -*****- - - - - ***** - - - - -*****- - - - - **  V_p = 167.7 V
-        |     *    . ***     *    .****     *    .****     *   . ****     *
-        |    *     .    *****     .    *****     .    *****     .    *****
-    123 +- -*- - - -.- - - . - - - . - - -.- - - -.- - - . - - - . - - -.- -   mínimo real ~ 123 V
-        |   *        .     .       .      .       .      .       .     .
-        |  *         .    .         .    .         .    .         .    .
-        |  *          .   .         .    .         .    .         .    .
-        |  *          .  .           .  .           .  .           .  .
-        | *           .  .           .  .           .  .           .  .
-        | *            . .            ..             ..             ..
-        |*             ..              .              .             ..
-      0 +*--------------.----------------------------------------------------
-               90°           270°           450°           630°   wt
-   Simulación ideal con V_p = 167.7 V y RC = 20 ms: el rizado real es ~45 V.
-   La fórmula tradicional (69.9 V) lo sobreestima; la corregida (49.6 V) se acerca mucho más.</pre>
+<pre class="ascii" data-plot="p1_rizado"></pre>
 <p class="res">Resultado: <b>V<sub>r</sub> = 49.6 V, V<sub>dc</sub> = 142.9 V, I<sub>dc</sub> = 7.15 A, P ≈ 1021 W, I<sub>pico</sub> ≈ 49 A</b>. La simulación da V<sub>r</sub> ≈ 44 V e I<sub>pico</sub> ≈ 46 A: la versión corregida es mucho más realista.</p></div>
 <div class="paso"><div class="ph"><span class="pn">Paso 7</span>Opinión: ¿sirve el 1N4004?</div>
 <p class="tec"><b>Técnica:</b> comparación con la hoja de datos (I<sub>F(AV)</sub> = 1 A, I<sub>FSM</sub> = 30 A no repetitiva, V<sub>RRM</sub> = 400 V).</p>
@@ -161,15 +145,15 @@
 <p class="enun">NMOS del CD4007 con la curva I<sub>D</sub>–V<sub>GS</sub> de la figura. R<sub>D</sub> = 1.1 kΩ, −1.5 V ≤ V<sub>IN</sub> ≤ 1.5 V. a) V<sub>G</sub> mínimo para no entrar en corte; b) V<sub>DD</sub> mínimo para saturación con V<sub>G</sub> = 5 V; c) I<sub>D</sub> con V<sub>IN</sub> = 0 y V<sub>DD</sub> = 20 V; d) lo mismo con V<sub>DD</sub> = 10 V.</p>
 <pre class="ascii">                                 V_DD
                                    |
-                                   &gt;
-                                   &lt;  R_D = 1.1 k
-                                   &gt;
+                                   >
+                                   <  R_D = 1.1 k
+                                   >
                                    |
                                    +---------o V_out
                                    |  D
                                ||--+
                    G  +--------||         M1 (CD4007 NMOS, sustrato unido a S)
-                      |        ||-&gt;+
+                      |        ||->+
                       |            |  S
                       |            +-------------+
                       |  +                       |  +
@@ -180,21 +164,7 @@
 <div class="paso"><div class="ph"><span class="pn">Paso 0</span>V<sub>t</sub> y K<sub>N</sub> de la curva</div>
 <p class="tec"><b>Técnica:</b> dos puntos en saturación (cociente de corrientes, guía 03 sección 3).</p>
 <p class="red"><b>¿Se redibuja?</b> No. Se leen los puntos marcados: (2.5 V; 0.8 mA) y (5 V; 6.6 mA).</p>
-<pre class="ascii">         ^  I_D (mA)
-         |                              :                            :
-     6.6 +- - - - - - - - - - - - - - - : - - - - - - - - - - - - -***  (5 V ; 6.6 mA)
-         |                              :                        **  :
-         |                              :                      **    :
-         |                              :                   ***      :
-         |                              :                ***         :
-         |                              :             ***            :
-         |                              :         ****               :
-         |                              :     ****                   :
-         |                              :*****                       :
-     0.8 +- - - - - - - - - - - - ******* - - - - - - - - - - - - - -:  (2.5 V ; 0.8 mA)
-       0 +************************------:----------------------------:
-                      1.16             2.5                          5 V   V_GS
-   Curva de la figura P4a reconstruida con V_t = 1.16 V y K_N = 0.90 mA/V^2: pasa por los dos puntos marcados.</pre>
+<pre class="ascii" data-plot="p2_curva"></pre>
 <div class="mat"><div><span class="lb">General:</span> r = √(I<sub>1</sub>/I<sub>2</sub>) ; V<sub>t</sub> = (r·V<sub>GS2</sub> − V<sub>GS1</sub>)/(r − 1) ; K<sub>N</sub> = 2I<sub>1</sub>/(V<sub>GS1</sub> − V<sub>t</sub>)²</div>
 <div><span class="lb">Sustitución:</span> r = √(6.6/0.8) = 2.872 ; V<sub>t</sub> = (2.872 × 2.5 − 5)/(2.872 − 1) = 2.180/1.872</div>
 <div><span class="lb">Despeje:</span> V<sub>t</sub> = 1.16 V ; K<sub>N</sub> = 2(6.6 mA)/(5 − 1.16)² = 13.2/14.75</div></div>
@@ -210,9 +180,9 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. MOSFET (saturación) → fuente de corriente I<sub>D,max</sub> entre D y S. V<sub>IN</sub> = −1.5 V.</p>
 <pre class="ascii">          V_DD
             |
-            &gt;  R_D = 1.1 k          V_D = V_DD - I_D,max * R_D
+            >  R_D = 1.1 k          V_D = V_DD - I_D,max * R_D
             |
-            +-----o V_D             debe cumplir  V_D &gt;= V_G - V_t = 5 - 1.16 = 3.84 V
+            +-----o V_D             debe cumplir  V_D >= V_G - V_t = 5 - 1.16 = 3.84 V
             |
          ( v I_D,max )   fuente de corriente (MOSFET saturado)
             |
@@ -237,7 +207,7 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. Primero MOSFET → fuente de corriente (falla). Después MOSFET → elemento de triodo, I<sub>D</sub> = K<sub>N</sub>[V<sub>OV</sub>V<sub>DS</sub> − ½V<sub>DS</sub>²].</p>
 <pre class="ascii">          10 V
             |
-            &gt;  R_D = 1.1 k        I_D = (10 - V_DS) / 1.1k
+            >  R_D = 1.1 k        I_D = (10 - V_DS) / 1.1k
             |
             +-----o V_D = V_DS
             |
@@ -267,9 +237,9 @@
 
                   +---------------+---------------+   riel +
                   |               |               |
-                 ---             ---              &gt;
-              D1 / \          D3 / \              &lt;  R1 = 10 ohm
-                  |               |               &gt;
+                 ---             ---              >
+              D1 / \          D3 / \              <  R1 = 10 ohm
+                  |               |               >
      +-----A------+               |               |  +
      |            |               |            ( 6 V )  batería: 4 celdas AAA, 800 mAh
   (~ vs)         ---              |               |  -
@@ -282,7 +252,7 @@
                   |               |               |
                   +---------------+---------------+   riel -
 
-   Igual que en la figura: semiciclo + -&gt; conducen D1 y D2 ; semiciclo - -&gt; conducen D3 y D4.</pre>
+   Igual que en la figura: semiciclo + -> conducen D1 y D2 ; semiciclo - -> conducen D3 y D4.</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Pico del secundario</div>
 <p class="tec"><b>Técnica:</b> relación de transformación + conversión rms → pico.</p>
 <p class="red"><b>¿Se redibuja?</b> No.</p>
@@ -293,9 +263,9 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. Semiciclo +: D1 y D2 (ON) → baterías de 0.85 V; D3 y D4 (OFF) → abiertos. El semiciclo − es idéntico con D3 y D4.</p>
 <pre class="ascii">   A --(+0.85 V-)--/\/\/--(+ 6 V -)--(+0.85 V-)-- B
           D1        R1 10    batería       D2
-                  i --&gt;
+                  i -->
 
-   LVK:  vs - 0.85 - 10 i - 6 - 0.85 = 0     =&gt;   i = (vs - 7.7) / 10     (solo si vs &gt; 7.7 V)</pre>
+   LVK:  vs - 0.85 - 10 i - 6 - 0.85 = 0     =>   i = (vs - 7.7) / 10     (solo si vs > 7.7 V)</pre>
 <div class="mat"><div><span class="lb">General:</span> θ<sub>1</sub> = arcsen[(2V<sub>D</sub> + V<sub>B</sub>)/V<sub>s</sub>]</div>
 <div><span class="lb">Sustitución:</span> θ<sub>1</sub> = arcsen(7.7/16.97) = arcsen(0.4537)</div></div>
 <p class="res">Resultado: <b>θ<sub>1</sub> = 27.0° = 0.471 rad</b>; conduce de 27° a 153° en cada semiciclo.</p></div>
@@ -307,28 +277,7 @@
 <div class="paso"><div class="ph"><span class="pn">Paso 4</span>Corriente promedio en la batería y por diodo</div>
 <p class="tec"><b>Técnica:</b> valor promedio por integración sobre medio periodo (onda completa).</p>
 <p class="red"><b>¿Se redibuja?</b> No.</p>
-<pre class="ascii">         ^  |vs| (V)
-         |     :                     :        :                     :
-   16.97 +     :     **********      :        :      **********     :
-         |     :   **          **    :        :    **          **   :
-         |     :  *              **  :        :  **              *  :
-         |     :**                 * :        : *                 **:
-         |- - -*- - - - - - - - - - **- - - - **- - - - - - - - - - * - -   2V_D + V_B = 7.7 V
-         |   **:                     :*      *:                     :**
-         |  *  :                     : *    * :                     :  *
-         | *   :                     :  *  *  :                     :   *
-       0 +*----:---------------------:---**---:---------------------:----*
-              27°                  153°     207°                  333°   wt
-
-        ^  i_bat
-0.927 A +     :        ####         :        :         ####        :
-        |     :     ###    ###      :        :      ###    ###     :
-        |     :   ##          ###   :        :   ###          ##   :
-        |     : ##               #  :        :  #               ## :
-        |     :#                  ##:        :##                  #:
-      0 +######---------------------##########---------------------######
-                                                                       wt
-   La batería solo recibe corriente mientras |vs| supera 2 V_D + V_B (entre las líneas punteadas).</pre>
+<pre class="ascii" data-plot="cargador"></pre>
 <div class="mat"><div><span class="lb">General:</span> I<sub>bat</sub> = (1/π)∫<sub>θ1</sub><sup>π−θ1</sup>(V<sub>s</sub>sen θ − 7.7)/R dθ = [2V<sub>s</sub>cos θ<sub>1</sub> − 7.7(π − 2θ<sub>1</sub>)]/(πR)</div>
 <div><span class="lb">Sustitución:</span> 2(16.97)cos 27° = 30.24 ; 7.7(π − 0.942) = 16.94 ; πR = 31.42</div>
 <div><span class="lb">Despeje:</span> I<sub>bat</sub> = (30.24 − 16.94)/31.42 = 0.424 A ; por diodo: 0.424/2</div></div>
@@ -352,9 +301,9 @@
 <pre class="ascii">           R1 = 5.1 k
    +------/\/\/------+----------------+----------------+------o V_out
    |                 |                |                |
-   |                \ /  D1          ---  D2           &gt;
- (~ V_S)            ---              / \               &lt;  R_L = 5.1 k
- triangular          |                |                &gt;
+   |                \ /  D1          ---  D2           >
+ (~ V_S)            ---              / \               <  R_L = 5.1 k
+ triangular          |                |                >
  5 V pico            |  +             |  -             |
                   ( 1.5 V )  V1    ( 1 V )  V2         |
                      |  -             |  +             |
@@ -373,8 +322,8 @@
 <p class="red"><b>¿Se redibuja?</b> Sí, para V<sub>S</sub> ≥ 4 V: D1 (ON) → batería de 0.5 V en serie con V1; D2 sigue abierto.</p>
 <pre class="ascii">           5.1 k
    V_S --/\/\/--+-----------------+------o V_out = 2 V
-         i_R1 -&gt;|  +              |
-             ( 0.5 V )  D1 ON      &gt;  R_L
+         i_R1 ->|  +              |
+             ( 0.5 V )  D1 ON      >  R_L
                 |  -              |
              ( 1.5 V )  V1        |
                 |                 |
@@ -388,8 +337,8 @@
 <p class="red"><b>¿Se redibuja?</b> Sí, para V<sub>S</sub> ≤ −3 V: D2 (ON) → batería de 0.5 V; D1 → abierto.</p>
 <pre class="ascii">           5.1 k
    V_S --/\/\/--+-----------------+------o V_out = -1.5 V
-         &lt;- i   |  +              |
-             ( 0.5 V )  D2 ON      &gt;  R_L        (la corriente sube por D2
+         <- i   |  +              |
+             ( 0.5 V )  D2 ON      >  R_L        (la corriente sube por D2
                 |  -   (cátodo arriba)|           desde la fuente de -1 V)
              ( -1 V )  V2         |
                 |                 |
@@ -400,39 +349,8 @@
 <div class="paso"><div class="ph"><span class="pn">Paso 4</span>Transferencia y forma de onda</div>
 <p class="tec"><b>Técnica:</b> unir los tramos (pendiente 1/2 entre −3 V y 4 V, planos afuera) y pasar la triangular por la transferencia.</p>
 <p class="red"><b>¿Se redibuja?</b> No: se dibujan las gráficas.</p>
-<pre class="ascii">      ^  V_out
-      |           :                                      :
-    2 +- - - - - -:- - - - - - - - - - - - - - - - - -*********  +2 V
-      |           :                              *****   :
-      |           :                        ******        :
-      |           :                   *****              :
-    0 +-----------:-------------******-------------------:-----
-      |           :        *****                         :
-      |           :  ******                              :
- -1.5 +**************- - - - - - - - - - - - - - - - - - : - -   -1.5 V
-      |           :                                      :
-      |           :                                      :
-       -5        -3                                      4   5 V   V_S
-   Pendiente 1/2 (divisor R1-RL) entre V_S = -3 V y V_S = 4 V; plana fuera de ese intervalo.</pre>
-<pre class="ascii">     ^  V
-     |
-   5 +        ..                              ..
-     |      ..  .                            .  ..
-     |     .     .                         ..     .
-   2 +- - . -***- ..- - - - - - - - - - - . -**** -.- - - - - - - - - -   +2 V (D1 ON)
-     |  ..***   *** .                    . **    ** .
-     | .**         **.                  ***        ***.
-   0 +**-------------***--------------**--------------***-------------**
-     |                 .***        ***                  .**         **.
--1.5 +- - - - - - - - - -.-******** . - - - - - - - - - -.-*********..-   -1.5 V (D2 ON)
-     |                    .        .                      ..       .
-     |                     .     ..                         .     .
-     |                      ..  .                            .  ..
-  -5 +                        ..                              ..
-     |
-             T/4     T/2    3T/4      T   t
-   .  V_S triangular de 5 V pico      *  V_out: sigue V_S/2 y se recorta en +2 V y en -1.5 V
-   Recorte superior: mientras V_S &gt; 4 V (10 % del periodo). Recorte inferior: mientras V_S &lt; -3 V (20 %).</pre>
+<pre class="ascii" data-plot="p4_transf"></pre>
+<pre class="ascii" data-plot="p4_t"></pre>
 <p class="res">Resultado: <b>V<sub>out</sub> sigue a V<sub>S</sub>/2 y se recorta en +2 V y en −1.5 V</b>. Con V<sub>D</sub> = 0.7 V los niveles serían +2.2 V y −1.7 V.</p></div>
 <div class="ans"><b>Variante 2013 P5:</b> V<sub>1</sub> = 2.75 V, V<sub>2</sub> = 2 V, R = 4.7 kΩ, V<sub>D</sub> = 0.7 V, triangular de 10 V: niveles <b>+3.45 V</b> y <b>−2.7 V</b>; I<sub>D1,max</sub> = (10 − 3.45)/4.7k − 3.45/4.7k = <b>0.66 mA</b> e I<sub>D2,max</sub> = <b>0.98 mA</b>.</div></div>
 
@@ -442,15 +360,15 @@
 <p class="enun"><b>P4:</b> con V<sub>DD</sub> = 10 V se mide V<sub>1</sub> = 4.14 V con R<sub>D</sub> = 1.2 kΩ y V<sub>1</sub> = 3.28 V con R<sub>D</sub> = 2.7 kΩ. Halle V<sub>t</sub> y K<sub>N</sub>. <b>P5:</b> con V<sub>G</sub> = 5 V, R<sub>D</sub> = 2.7 kΩ, V<sub>DD</sub> = 10 V y la fuente en V<sub>i</sub> (0 a 5 V), halle los rangos de cada región.</p>
 <pre class="ascii">   P4:        V_DD = 10 V                     P5:           V_DD = 10 V
                   |                                             |
-                  &gt;                                             &gt;
-                  &lt;  R_D                                        &lt;  R_D = 2.7 k
-                  &gt;                                             &gt;
+                  >                                             >
+                  <  R_D                                        <  R_D = 2.7 k
+                  >                                             >
                   |                                             |
            +------+------o V_1                                  +-----o V_D
            |      |  D                                          |
            |  ||--+                                         ||--+
            +--||         M1 (G unido a D)          V_G = 5 V --||
-              ||-&gt;+                                         ||-&gt;+
+              ||->+                                         ||->+
                   |  S                                          |  S
                  GND                                         ( V_i )  0 ... 5 V
                                                                 |
@@ -480,7 +398,7 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. MOSFET (en el borde, todavía saturado) → fuente de corriente.</p>
 <pre class="ascii">          10 V
             |
-            &gt;  2.7 k         I_D = (10 - 3.86) / 2.7 k
+            >  2.7 k         I_D = (10 - 3.86) / 2.7 k
             |
             +-----o V_D = V_G - V_t = 5 - 1.14 = 3.86 V
             |
@@ -498,21 +416,7 @@
 <p class="tec"><b>Técnica:</b> prueba con un punto (V<sub>i</sub> = 0) suponiendo saturación.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. MOSFET → fuente de corriente (prueba) → falla → triodo.</p>
 <div class="mat"><div><span class="lb">Prueba:</span> I<sub>D</sub> = ½(1.08)(5 − 1.14)² = 8.05 mA → V<sub>D</sub> = 10 − 8.05 × 2.7 = −11.7 V: imposible ✗</div></div>
-<pre class="ascii">         ^  I_D (mA)
-         |                     :                        :
-    3.33 +********             :                        :
-         |        ********     :                        :
-         |                *****:                        :
-    2.27 +- - - - - - - - - - -** - - - - - - - - - - - : - - - - - -   frontera triodo/sat
-         |                     : ***                    :
-         |                     :    **                  :
-         |                     :      ***               :
-         |                     :         ***            :
-         |                     :            *****       :
-       0 +---------------------:-----------------*********************
-          0                  1.81                     3.86          5 V   V_i
-   |&lt;----- TRIODO -----&gt;|&lt;------ SATURACIÓN ------&gt;|&lt;- CORTE -&gt;|
-   En triodo I_D casi no cambia: el transistor es casi un corto y R_D limita la corriente.</pre>
+<pre class="ascii" data-plot="p5_id"></pre>
 <p class="res">Resultado: <b>triodo para 0 &lt; V<sub>i</sub> &lt; 1.81 V, saturación para 1.81 &lt; V<sub>i</sub> &lt; 3.86 V, corte para V<sub>i</sub> &gt; 3.86 V</b>.</p></div>
 <div class="warn"><b>La tabla de respuestas del PDF de 2021 está invertida</b> (pone saturación abajo y triodo en medio). La prueba del paso 6 demuestra que abajo es triodo.</div></div>
 
@@ -535,20 +439,20 @@
             |
      +------+------+
      |             |
-     &gt;             &gt;
-     &lt;  R1 850k    &lt;  R4 = R_D = 2.2 k
-     &gt;             &gt;
+     >             >
+     <  R1 850k    <  R4 = R_D = 2.2 k
+     >             >
      |             |
      |             +------o D
      |             |
      |         ||--+
      +---------||         M1
-     |    G    ||-&gt;+      (sustrato B a GND)
+     |    G    ||->+      (sustrato B a GND)
      |             |
-     &gt;             +------o S
-     &lt;  R2 650k    &gt;
-     &gt;             &lt;  R_S = 2 k
-     |             &gt;
+     >             +------o S
+     <  R2 650k    >
+     >             <  R_S = 2 k
+     |             >
      |             |
     GND           GND</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 3</span>Tensión de compuerta</div>
@@ -561,7 +465,7 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. MOSFET → fuente de corriente ½K<sub>N</sub>(V<sub>GS</sub> − V<sub>t</sub>)².</p>
 <pre class="ascii">   V_G = 6.5 V o---( V_GS )---+ S
                               |
-                              &gt;  R_S = 2 k   (lleva I_D)
+                              >  R_S = 2 k   (lleva I_D)
                               |
                              GND           6.5 = V_GS + I_D (2 k)</pre>
 <div class="mat"><div><span class="lb">General:</span> 6.5 = V<sub>GS</sub> + 2 kΩ · ½ · 1.21 mA/V² · (V<sub>GS</sub> − 0.54)² = V<sub>GS</sub> + 1.21(V<sub>GS</sub> − 0.54)²</div>
@@ -580,11 +484,11 @@
 <div id="p7" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 40 %</span>7. Diseño de una fuente con puente (2017 P2)</h3>
 <img class="fig" src="img/f17_p2.png" alt="Figura 2017 P2"></div>
 <p class="enun"><b>Especificación:</b> V<sub>L</sub> = 12 V, rizado de 1 %, I<sub>L</sub> = 2 A, V<sub>D</sub> = 1 V, 60 Hz. Halle la tensión del transformador, C, el PIV, la corriente pico repetitiva y la potencia del transformador.</p>
-<pre class="ascii">   (~ V_linea) ==XFMR== V_s --&gt; [ puente D1..D4 ] --+----------+------o V_L = 12 V
+<pre class="ascii">   (~ V_linea) ==XFMR== V_s --> [ puente D1..D4 ] --+----------+------o V_L = 12 V
                                                     |          |
-                                                   ---         &gt;
-                                                   ---  C      &lt;  R_L   (I_L = 2 A)
-                                                    |          &gt;
+                                                   ---         >
+                                                   ---  C      <  R_L   (I_L = 2 A)
+                                                    |          >
                                             GND ----+----------+</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Rizado permitido</div>
 <p class="tec"><b>Técnica:</b> especificación porcentual.</p>
@@ -617,7 +521,7 @@
 <!-- ============ 8 ============ -->
 <div id="p8" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 40 %</span>8. Cargador con condensador: elegir V<sub>s</sub> y calcular la eficiencia (2023R P1)</h3></div>
 <p class="enun"><b>Datos:</b> puente con V<sub>D</sub> = 1.25 V, C = 5000 µF, R = 10 Ω, batería de 12 V y 50 Ah. El tiempo de carga debe ser de unas 24 h. ¿Transformador de 12 V o de 24 V?</p>
-<pre class="ascii">   (~ V_s) --&gt; [ puente ] --+-----------+--/\/\/--+
+<pre class="ascii">   (~ V_s) --> [ puente ] --+-----------+--/\/\/--+
                             |           |   R 10  |  +
                            ---          |      ( 12 V )  batería 50 Ah
                            ---  5000 uF |         |  -
@@ -658,8 +562,8 @@
 <p class="enun">I = 60 mA, v<sub>i</sub> senoidal de 12 V pico, V<sub>D</sub> = 0.7 V, batería de 6 V. Halle la forma de i<sub>B</sub>, su pico y su promedio; repita si el pico baja 10 %.</p>
 <pre class="ascii">                     (^ I = 60 mA)   empuja corriente hacia el nodo X
                           |
-   v_i o-------|&lt;---------X---------&gt;|--------+------o v_O
-                  D1                   D2      |  i_B --&gt;
+   v_i o-------|<---------X--------->|--------+------o v_O
+                  D1                   D2      |  i_B -->
              (cátodo en v_i)                  |  +
                                            ( 6 V )  batería B
                                               |  -
@@ -670,7 +574,7 @@
 <pre class="ascii">                (^ 60 mA)
                     |
    v_i o--(-0.7 V+)-X        o   o-----+ 6 V      V_X = v_i + 0.7
-            D1 ON         D2 abierto   |           D2: V_X - 6 = v_i - 5.3 &lt; 0.7  si v_i &lt; 6 V  ✓</pre>
+            D1 ON         D2 abierto   |           D2: V_X - 6 = v_i - 5.3 < 0.7  si v_i < 6 V  ✓</pre>
 <p class="res">Resultado: <b>i<sub>B</sub> = 0</b> mientras v<sub>i</sub> &lt; 6 V (toda la corriente vuelve por D1 hacia la fuente v<sub>i</sub>).</p></div>
 <div class="paso"><div class="ph"><span class="pn">Paso 2</span>Caso v<sub>i</sub> &gt; 6 V: conduce D2</div>
 <p class="tec"><b>Técnica:</b> método de estados + LCK en X.</p>
@@ -678,33 +582,12 @@
 <pre class="ascii">                (^ 60 mA)
                     |
    v_i o----o   o---X--(+0.7 V-)--+ 6 V        V_X = 6.7 V
-        D1 abierto       D2 ON    |  i_B = 60 mA     D1: 6.7 - v_i &lt; 0.7  si v_i &gt; 6 V  ✓</pre>
+        D1 abierto       D2 ON    |  i_B = 60 mA     D1: 6.7 - v_i < 0.7  si v_i > 6 V  ✓</pre>
 <p class="res">Resultado: <b>i<sub>B</sub> = I = 60 mA</b> mientras v<sub>i</sub> &gt; 6 V. Como los dos diodos tienen la misma caída, el umbral es exactamente v<sub>i</sub> = V<sub>B</sub>.</p></div>
 <div class="paso"><div class="ph"><span class="pn">Paso 3</span>Intervalo, pico y promedio</div>
 <p class="tec"><b>Técnica:</b> ángulos de cruce con arcsen + promedio de un pulso rectangular.</p>
 <p class="red"><b>¿Se redibuja?</b> No.</p>
-<pre class="ascii">        ^  v_i (V)
-     12 +   :   ***    :                    :    **    :
-        |   : **   **  :                    : ***  *** :
-        |   **       **:                    :*        *:
-      6 +- *:- - - - - * - - - - - - - - - -*- - - - - **- - - - - - - - -   V_B = 6 V
-        | * :          :*                  *:          : *
-      0 +*--:----------:-*---------------**-:----------:--*---------------*
-        |   :          :  *             *   :          :   *             *
-        |   :          :   **          *    :          :    *           *
-        |   :          :     *        *     :          :     **       **
-        |   :          :      ***  ***      :          :       **   **
-    -12 +   :          :         **         :          :         ***
-           30°       150°                 390°       510°   wt
-
-      ^  i_B
-      |   :          :                    :          :
-60 mA +   ###########:                    :###########
-      |   #         #:                    :#         #
-      |  #:          #                    #          :#
-    0 +###:----------######################----------:###################
-                                                                       wt
-   i_B es un pulso RECTANGULAR de 60 mA (lo fija la fuente) durante 1/3 del ciclo: promedio 20 mA.</pre>
+<pre class="ascii" data-plot="p9_ib"></pre>
 <div class="mat"><div><span class="lb">Cruce:</span> 12 sen θ = 6 → θ = 30° y 150° → 120° de 360° = 1/3 del ciclo</div>
 <div><span class="lb">Promedio:</span> i<sub>B,prom</sub> = 60 mA × 1/3</div></div>
 <p class="res">Resultado: <b>i<sub>B,pico</sub> = 60 mA</b> e <b>i<sub>B,prom</sub> = 20 mA</b>.</p></div>
@@ -719,7 +602,7 @@
 <p class="enun"><b>Zener 1N5235:</b> V<sub>Z</sub> = 6.8 V, r<sub>z</sub> = 5 Ω a 20 mA y r<sub>z</sub> = 750 Ω a 0.25 mA. Alimentación 10 ± 1 V, sin carga. Diseño 1: I<sub>Z</sub> = 20 mA. Diseño 2: I<sub>Z</sub> = 0.25 mA. Halle R y la regulación de línea de cada uno.</p>
 <pre class="ascii">              R
    V_S o----/\/\/----+------o V_O          Modelo en ruptura:        |
-   10 +/- 1 V   I_Z  |                                             &gt;  r_z
+   10 +/- 1 V   I_Z  |                                             >  r_z
                     -z-   1N5235                                    |  +
                     / \                                          ( V_Z0 )
                      |                                              |  -
@@ -733,7 +616,7 @@
 <p class="tec"><b>Técnica:</b> LVK en la malla única (sin carga) + Ley de Ohm en R.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. DZ → 6.7 V + 5 Ω (en 20 mA, V<sub>Z</sub> = 6.8 V).</p>
 <pre class="ascii">   10 V o---/\/\/---+---o V_O = 6.8 V
-             R      &gt;  5 ohm
+             R      >  5 ohm
             20 mA   |  +
                  ( 6.7 V )
                     |  -
@@ -756,11 +639,11 @@
 <!-- ============ 11 ============ -->
 <div id="p11" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 35 %</span>11. Tabla de la fuente del laboratorio y rediseño por hueco de tensión (2024 P2 y P3)</h3>
 <img class="fig" src="img/f24_p2.png" alt="Figura 2024 P2"></div>
-<pre class="ascii">   (~ vp) --R2 0.1-- L1 ==== L2/L3 ---&gt; vs1, vs2 ---&gt; [ D1..D4, 1N4001 ] --+-------+------o V_out
+<pre class="ascii">   (~ vp) --R2 0.1-- L1 ==== L2/L3 ---> vs1, vs2 ---> [ D1..D4, 1N4001 ] --+-------+------o V_out
                                                                            |       |
-                                                                          ---      &gt;
-                                                                          ---  CF  &lt;  RL
-                                                                           |       &gt;
+                                                                          ---      >
+                                                                          ---  CF  <  RL
+                                                                           |       >
                                                                    GND ----+-------+
    Lo único que necesita el análisis es el pico que llega al condensador: V_p = 17.07 V
    (transformador del laboratorio 1 menos dos caídas de diodo, según la tabla oficial).</pre>
@@ -780,9 +663,9 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. Red ausente → todos los diodos abiertos: C sola alimenta R<sub>L</sub> = 100 Ω durante 100 ms.</p>
 <pre class="ascii">        +-------+-------+
         |       |       |      I_L = 16.36 V / 100 ohm = 0.164 A
-       ---      &gt;       |      caída permitida: el mismo V_r = 1.42 V
-   CF  ---      &lt; 100   |
-        |       &gt;       |      C = I_L * Δt / V_r
+       ---      >       |      caída permitida: el mismo V_r = 1.42 V
+   CF  ---      < 100   |
+        |       >       |      C = I_L * Δt / V_r
         +-------+-------+</pre>
 <div class="mat"><div><span class="lb">Sustitución:</span> C = 0.164 A × 0.1 s / 1.42 V = 0.0115 F</div></div>
 <p class="res">Resultado: <b>C ≈ 12 000 µF</b> (valor comercial).</p></div>
@@ -805,7 +688,7 @@
            ---                   \ /
         D4 / \                   ---  D1
             |                     |
-            +-------&gt;|Z-----------+        D5 (Zener): ánodo a la izquierda,
+            +------->|Z-----------+        D5 (Zener): ánodo a la izquierda,
             |        D5           |        cátodo a la derecha
            \ /                   ---
         D2 ---                D3 / \
@@ -831,7 +714,7 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 → 0.65 V + 30 Ω; D5 (en ruptura) → 6.67 V + 3.5 Ω; D2 → 0.65 V + 30 Ω. D3 y D4 (OFF) → abiertos.</p>
 <pre class="ascii">   v_i o---/\/\/---+---o v_o
            R1 1k   |
-                   &gt;  30 + 3.5 + 30 = 63.5 ohm        (r_D1 + r_z + r_D2)
+                   >  30 + 3.5 + 30 = 63.5 ohm        (r_D1 + r_z + r_D2)
                    |  +
                ( 7.97 V )                              (0.65 + 6.67 + 0.65)
                    |  -
@@ -844,22 +727,7 @@
 <p class="tec"><b>Técnica:</b> el mismo análisis por simetría.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D3, D4 → 0.65 V + 30 Ω; D5 → 6.67 V + 3.5 Ω <b>en el mismo sentido que antes</b> (la corriente entra por su cátodo, a la derecha); D1 y D2 → abiertos.</p>
 <p class="res">Resultado: <b>v<sub>o</sub> = −7.97 + (v<sub>i</sub> + 7.97)/16.75</b>; v<sub>o</sub>(−10 V) = −8.09 V. La transferencia es simétrica.</p></div>
-<pre class="ascii">      ^  v_o
-      |          :                                      :
- 7.97 +- - - - - : - - - - - - - - - - - - - - - - - - ************  +7.97 V
-      |          :                                 **** :
-      |          :                             ****     :
-      |          :                         ****         :
-      |          :                     ****             :
-    0 +----------:-----------------****-----------------:----------
-      |          :             ****                     :
-      |          :         ****                         :
-      |          :     ****                             :
-      |          : ****                                 :
--7.97 +************- - - - - - - - - - - - - - - - - - -:- - - - -   -7.97 V
-      |          :                                      :
-               -7.97                 0                7.97      12 V   v_i
-   Región I (|v_i| &lt; 7.97 V): pendiente 1.   Regiones II y III: pendiente 1/16.75 (casi plana).</pre>
+<pre class="ascii" data-plot="p12_transf"></pre>
 <div class="ans"><b>Versión 2:</b> Zener de 5.6 V a 45 mA con r<sub>z</sub> = 5 Ω → V<sub>Z0</sub> = 5.375 V, quiebre en <b>±6.675 V</b>, pendiente <b>1/16.38</b>. <b>Versión repe:</b> V<sub>D</sub> = 0.65 V, V<sub>Z</sub> = 5.1 V y r<sub>z</sub> = r<sub>D</sub> = 0 → salida plana en <b>±6.4 V</b>.</div></div>
 
 <!-- ============ 13 ============ -->
@@ -869,19 +737,19 @@
 <pre class="ascii">                           V_DD = 15 V
           +--------------------+--------------------+
           |  S                                      |  S
-      ||&lt;-+                                     ||&lt;-+
+      ||<-+                                     ||<-+
   +---||        M3 (PMOS)              +--------||        M2 (PMOS)
   |   ||--+                            |        ||--+
   |       |  D                         |            |  D
   +-------+----------------------------+            |
           |    (G3 = D3 = G2)                       +-------+
-          &gt;                                         |       |
-          &lt;  R_B = 12 k                             &gt;       |  D1
-          &gt;                                         &lt;  R_G  |
-          |                                         &gt;  1 M  |
+          >                                         |       |
+          <  R_B = 12 k                             >       |  D1
+          >                                         <  R_G  |
+          |                                         >  1 M  |
          GND                                        |   ||--+
                                                     +---||        M1 (NMOS)
-                                                   G1   ||-&gt;+
+                                                   G1   ||->+
                                                             |  S
                                                            GND</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>M3: PMOS conectado como diodo</div>
@@ -913,15 +781,15 @@
 <p class="enun"><b>2023 P4c:</b> V1 = V2 = 10 V (±10 V respecto de tierra), R<sub>D1</sub> = 1.3 kΩ, transistores del problema 6 (V<sub>t</sub> = 0.54 V, K<sub>N</sub> = 1.21 mA/V²). Halle V<sub>OUT</sub>.</p>
 <pre class="ascii">                    +10 V (V1)                                GND
                         |  D                                   |
-                    ||--+                                      &gt;
-   -10 V -----------||        M3                               &lt;  R_D1 = 1.3 k
-   (compuerta)      ||-&gt;+                                      &gt;
+                    ||--+                                      >
+   -10 V -----------||        M3                               <  R_D1 = 1.3 k
+   (compuerta)      ||->+                                      >
                         |  S                                   |
                         +------o V_OUT             +-----------+  D1
                         |  D                       |           |
                     ||--+                          |       ||--+
               +-----||        M2                   +-------||        M1
-              |     ||-&gt;+                          |       ||-&gt;+
+              |     ||->+                          |       ||->+
               |         |  S                       |           |  S
               |       -10 V (V2)                   |         -10 V
               |                                    |
@@ -945,11 +813,11 @@
 <div id="p14" class="prob media"><div class="keep"><h3><span class="tag media">MEDIA · 30 %</span>14. Foco incandescente con diodo "ahorrador" (2023 P2 y 2023R P2)</h3>
 <img class="fig" src="img/f23_p2.png" alt="Figura 2023 P2"></div>
 <pre class="ascii">                 D1 (1N4004)
-   +-------------&gt;|------------+
+   +------------->|------------+
    |                           |
- (~ 120 Vac)                   &gt;
-   |                           &lt;  R = lámpara de 100 W @ 120 Vac
-   |                           &gt;
+ (~ 120 Vac)                   >
+   |                           <  R = lámpara de 100 W @ 120 Vac
+   |                           >
    |                           |
    +---------------------------+
   GND</pre>
@@ -983,9 +851,9 @@
    |                   |  +               |
    |                ( 1.5 V )  V3         |
    |                   |  -               |
-   |                   &gt;                  &gt;
-   |                   &lt;  R2 = 750        &lt;  R3 = 250
-   |                   &gt;                  &gt;
+   |                   >                  >
+   |                   <  R2 = 750        <  R3 = 250
+   |                   >                  >
    |                   |                  |
    +-------------------+------------------+------o - (GND)</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Ambos diodos apagados</div>
@@ -998,7 +866,7 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 → batería de 0.6 V (queda en serie con 1.5 V y 750 Ω: total 2.1 V + 750 Ω); D2 → abierto.</p>
 <pre class="ascii">   V_i --/\/\/--+--o V_o
          500    |
-                &gt;  750
+                >  750
                 |  +
              ( 2.1 V )
                 |  -
@@ -1013,27 +881,12 @@
          500    |  -
              ( 0.6 V )   (el + abajo: la corriente sube desde GND)
                 |  +
-                &gt;  250
+                >  250
                GND</pre>
 <div class="mat"><div><span class="lb">LCK:</span> (V<sub>i</sub> − V<sub>o</sub>)/500 = (V<sub>o</sub> + 0.6)/250</div>
 <div><span class="lb">Despeje:</span> 250V<sub>i</sub> − 250V<sub>o</sub> = 500V<sub>o</sub> + 300 → V<sub>o</sub> = V<sub>i</sub>/3 − 0.4</div></div>
 <p class="res">Resultado: <b>V<sub>o</sub> = V<sub>i</sub>/3 − 0.4</b>; en −10 V, <b>−3.73 V</b>.</p></div>
-<pre class="ascii">      ^  V_o
-      |                            :       :
- 6.84 +                            :       :                  *****
-      |                            :       :             *****
-      |                            :       :         ****
-      |                            :       :    *****
-  2.1 +                            :       *****
-      |                            :    ***:
-      |                            : ***   :
-    0 +-------------------------*****------:-----------------------
-      |                *********   :       :
-      |       *********            :       :
--3.73 +*******                     :       :
-      |                            :       :
-       -10                       -0.6     2.1                   10 V   V_i
-   Pendientes: 1/3 (D2 ON) | 1 (ambos OFF) | 0.6 (D1 ON).  Quiebres en V_i = -0.6 V y 2.1 V.</pre>
+<pre class="ascii" data-plot="p15_transf"></pre>
 <div class="ans"><b>Variante 2014 P1</b> (R = 1 kΩ, rama D1 con 1 V y 1.5 kΩ, rama D2 con 0.5 kΩ, V<sub>D</sub> = 0.7 V): para V<sub>i</sub> &gt; 1.7 V, V<sub>o</sub> = 1.7 + (V<sub>i</sub> − 1.7)·1.5/2.5. <b>Ojo:</b> la solución oficial escribe "+1 V" al final, pero por continuidad debe ser +1.7 V. Para V<sub>i</sub> &lt; −0.7 V, V<sub>o</sub> = −0.7 + (V<sub>i</sub> + 0.7)/3.</div></div>
 
 <!-- ============ 16 ============ -->
@@ -1074,9 +927,9 @@
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>¿Cuándo conduce la rama D1 + Zener?</div>
 <p class="tec"><b>Técnica:</b> método de estados: hacia abajo, D1 en directa (0.6 V) + Zener en ruptura (5.1 V); hacia arriba, D1 bloquea.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. Rama ON → batería de 0.6 + 5.1 = 5.7 V; rama OFF → abierta.</p>
-<pre class="ascii">   rama ON:   V_o ---(+ 0.6 V -)---(+ 5.1 V -)--- GND        =&gt;  V_o = 5.7 V
+<pre class="ascii">   rama ON:   V_o ---(+ 0.6 V -)---(+ 5.1 V -)--- GND        =>  V_o = 5.7 V
                         D1              D2 ruptura
-   rama OFF:  V_o ---o    o--- GND        (para V_o &lt; 5.7 V; hacia abajo nunca conduce: D1 bloquea)</pre>
+   rama OFF:  V_o ---o    o--- GND        (para V_o < 5.7 V; hacia abajo nunca conduce: D1 bloquea)</pre>
 <p class="res">Resultado: <b>la rama solo conduce cuando V<sub>o</sub> intenta pasar de +5.7 V</b>.</p></div>
 <div class="paso"><div class="ph"><span class="pn">Paso 2</span>Primer pico positivo: el condensador se carga</div>
 <p class="tec"><b>Técnica:</b> LVK en la malla v<sub>i</sub> – C1 – rama ON.</p>
@@ -1087,24 +940,7 @@
 <p class="tec"><b>Técnica:</b> rama OFF + condensador sin descarga = batería en serie.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. Rama → abierta; C1 → batería de 8.44 V.</p>
 <pre class="ascii">   (~ v_i) --(+ 8.44 V -)-- V_o        V_o = v_i - 8.44</pre>
-<pre class="ascii">      ^  V
-      |
- 14.1 +      ......                          ......
-      |    ..      .                        .      ..
-      |   .         .                     ..         .
-  5.7 +- **********- ..- - - - - - - - - . - ******- -.- - - - - - - - -   +5.7 V
-      | *          *   .                .  **      **  .
-    0 +*------------**--.--------------.--*----------*--.---------------.
-      |               *  .            .  *            *  .            ..
-      |                *  .          .  *              *  .          .
--8.44 +- - - - - - - - -*- . - - - ..- * - - - - - - - -*- ..- - - -.- -*  promedio -8.44 V
-      |                  *  ...  ..   *                  *   ... ...  **
-      |                   *    ..    *                    **    .    *
-      |                    **      **                       *       *
-      |                      ******                          *** ***
--22.6 +                                                         *
-              90°            270°             450°            630°   wt
-   .  v_i      *  v_o. En el primer pico la rama D1+Zener carga C a 8.44 V; después v_o = v_i - 8.44 V.</pre>
+<pre class="ascii" data-plot="p17_t"></pre>
 <p class="res">Resultado: <b>V<sub>o</sub> = v<sub>i</sub> − 8.44 V</b>, entre +5.7 V y −22.6 V; <b>V<sub>o,prom</sub> = −8.44 V</b>.</p></div></div>
 
 <!-- ============ 18 ============ -->
@@ -1113,9 +949,9 @@
 <p class="enun">V<sub>CC</sub> = 20 V, V<sub>EE1</sub> = V<sub>EE2</sub> = 10 V (negativas respecto de tierra), R1 = R2 = R3 = 10 kΩ, 1N4148 con V<sub>D</sub> = 0.7 V. Halle las corrientes de los diodos y V<sub>1</sub>, V<sub>2</sub>, V<sub>3</sub>.</p>
 <pre class="ascii">            +20 V (VCC)
                |
-               &gt;
-               &lt;  R1 = 10 k
-               &gt;
+               >
+               <  R1 = 10 k
+               >
                |
                1 (V1)
                +----------------------+
@@ -1125,9 +961,9 @@
                |                      |
                2 (V2)                 3 (V3)-----------+
                |                      |                |
-               &gt;                      &gt;               ---
-               &lt;  R2 = 10 k           &lt;  R3 = 10 k    / \  D3  (ánodo en GND, cátodo en el nodo 3)
-               &gt;                      &gt;                |
+               >                      >               ---
+               <  R2 = 10 k           <  R3 = 10 k    / \  D3  (ánodo en GND, cátodo en el nodo 3)
+               >                      >                |
                |                      |               GND
             -10 V (VEE1)           -10 V (VEE2)</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Suposición inicial: los tres conducen</div>
@@ -1148,7 +984,7 @@
           |               |
           V2              V3        D3 abierto: o   o
           |               |
-          &gt;  10k          &gt;  10k
+          >  10k          >  10k
           |               |
         -10 V           -10 V
 
@@ -1171,11 +1007,11 @@
 <p class="tec"><b>Técnica:</b> equilibrio difusión = deriva en la unión.</p>
 <p class="red"><b>¿Se redibuja?</b> No hay circuito; se usa el dibujo de la unión.</p>
 <pre class="ascii">        p                |                n
-   difusión de huecos    |   ------&gt;
-   difusión de electrones|   &lt;------
-   deriva de electrones  |   ------&gt;
-   deriva de huecos      |   &lt;------
-                  campo E:   &lt;======   (de n hacia p)</pre>
+   difusión de huecos    |   ------>
+   difusión de electrones|   <------
+   deriva de electrones  |   ------>
+   deriva de huecos      |   <------
+                  campo E:   <======   (de n hacia p)</pre>
 <p class="res">Resultado: en <b>directa</b> la difusión aumenta, la deriva se mantiene y el total aumenta; en <b>inversa</b> la difusión disminuye, la deriva se mantiene y el total queda en −I<sub>S</sub>.</p></div>
 <p><b>Corto de unión pn</b> (resultados verificados): minoritarios 1.445×10⁴ cm⁻³; J<sub>dif</sub> = 750 A/cm², compensada por un campo de unos 248 V/cm usando la n promedio; τ = L²/D = 14.8 µs; con 10¹⁶/10¹⁸: n<sub>p</sub> = 2.25×10⁴ cm⁻³, p<sub>n</sub> = 225 cm⁻³, V<sub>bi</sub> ≈ 0.81 V y W ≈ 0.33 µm. Las fórmulas están en la guía 01, secciones 1.2 a 1.4.</p></div>
 

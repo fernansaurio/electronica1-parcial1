@@ -14,7 +14,7 @@
 
 <pre class="ascii">SÍMBOLOS ASCII (los mismos de la guía 01)
 
-  --/\/\/--  resistencia     --||--  condensador     --&gt;|--  diodo (ánodo -&gt; cátodo)
+  --/\/\/--  resistencia     --||--  condensador     -->|--  diodo (ánodo -> cátodo)
   (~ vs)     fuente senoidal (+ 5V -) fuente DC       (^ I)   fuente de corriente
   -)-        cruce de cables SIN conexión            ---+--- nodo (con conexión)
   o     o    rama abierta (diodo OFF)                GND     tierra, 0 V
@@ -27,7 +27,7 @@
             hacia      hacia       (cátodo
             abajo      arriba      arriba)
 
-  Reemplazos:  diodo ON -&gt; batería V_D   |   diodo OFF -&gt; abierto   |   Zener en ruptura -&gt; V_Z0 + r_z</pre>
+  Reemplazos:  diodo ON -> batería V_D   |   diodo OFF -> abierto   |   Zener en ruptura -> V_Z0 + r_z</pre>
 
 <!-- ==================================================================== -->
 <h2 id="s1">1. Fundamentos: la senoidal, el transformador y la fuente DC</h2>
@@ -56,7 +56,7 @@
 <p class="res">Resultado: <b>V<sub>s</sub> = 16.97 V pico</b></p></div>
 <h3>1.3 La fuente DC por bloques</h3>
 <pre class="ascii">  red 120 Vac      transformador      rectificador        filtro C          regulador          carga
-  ~~~~~~~~~~  --&gt;  [ baja tensión ] --&gt; [ diodos ] ------&gt; [ condensador ] --&gt; [ Zener / CI ] --&gt; [ R_L ]
+  ~~~~~~~~~~  -->  [ baja tensión ] --> [ diodos ] ------> [ condensador ] --> [ Zener / CI ] --> [ R_L ]
   169.7 V pico      p. ej. 16.97 V       |senoidal|          DC con rizado      DC casi pura
                                           /\/\/\/\            ~~~~~~~            ---------</pre>
 <p class="galt">Figura de clase</p><div class="gal"><figure><img src="img/clase/fuente_bloques.png" alt="Diagrama de bloques"><figcaption>Diagrama de bloques de un alimentador DC</figcaption></figure></div>
@@ -65,11 +65,11 @@
 <h2 id="s2">2. Rectificadores</h2>
 <h3>2.1 Rectificador de media onda</h3>
 <pre class="ascii">                     D
-   +----------------&gt;|--------+----------o  + v_o
+   +---------------->|--------+----------o  + v_o
    |                          |
- (~ vs)   vs = V_s sen(wt)    &gt;
-   |                          &lt;  R_L
-   |                          &gt;
+ (~ vs)   vs = V_s sen(wt)    >
+   |                          <  R_L
+   |                          >
    |                          |
    +--------------------------+----------o  - v_o   (GND)</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Semiciclo positivo (vs &gt; V<sub>D</sub>)</div>
@@ -77,7 +77,7 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. D (ON) → batería V<sub>D</sub> con + en el ánodo.</p>
 <pre class="ascii">   +------(+ V_D -)-----------+----------o  + v_o
    |         D ON             |
- (~ vs)       i --&gt;           &gt;  R_L
+ (~ vs)       i -->           >  R_L
    |                          |
    +--------------------------+----------o  -</pre>
 <div class="mat"><div><span class="lb">LVK:</span> v<sub>s</sub> − V<sub>D</sub> − v<sub>o</sub> = 0 → v<sub>o</sub> = v<sub>s</sub> − V<sub>D</sub> ; pico: V<sub>p,o</sub> = V<sub>s</sub> − V<sub>D</sub></div></div>
@@ -87,41 +87,25 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. D (OFF) → circuito abierto. Sin corriente, v<sub>o</sub> = 0.</p>
 <pre class="ascii">   +--------o      o----------+----------o  + v_o = 0
    |       + v_D -            |
- (~ vs)    D abierto          &gt;  R_L   (i = 0)
+ (~ vs)    D abierto          >  R_L   (i = 0)
    |                          |
    +--------------------------+----------o  -</pre>
 <div class="mat"><div><span class="lb">LVK:</span> v<sub>D</sub> = v<sub>s</sub> − v<sub>o</sub> = v<sub>s</sub> → mínimo en v<sub>s</sub> = −V<sub>s</sub></div></div>
 <p class="res">Resultado: <b>v<sub>o</sub> = 0</b> y <b>PIV = V<sub>s</sub></b>.</p></div>
-<pre class="ascii">       ^  v (V)
-       |       ...                              ..
- 16.27 +     .******                          ******
-       |    **      *                       .*      **
-       |   *         *                     .*         *
-       |  *           *                   .*           *
-       | *             *                 .*             *
-     0 +*---------------******************---------------*****************
-       |                 .              .                 .             .
-       |                  .            .                   .           .
-       |                   .          .                     .         .
-       |                    ..      ..                       .       .
-       |                      ..  ..                          ..   ..
--16.97 +                        ..                              ...
-                      180°            360°             540°            720°   wt
-   .  entrada vs (16.97 V pico)     *  salida v_o = vs - 0.7 V en el semiciclo +, 0 en el semiciclo -
-   En el semiciclo - el diodo soporta toda la tensión inversa: PIV = 16.97 V</pre>
+<pre class="ascii" data-plot="media_onda"></pre>
 
 <h3>2.2 Onda completa con transformador de derivación central</h3>
 <p>El secundario tiene una toma en el centro (CT) que se usa como tierra. Cada mitad entrega V<sub>s</sub> pico, en contrafase: cuando A es +v<sub>s</sub>, B es −v<sub>s</sub>.</p>
 <pre class="ascii">                           D1
-        +------A------------&gt;|-----------+
+        +------A------------>|-----------+
         |                                |
       (~ vs)   mitad superior            |
         |                                +--------+--------o  + v_o
         CT------------+                  |        |
-        |             |                  |        &gt;
-      (~ vs)   mitad  |                  |        &lt;  R_L
-        |    inferior |                  |        &gt;
-        +------B------)------------&gt;|----+        |
+        |             |                  |        >
+      (~ vs)   mitad  |                  |        <  R_L
+        |    inferior |                  |        >
+        +------B------)------------>|----+        |
                       |             D2            |
                       +---------------------------+--------o  - v_o  (GND = CT)</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Semiciclo positivo: D1 ON, D2 OFF</div>
@@ -129,7 +113,7 @@
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 (ON) → batería V<sub>D</sub>. D2 (OFF, su ánodo B está en −v<sub>s</sub>) → abierto.</p>
 <pre class="ascii">     A --(+ V_D -)--+----------+       B --o   o--  (D2 abierto)
      |      D1      |          |
-  (~ vs)            |          &gt;  R_L          v_o = vs - V_D
+  (~ vs)            |          >  R_L          v_o = vs - V_D
      |              |          |
      CT ------------+----------+  (GND)</pre>
 <div class="mat"><div><span class="lb">LVK:</span> v<sub>o</sub> = v<sub>s</sub> − V<sub>D</sub></div>
@@ -144,9 +128,9 @@
 <p>Usa un secundario simple y cuatro diodos. En cada semiciclo conducen <b>dos</b> diodos en serie con la carga y los otros dos quedan en inversa. <b>Nunca conducen los cuatro a la vez.</b></p>
 <pre class="ascii">                  +---------------+---------------+-------o  + v_o
                   |               |               |
-                 ---             ---              &gt;
-              D1 / \          D3 / \              &lt;  R_L
-                  |               |               &gt;
+                 ---             ---              >
+              D1 / \          D3 / \              <  R_L
+                  |               |               >
      +-----A------+               |               |
      |            |               |               |
    (~ vs)        ---              |               |
@@ -160,11 +144,11 @@
                   +---------------+---------------+-------o  - v_o  (GND)
 
    Los cuatro diodos "apuntan hacia arriba": ánodo abajo, cátodo arriba.
-   D1: A -&gt; riel +      D3: B -&gt; riel +      D4: riel - -&gt; A      D2: riel - -&gt; B</pre>
+   D1: A -> riel +      D3: B -> riel +      D4: riel - -> A      D2: riel - -> B</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Semiciclo positivo (A más positivo que B): D1 y D2 ON, D3 y D4 OFF</div>
 <p class="tec"><b>Técnica:</b> método de estados + LVK en la malla A → D1 → R<sub>L</sub> → D2 → B.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D1 y D2 (ON) → baterías V<sub>D</sub>. D3 y D4 (OFF) → circuito abierto (se borran sus ramas).</p>
-<pre class="ascii">     A --(+ V_D -)--&gt; riel + --/\/\/--&gt; riel - --(+ V_D -)--&gt; B
+<pre class="ascii">     A --(+ V_D -)--> riel + --/\/\/--> riel - --(+ V_D -)--> B
             D1                 R_L                  D2
                           + v_o -
 
@@ -176,26 +160,11 @@
 <div class="paso"><div class="ph"><span class="pn">Paso 2</span>Semiciclo negativo (B más positivo que A): D3 y D4 ON, D1 y D2 OFF</div>
 <p class="tec"><b>Técnica:</b> método de estados + LVK en la malla B → D3 → R<sub>L</sub> → D4 → A.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. D3 y D4 (ON) → baterías V<sub>D</sub>. D1 y D2 (OFF) → abiertos.</p>
-<pre class="ascii">     B --(+ V_D -)--&gt; riel + --/\/\/--&gt; riel - --(+ V_D -)--&gt; A
+<pre class="ascii">     B --(+ V_D -)--> riel + --/\/\/--> riel - --(+ V_D -)--> A
             D3                 R_L                  D4
                           + v_o -          (la corriente en R_L va en el MISMO sentido)</pre>
 <p class="res">Resultado: <b>v<sub>o</sub> = |v<sub>s</sub>| − 2V<sub>D</sub></b>. Salida de onda completa con un solo secundario.</p></div>
-<pre class="ascii">       ^  v (V)
-       |       ...                              ..
- 15.57 +     .*****.          *****           .*****           *****
-       |    .*     **        *     **       .**     *.       **     *
-       |   **        *      *        *     .*        *.     *        **
-       |  *           *    *          *   .*          *.   *           *
-       | *             *  *            * .*            *. *             *
-     0 +*---------------**--------------**--------------**---------------*
-       |                 .              .                 .             .
-       |                  .            .                   .           .
-       |                   .          .                     .         .
-       |                    ..      ..                       .       .
-       |                      ..  ..                          ..   ..
--16.97 +                        ..                              ...
-                      180°            360°             540°            720°   wt
-   .  entrada vs      *  salida del puente |vs| - 2 V_D  (D1+D2 en los semiciclos +, D3+D4 en los -)</pre>
+<pre class="ascii" data-plot="onda_completa"></pre>
 
 <h3>2.4 Comparación de los tres rectificadores</h3>
 <table>
@@ -230,41 +199,19 @@
 <pre class="ascii">   Puente con filtro:    ... D1/D2 o D3/D4 ...
                   riel + o-----+-----------+------o  + v_o
                                |           |
-                              ---          &gt;
-                              ---  C       &lt;  R_L
-                               |           &gt;
+                              ---          >
+                              ---  C       <  R_L
+                               |           >
                   riel - o-----+-----------+------o  -
 
    Durante la DESCARGA (todos los diodos OFF):         Durante la CARGA (un par ON):
         +-----+-----+                                   v_o = |vs| - 2 V_D  (sigue a la entrada)
         |     |     |                                   el par ON le entrega a C la carga que
-       ---    &gt;     |                                   perdió, en un pulso de duración ΔT
-       ---  C &lt;  R_L| i_L = v_o / R_L
-        |     &gt;     |
+       ---    >     |                                   perdió, en un pulso de duración ΔT
+       ---  C <  R_L| i_L = v_o / R_L
+        |     >     |
         +-----+-----+     v_o(t) = V_p e^(-t/RC)  ~  V_p - (I_L/C) t</pre>
-<pre class="ascii">    ^  v
-    |
-V_p +- - - -***- - - - - - *** - - - - - ****- - - - - -***- - - - - - **  V_p
-    |      *  .****      **  .****      *   .****      *   *****      *
-    |     *    .   ******     .   **** *     .   **** *     .   **** *
-min +- - * - - -.- - - -*- - - . - - -** - - -.- - - * - - -.- - - -*- -   V_p - V_r
-    |   *       .      .       .      .       .      .       .      .
-    |   *        .    .         .    .         .    .         .    .
-    |  *         .    .         .    .         .    .         .    .
-    |  *          .  .           .  .           .  .           .  .
-    | *           .  .           .  .           .  .           .  .
-    | *            . .            ..             ..             ..
-    |*             ..              .              .             ..
-  0 +*--------------.----------------------------------------------------
-           90°           270°           450°           630°   wt
-i_D +     ###            ###           ####           ####           ####
-    |     # #            # #           #  #           #  #           #
-    |    #   #          #   #         #    #         #    #         #
-  0 +#####---############---###########----###########----###########----
-           90°           270°           450°           630°   wt
-   .  |vs| rectificada     *  v_o con condensador (rizado exagerado para verlo)
-   Los diodos conducen solo en el tramo de subida justo antes de cada pico (duración ΔT):
-   ahí aparecen los pulsos de corriente ### ; el resto del tiempo C alimenta sola a la carga.</pre>
+<pre class="ascii" data-plot="filtro"></pre>
 <h4>Las fórmulas y de dónde salen</h4>
 <div class="paso"><div class="ph"><span class="pn">Deducción 1</span>Tensión de rizado V<sub>r</sub></div>
 <p class="tec"><b>Técnica:</b> conservación de carga en el condensador (Q = C·ΔV) con descarga a corriente casi constante I<sub>L</sub> ≈ V<sub>p</sub>/R.</p>
@@ -287,9 +234,9 @@ i_D +     ###            ###           ####           ####           ####
        |        /|            área del triángulo = (1/2) * I_pico * ΔT
  I_pico+       / |            carga que perdió C  = I_dc * T/2
        |      /  |
-       |     /   |            (1/2) I_pico ΔT = I_dc T/2   =&gt;   I_pico = I_dc * T / ΔT
-       +----+----+-------&gt; t
-            |&lt;ΔT&gt;|</pre>
+       |     /   |            (1/2) I_pico ΔT = I_dc T/2   =>   I_pico = I_dc * T / ΔT
+       +----+----+-------> t
+            |<ΔT>|</pre>
 <div class="mat"><div><span class="lb">Profesor:</span> I<sub>pico</sub> ≈ I<sub>dc</sub>·T/ΔT (onda completa, T = 1/60 s)</div>
 <div><span class="lb">Sedra, onda completa:</span> i<sub>D,max</sub> = I<sub>L</sub>(1 + 2π√(V<sub>p</sub>/2V<sub>r</sub>)) ; promedio <i>durante la conducción</i>: i<sub>D,av</sub> = I<sub>L</sub>(1 + π√(V<sub>p</sub>/2V<sub>r</sub>))</div>
 <div><span class="lb">Sedra, media onda:</span> i<sub>D,max</sub> = I<sub>L</sub>(1 + 2π√(2V<sub>p</sub>/V<sub>r</sub>)) ; i<sub>D,av</sub> = I<sub>L</sub>(1 + π√(2V<sub>p</sub>/V<sub>r</sub>))</div></div>
@@ -310,20 +257,20 @@ i_D +     ###            ###           ####           ####           ####
 
 <h4>Ejemplo 2.2 · Puente con filtro: 12 Vrms, V<sub>D</sub> = 0.7 V, R<sub>L</sub> = 100 Ω, C = 1000 µF, 60 Hz</h4>
 <pre class="ascii">                     puente (D1..D4)
-   (~ 12 Vrms) ---&gt; [ D1 D2 / D3 D4 ] ---+-----------+------o  + v_o
+   (~ 12 Vrms) ---> [ D1 D2 / D3 D4 ] ---+-----------+------o  + v_o
                                          |           |
-                                        ---          &gt;
-                                        ---  1000 uF &lt;  100 ohm
-                                         |           &gt;
+                                        ---          >
+                                        ---  1000 uF <  100 ohm
+                                         |           >
                                    ------+-----------+------o  -</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Pico en el condensador</div>
 <p class="tec"><b>Técnica:</b> LVK en la malla de carga (un par ON en el pico).</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. En el pico positivo: D1 y D2 (ON) → baterías de 0.7 V; D3 y D4 (OFF) → abiertos.</p>
 <pre class="ascii">   A --(+0.7-)--+-----+-----+--(+0.7-)-- B
          D1     |     |     |     D2
-               ---    &gt;     |
-               ---  C &lt; R_L |     (C en paralelo con R_L entre los rieles)
-                |     &gt;     |
+               ---    >     |
+               ---  C < R_L |     (C en paralelo con R_L entre los rieles)
+                |     >     |
                 +-----+-----+</pre>
 <div class="mat"><div><span class="lb">General:</span> V<sub>p</sub> = V<sub>s</sub> − 2V<sub>D</sub></div>
 <div><span class="lb">Sustitución:</span> V<sub>p</sub> = 16.97 V − 2(0.7 V)</div></div>
@@ -382,9 +329,9 @@ i_D +     ###            ###           ####           ####           ####
 <pre class="ascii">                  riel +
    [ puente ] --------+
    [ D1..D4 ]         |
-                      &gt;
-                      &lt;  R          el par ON conduce solo cuando
-                      &gt;             |vs| &gt; 2 V_D + V_B
+                      >
+                      <  R          el par ON conduce solo cuando
+                      >             |vs| > 2 V_D + V_B
                       |  +
                    ( V_B )  batería
                       |  -
@@ -395,7 +342,7 @@ i_D +     ###            ###           ####           ####           ####
 <p class="red"><b>¿Se redibuja?</b> Sí. Semiciclo +: D1, D2 (ON) → baterías V<sub>D</sub>; D3, D4 (OFF) → abiertos.</p>
 <pre class="ascii">   A --(+V_D-)-- riel+ --/\/\/--(+ V_B -)-- riel- --(+V_D-)-- B
           D1               R      batería             D2
-                        i --&gt;</pre>
+                        i --></pre>
 <div class="mat"><div><span class="lb">General:</span> i &gt; 0 si V<sub>s</sub>sen θ &gt; nV<sub>D</sub> + V<sub>B</sub> (n = 2 en puente, 1 en media onda)</div>
 <div><span class="lb">Despeje:</span> θ<sub>1</sub> = arcsen[(nV<sub>D</sub> + V<sub>B</sub>)/V<sub>s</sub>] ; conduce de θ<sub>1</sub> a π − θ<sub>1</sub></div></div>
 <p class="res">Resultado: <b>i(θ) = (V<sub>s</sub>sen θ − nV<sub>D</sub> − V<sub>B</sub>)/R</b> dentro del intervalo, 0 fuera.</p></div>
@@ -407,35 +354,14 @@ i_D +     ###            ###           ####           ####           ####
 <div><span class="lb">Carga:</span> t = capacidad (A·h)/I<sub>bat</sub> ; en puente cada diodo lleva I<sub>bat</sub>/2</div>
 <div><span class="lb">Potencia:</span> P = V<sub>B</sub>I<sub>bat</sub> + nV<sub>D</sub>I<sub>bat</sub> + R·I<sub>rms</sub>²</div></div>
 <p class="res">Resultado: con los datos del parcial 2023 P1 (16.97 V, 0.85 V, 10 Ω, 6 V) salen <b>0.927 A de pico, 0.424 A de promedio y 1.89 h</b>. Todo el desarrollo numérico está en la guía 04, problema 3.</p></div>
-<pre class="ascii">         ^  |vs| (V)
-         |     :                     :        :                     :
-   16.97 +     :     **********      :        :      **********     :
-         |     :   **          **    :        :    **          **   :
-         |     :  *              **  :        :  **              *  :
-         |     :**                 * :        : *                 **:
-         |- - -*- - - - - - - - - - **- - - - **- - - - - - - - - - * - -   2V_D + V_B = 7.7 V
-         |   **:                     :*      *:                     :**
-         |  *  :                     : *    * :                     :  *
-         | *   :                     :  *  *  :                     :   *
-       0 +*----:---------------------:---**---:---------------------:----*
-              27°                  153°     207°                  333°   wt
-
-        ^  i_bat
-0.927 A +     :        ####         :        :         ####        :
-        |     :     ###    ###      :        :      ###    ###     :
-        |     :   ##          ###   :        :   ###          ##   :
-        |     : ##               #  :        :  #               ## :
-        |     :#                  ##:        :##                  #:
-      0 +######---------------------##########---------------------######
-                                                                       wt
-   La batería solo recibe corriente mientras |vs| supera 2 V_D + V_B (entre las líneas punteadas).</pre>
+<pre class="ascii" data-plot="cargador"></pre>
 <h3>3.2 Cargador con condensador (2023 repetido)</h3>
 <p>Se trata como una fuente filtrada cuya carga es R + batería: primero <span class="f">I<sub>dc</sub> = (V<sub>C</sub> − V<sub>B</sub>)/R</span> con V<sub>C</sub> = V<sub>p</sub>; luego V<sub>r</sub> = I<sub>dc</sub>/(2fC); se corrige V<sub>dc</sub> = V<sub>C</sub> − V<sub>r</sub>/2 y se recalcula I<sub>dc</sub>. La eficiencia es <span class="f">η = V<sub>B</sub>I<sub>dc</sub>/P<sub>entrada</sub></span>. Desarrollo completo: guía 04, problema 8.</p>
 <h3>3.3 Cargador con fuente de corriente (2025 P1, Sedra P4.10)</h3>
 <pre class="ascii">                   (^ I = 60 mA)   la fuente EMPUJA corriente hacia el nodo X
                         |
-   vi o-----|&lt;----------X----------&gt;|---------+-------o v_o
-              D1                    D2        |  i_B --&gt;
+   vi o-----|<----------X---------->|---------+-------o v_o
+              D1                    D2        |  i_B -->
       (cátodo en vi)                         |  +
                                            ( V_B = 6 V )
                                               |  -
@@ -449,37 +375,19 @@ i_D +     ###            ###           ####           ####           ####
 <h2 id="s4">4. Diodo Zener y regulador shunt</h2>
 <h3>4.1 Qué es un Zener y cómo se modela</h3>
 <p>Un Zener es un diodo diseñado para trabajar en <b>ruptura inversa</b>. En esa región la tensión casi no cambia aunque la corriente cambie mucho: sirve de referencia de tensión. Se conecta <b>con el cátodo al positivo</b> y la corriente entra por el cátodo.</p>
-<pre class="ascii">  ^  i
-  |       :          :
-  |       :          :                                          *
-  |       :          :                                         *
-  |       :          :                                    *****
-0 +-------:--------***************************************---------
-  |       :       *. :
-  |       :      *   :
-  |       :    **    :
-  |       :   *      :
-  |       : **       :
-  |- - - -:* - - - - : - - - - - - - - - - - - - - - - - - - - - -   -I_ZT (punto Q)
-  |      **          :
-  |     * :          :
-  |    *  :          :
-  |   *   :          :
-        -V_ZT        -V_Z0                                 0.7   v
-   En ruptura la curva es casi vertical: pendiente = 1/r_z. Su prolongación (....) corta el eje en -V_Z0.
-   El codo está en i = -I_ZK. Dibujo estilizado (la pendiente real es mucho mayor).</pre>
+<pre class="ascii" data-plot="zener_iv"></pre>
 <ul>
 <li><b>V<sub>ZT</sub>, I<sub>ZT</sub></b>: tensión y corriente de prueba de la hoja de datos (punto Q).</li>
 <li><b>r<sub>z</sub></b>: resistencia dinámica = inverso de la pendiente en la ruptura.</li>
 <li><b>I<sub>ZK</sub></b>: corriente del codo. Por debajo el Zener deja de regular.</li>
 <li><b>V<sub>Z0</sub></b>: donde la recta de ruptura corta el eje v. <span class="f">V<sub>Z0</sub> = V<sub>ZT</sub> − I<sub>ZT</sub>·r<sub>z</sub></span>.</li>
 </ul>
-<pre class="ascii">   Zener en el circuito            Modelo en ruptura (I_Z &gt; I_ZK)       Zener sin llegar a ruptura
+<pre class="ascii">   Zener en el circuito            Modelo en ruptura (I_Z > I_ZK)       Zener sin llegar a ruptura
                                                                         (I_Z = 0)
           |  I_Z                          |  I_Z                               |
-         -z-   cátodo (+)                 &gt;                                    o
-         / \   DZ                         &lt;  r_z                        ABIERTO
-          |    ánodo (-)                  &gt;                                    o
+         -z-   cátodo (+)                 >                                    o
+         / \   DZ                         <  r_z                        ABIERTO
+          |    ánodo (-)                  >                                    o
           |                               |  +                                 |
                                         ( V_Z0 )
                                           |  -
@@ -487,11 +395,11 @@ i_D +     ###            ###           ####           ####           ####
 <h3>4.2 Regulador shunt</h3>
 <pre class="ascii">              R
    V_S o----/\/\/----+-----------+-------o  + V_O
-          I_R --&gt;    |           |
+          I_R -->    |           |
                      | I_Z       | I_L
-                    -z-          &gt;
-                DZ  / \          &lt;  R_L
-                     |           &gt;
+                    -z-          >
+                DZ  / \          <  R_L
+                     |           >
                      |           |
    GND o-------------+-----------+-------o  -
 
@@ -510,9 +418,9 @@ i_D +     ###            ###           ####           ####           ####
 <pre class="ascii">              R = 0.5 k
    V+ o-----/\/\/-----+-----------+------o  + V_O
    10 +/- 1 V         |           |
-                     -z-          &gt;
-              6.8 V  / \          &lt;  R_L
-                      |           &gt;
+                     -z-          >
+              6.8 V  / \          <  R_L
+                      |           >
                       |           |
    GND o--------------+-----------+------o  -</pre>
 <div class="paso"><div class="ph"><span class="pn">Paso 1</span>Parámetro V<sub>Z0</sub> del modelo</div>
@@ -526,10 +434,10 @@ i_D +     ###            ###           ####           ####           ####
 <p class="red"><b>¿Se redibuja?</b> Sí. DZ → batería de 6.7 V en serie con 20 Ω. R<sub>L</sub> → abierta (sin carga).</p>
 <pre class="ascii">              R = 500 ohm
    10 V o-----/\/\/-----+-------o  V_O
-          I_Z --&gt;       |
-                        &gt;
-                        &lt;  r_z = 20 ohm
-                        &gt;
+          I_Z -->       |
+                        >
+                        <  r_z = 20 ohm
+                        >
                         |  +
                      ( 6.7 V )
                         |  -
@@ -543,7 +451,7 @@ i_D +     ###            ###           ####           ####           ####
 <p class="red"><b>¿Se redibuja?</b> Sí. La batería V<sub>Z0</sub> → corto (no varía). La fuente se reemplaza por su variación ΔV<sup>+</sup>.</p>
 <pre class="ascii">   dV+ o-----/\/\/-----+-----o  dV_O
                500     |
-                       &gt;  20 ohm
+                       >  20 ohm
                        |
    GND o---------------+</pre>
 <div class="mat"><div><span class="lb">General:</span> ΔV<sub>O</sub>/ΔV<sup>+</sup> = r<sub>z</sub>/(R + r<sub>z</sub>)</div>
@@ -552,11 +460,11 @@ i_D +     ###            ###           ####           ####           ####
 <div class="paso"><div class="ph"><span class="pn">Paso 4</span>Regulación de carga (I<sub>L</sub> = 1 mA)</div>
 <p class="tec"><b>Técnica:</b> análisis de variaciones: V<sup>+</sup> y V<sub>Z0</sub> → cortos; la carga es una fuente de corriente ΔI<sub>L</sub> que sale del nodo.</p>
 <p class="red"><b>¿Se redibuja?</b> Sí. V<sup>+</sup> → corto a tierra, V<sub>Z0</sub> → corto. R y r<sub>z</sub> quedan en paralelo.</p>
-<pre class="ascii">        +-------+-------+----&gt; dI_L (sale)
+<pre class="ascii">        +-------+-------+----> dI_L (sale)
         |       |
-        &gt;       &gt;
-   500  &lt;       &lt;  20        dV_O = -(R || r_z) * dI_L
-        &gt;       &gt;
+        >       >
+   500  <       <  20        dV_O = -(R || r_z) * dI_L
+        >       >
         |       |
        GND     GND</pre>
 <div class="mat"><div><span class="lb">General:</span> ΔV<sub>O</sub> = −(R∥r<sub>z</sub>)·ΔI<sub>L</sub></div>
@@ -567,9 +475,9 @@ i_D +     ###            ###           ####           ####           ####
 <p class="red"><b>¿Se redibuja?</b> Sí. DZ → 6.7 V + 20 Ω; R<sub>L</sub> = 2 kΩ conectada.</p>
 <pre class="ascii">   10 V o---/\/\/---+-----------+----o  V_O
              500    |           |
-                    &gt;  20       &gt;
-                    |  +        &lt;  2 k
-                 ( 6.7 V )      &gt;
+                    >  20       >
+                    |  +        <  2 k
+                 ( 6.7 V )      >
                     |  -        |
    GND o------------+-----------+</pre>
 <div class="mat"><div><span class="lb">LCK en V<sub>O</sub>:</span> (10 − V<sub>O</sub>)/500 = (V<sub>O</sub> − 6.7)/20 + V<sub>O</sub>/2000</div>
@@ -581,9 +489,9 @@ i_D +     ###            ###           ####           ####           ####
 <p class="red"><b>¿Se redibuja?</b> Sí, dos veces. Primero con el modelo de ruptura: sale I<sub>Z</sub> = (6.57 − 6.7)/20 = −6.3 mA &lt; 0 ✗. Entonces DZ → <b>abierto</b>.</p>
 <pre class="ascii">   10 V o---/\/\/---+-----o  V_O
              500    |
-          DZ        &gt;
-        abierto     &lt;  500
-          o  o      &gt;
+          DZ        >
+        abierto     <  500
+          o  o      >
                     |
    GND o------------+</pre>
 <div class="mat"><div><span class="lb">Divisor:</span> V<sub>O</sub> = 10·500/(500 + 500) = 5 V &lt; 6.7 V ✓ (el Zener no llega a ruptura)</div></div>
@@ -638,7 +546,7 @@ i_D +     ###            ###           ####           ####           ####
 <p class="red"><b>¿Se redibuja?</b> Sí. D (ON) → batería de 0.7 V en serie con la de 3 V.</p>
 <pre class="ascii">          R = 1 k
    +-----/\/\/-----+---------o  v_o = 3.7 V
-   |    i --&gt;      |  +
+   |    i -->      |  +
  (~ vi)         ( 0.7 V )  D ON
    |               |  -
    |               |  +
@@ -648,38 +556,8 @@ i_D +     ###            ###           ####           ####           ####
 <div class="mat"><div><span class="lb">General:</span> v<sub>o</sub> = V<sub>D</sub> + V<sub>B</sub> (la rama no tiene resistencia → salida plana) ; i<sub>D</sub> = (v<sub>i</sub> − 3.7)/R</div>
 <div><span class="lb">En el pico:</span> i<sub>D,max</sub> = (10 − 3.7)/1 kΩ = 6.3 mA</div></div>
 <p class="res">Resultado: <b>v<sub>o</sub> = 3.7 V</b> para v<sub>i</sub> ≥ 3.7 V; corriente máxima del diodo <b>6.3 mA</b>.</p></div>
-<pre class="ascii">    ^  v_o
-    |                                        :
-3.7 +- - - - - - - - - - - - - - - - - - - -*********************  v_o = 3.7 V (D ON)
-    |                                    *** :
-    |                                ****    :
-  0 +----------------------------****--------:-------------------
-    |                        ****            :
-    |                     ***                :
-    |                 ****                   :
-    |             ****                       :
-    |          ***                           :
-    |      ****                              :
-    |  ****                                  :
--10 +**                                      :
-     -10                                    3.7               10 V   v_i
-   Pendiente 1 (D OFF, v_o = v_i) hasta el quiebre en v_i = 3.7 V; después pendiente 0 (salida plana).</pre>
-<pre class="ascii">      ^  v (V)
-      |
-   10 +      ......                          ......
-      |    ..      .                        .      ..
-      |   .         .                     ..         .
-  3.7 +- ************* - - - - - - - - - **************- - - - - - - - -   3.7 V
-      | *             *                 *              *
-    0 +*---------------*---------------*----------------*---------------*
-      |                 *              *                 *             *
-      |                  *            *                   *           *
-      |                   *         **                     *         *
-      |                    **      *                        *      **
-  -10 +                      ******                          ******
-      |
-       21.7°      158.3°             360°                             720°   wt
-   .  v_i     *  v_o : se recorta arriba de 3.7 V entre 21.7° y 158.3° (arcsen(3.7/10) = 21.7°)</pre>
+<pre class="ascii" data-plot="recortador_transf"></pre>
+<pre class="ascii" data-plot="recortador_t"></pre>
 <div class="idea"><b>Variantes rápidas:</b> si el diodo apunta al revés (cátodo arriba), recorta los valores <b>por debajo</b> de V<sub>B</sub> − V<sub>D</sub>. Con dos ramas opuestas se recortan los dos lados (parcial 2024 P1, guía 04 problema 4). Si la rama tiene una resistencia R<sub>2</sub>, la salida no es plana sino una recta de pendiente R<sub>2</sub>/(R + R<sub>2</sub>) (parcial 2021 P1, problema 15).</div>
 <ul>
 <li><b>Puente de diodos + Zener (2017 P3, repe P4):</b> el límite es <span class="f">±(2V<sub>D0</sub> + V<sub>Z0</sub>)</span> y es simétrico porque el Zener siempre conduce en el mismo sentido. Con r<sub>D</sub> y r<sub>z</sub>, la pendiente fuera del límite es (2r<sub>D</sub>+r<sub>z</sub>)/(R + 2r<sub>D</sub> + r<sub>z</sub>). Problema 12 de la guía 04.</li>
@@ -716,25 +594,7 @@ i_D +     ###            ###           ####           ####           ####
    +-------------+---------o  GND</pre>
 <div class="mat"><div><span class="lb">LVK:</span> v<sub>o</sub> = v<sub>i</sub> − v<sub>C</sub> = v<sub>i</sub> + V<sub>p</sub> → oscila entre 0 y 2V<sub>p</sub></div></div>
 <p class="res">Resultado: <b>v<sub>o</sub> = v<sub>i</sub> + V<sub>p</sub></b>, promedio <b>+V<sub>p</sub></b>. Con V<sub>D</sub> = 0.7 V, el mínimo queda en −0.7 V y v<sub>o</sub> = v<sub>i</sub> + V<sub>p</sub> − 0.7.</p></div>
-<pre class="ascii">    ^  v
-2Vp +- - - - - - - - - - : - - - - - -** - - - - - - - - - - - - **- - -   2V_p
-    |                    :          **  **                     **  **
-    |                    :         *      *                  **      *
-    |                    :        *        *                *         *
-    |                    :       *          *              *           *
- Vp +- - -*****- - - - - : - - -*- - ....- - * - - - - - -*- - ..... - -*  V_p = promedio
-    |   **     *         :     *   ..    ..   *          *    .     ..
-    |  *        *        :   **   .        .   **       *    .        .
-    | *          *       :  *    .          .    *     *    .          .
-  0 +*------------**********----.------------.----*****----.------------.
-    |              .     :     .              .           .
-    |               .    :    .                .         .
-    |                ..  :   .                  .      ..
-    |                  ..:...                    ... ..
--Vp +                    .                          .
-                  270°: C cargado                 630°   wt
-   .  v_i      *  v_o. Hasta 270° el diodo carga el condensador al pico negativo;
-   después v_o = v_i + V_p: la misma senoidal desplazada, entre 0 y 2 V_p.</pre>
+<pre class="ascii" data-plot="sujetador"></pre>
 <ul>
 <li><b>Con R<sub>L</sub>:</b> el condensador se descarga un poco en cada ciclo (constante de tiempo RC); si RC ≫ T la salida casi no se deforma.</li>
 <li><b>Con diodo + Zener en serie (2021 P3):</b> la rama conduce solo cuando v<sub>o</sub> &gt; V<sub>D</sub> + V<sub>Z</sub>, así que el máximo de la salida queda fijado en V<sub>D</sub> + V<sub>Z</sub> y el promedio es −(V<sub>p</sub> − V<sub>D</sub> − V<sub>Z</sub>). Problema 17 de la guía 04.</li>
@@ -743,7 +603,7 @@ i_D +     ###            ###           ####           ####           ####
 
 <h3>5.3 Doblador de tensión</h3>
 <pre class="ascii">           C1              D2
-   +------||------+-------&gt;|------+---------o  v_o ~ 2 V_p
+   +------||------+------->|------+---------o  v_o ~ 2 V_p
    |              |               |
  (~ vi)          ---             ---
    |          D1 / \             ---  C2
